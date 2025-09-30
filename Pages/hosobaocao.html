@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, minimal-ui">
+        <title>Quản lý Hồ sơ/Tài liệu</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+
+        <link rel="stylesheet" href="/Pages/css/style.css">
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+            rel="stylesheet">
+        <link
+            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap"
+            rel="stylesheet">
+
+        <style>
+        /* DÁN TOÀN BỘ CSS TÙY CHỈNH TỪ CÂU TRẢ LỜI TRƯỚC VÀO ĐÂY */
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #f4f7f6; 
+            margin: 0; padding: 0; 
+            display: flex; 
+            min-height: 100vh; 
+        }
+        .hutech-font-title { font-family: 'Montserrat', sans-serif; }
+        .hutech-font-body { font-family: 'Open Sans', sans-serif; }
+
+        .main-container { display: flex; width: 100%; }
+        .sidebar-wrapper { width: 250px; background-color: #2c3e50; color: #ecf0f1; padding: 20px; box-shadow: 0 0 5px rgba(0,0,0,0.1); flex-shrink: 0; }
+        
+        .main-content-area {
+            flex-grow: 1; 
+            display: flex;
+            flex-direction: column; 
+            padding: 1.5rem; 
+            overflow-y: auto;
+            background-color: #f8f9fa;
+        }
+
+        .header-section-main { 
+            background-color: #fff; padding: 15px 20px; margin-bottom: 20px; 
+            border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); 
+        }
+        
+        /* Các styles cho card, form, button, table để giống Home.html và hình bạn muốn */
+        .card-custom {
+            background-color: #ffffff;
+            border-radius: 0.5rem; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05); 
+            padding: 2rem; 
+            margin-bottom: 1.5rem; 
+        }
+        .form-group-custom { margin-bottom: 1rem; }
+        .form-label-custom { display: block; margin-bottom: 0.5rem; font-weight: 700; color: #34495e; }
+        .form-control-custom { width: 100%; padding: 0.75rem; border: 1px solid #ced4da; border-radius: 0.375rem; box-sizing: border-box; background-color: #ffffff; color: #495057; font-size: 1rem; }
+        .form-control-file-custom { width: 100%; padding: 0.75rem; border: 1px solid #ced4da; border-radius: 0.375rem; box-sizing: border-box; background-color: #ffffff; color: #495057; font-size: 1rem; line-height: normal; }
+        .btn-primary-custom { background-color: #10B981; color: white; padding: 0.75rem 1.5rem; border: none; border-radius: 0.375rem; cursor: pointer; font-size: 1rem; display: inline-flex; align-items: center; gap: 0.5rem; transition: background-color 0.2s ease-in-out; }
+        .btn-primary-custom:hover { background-color: #059669; }
+        
+        .table-custom { width: 100%; border-collapse: collapse; margin-top: 1.5rem; }
+        .table-custom th, .table-custom td { padding: 1rem; text-align: left; border-bottom: 1px solid #e2e8f0; }
+        .table-custom th { background-color: #eff3f6; color: #4a5568; font-weight: 600; text-transform: uppercase; font-size: 0.875rem; }
+        .table-custom tr:hover { background-color: #f8fafc; }
+        .btn-action-custom { padding: 0.5rem 1rem; border-radius: 0.375rem; font-size: 0.875rem; font-weight: 500; transition: background-color 0.2s ease-in-out; display: inline-flex; align-items: center; gap: 0.25rem; }
+        .btn-info-custom { background-color: #3B82F6; color: white; }
+        .btn-info-custom:hover { background-color: #2563EB; }
+        .btn-danger-custom { background-color: #EF4444; color: white; margin-left: 0.5rem; }
+        .btn-danger-custom:hover { background-color: #DC2626; }
+
+        .breadcrumb { margin-bottom: 1rem; color: #6B7280; font-size: 0.875rem; }
+        .breadcrumb a { color: #3B82F6; text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+    </style>
+    </head>
+    <body class="flex h-screen hutech-font-body">
+        <div class="main-container">
+            <div id="sidebar"></div>
+
+            <div class="flex-1 flex flex-col">
+                <div id="header"></div>
+                <main class="flex-1 p-6 overflow-y-auto bg-gray-100">
+                    <div
+                        class="bg-gradient-to-r from-teal-700 to-blue-800 text-white p-6 md:p-8 rounded-lg shadow-xl text-center mb-8 hutech-font-title">
+                        <h1
+                            class="text-3xl md:text-4xl font-extrabold mb-2">QUẢN
+                            LÝ HỒ SƠ/TÀI LIỆU</h1>
+                        <p
+                            class="text-md md:text-lg opacity-90 hutech-font-body">Nộp
+                            và quản lý các hồ sơ, tài liệu cá nhân của Đoàn
+                            viên</p>
+                    </div>
+
+                    <div class="card-custom mb-8">
+                        <h2
+                            class="text-2xl font-bold text-gray-800 mb-6 border-b-2 border-teal-500 pb-2 hutech-font-title">
+                            <i
+                                class="fas fa-plus-circle text-teal-500 mr-3"></i>
+                            Nộp Hồ sơ/Tài liệu mới
+                        </h2>
+                        <form id="uploadForm" enctype="multipart/form-data">
+                            <div class="form-group-custom">
+                                <label for="fileInput"
+                                    class="form-label-custom">Chọn File:</label>
+                                <input type="file"class="form-control-file-custom"id="fileInput" required accept=".xls,.xlsx">
+
+                            </div>
+                            <div class="form-group-custom">
+                                <label for="tenHoSo"
+                                    class="form-label-custom">Tên Hồ sơ:</label>
+                                <input type="text" class="form-control-custom"
+                                    id="tenHoSo"
+                                    placeholder="Ví dụ: Đơn xin nghỉ phép, Giấy khen..."
+                                    required>
+                            </div>
+                            <div class="form-group-custom">
+                                <label for="moTa" class="form-label-custom">Mô
+                                    tả (Tùy chọn):</label>
+                                <textarea class="form-control-custom" id="moTa"
+                                    rows="3"
+                                    placeholder="Mô tả chi tiết về hồ sơ này"></textarea>
+                            </div>
+                            <input type="hidden" id="doanVienId" value="1">
+                            <button type="submit" class="btn-primary-custom">
+                                <i class="fa fa-upload"></i> Nộp Hồ sơ
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="card-custom">
+                        <h2
+                            class="text-2xl font-bold text-gray-800 mb-6 border-b-2 border-blue-500 pb-2 hutech-font-title">
+                            <i class="fas fa-list-alt text-blue-500 mr-3"></i>
+                            Danh sách Hồ sơ đã nộp
+                        </h2>
+                        <div id="hoSoListContainer">
+                            <p class="text-gray-600">Đang tải danh sách hồ
+                                sơ...</p>
+                        </div>
+                    </div>
+
+                </main>
+
+                <div id="footer"></div>
+            </div>
+        </div>
+
+        <script src="js/layout.js"></script>
+        <script src="js/hoSoBaoCao.js"></script>
+        <script src="js/header.js"></script>
+    </body>
+</html>

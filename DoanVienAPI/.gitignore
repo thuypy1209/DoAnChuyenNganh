@@ -1,0 +1,31 @@
+*.pyc
+__pycache__/
+*.vsidx
+
+.vs/
+# Bỏ qua các file biên dịch và thư mục tạm thời
+bin/
+obj/
+build/
+out/
+
+# Bỏ qua các file log
+*.log
+
+# Bỏ qua các file tạm của hệ điều hành
+.DS_Store
+Thumbs.db
+
+
+# Bỏ qua node_modules (nếu dự án dùng Node.js)
+node_modules/
+
+
+# Bỏ qua file khóa package manager (tùy chọn)
+package-lock.json
+yarn.lock
+# Bỏ qua các file nhạy cảm hoặc chứa thông tin cá nhân
+.env
+# Bỏ qua các file backup hoặc temporary
+*.bak
+*.tmp

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý Tin tức</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .hutech-font-title {
+            font-family: 'Montserrat', sans-serif; 
+        }
+        .hutech-font-body {
+            font-family: 'Open Sans', sans-serif;
+        }
+        /* CSS tùy chỉnh để đảm bảo cột hình ảnh đủ rộng và căn giữa */
+        .w-img-col {
+            width: 100px;
+            min-width: 80px; 
+            text-align: center;
+        }
+        .img-placeholder {
+            font-size: 0.8em; 
+            color: #6b7280;
+            display: block; /* Đảm bảo "Không có" là một khối để căn giữa */
+            text-align: center;
+        }
+        /* Tối ưu cột bên phải */
+        .sidebar-news-height {
+            max-height: calc(100vh - 250px); 
+            overflow-y: auto; 
+        }
+
+        /* Thêm các style để footer luôn ở cuối */
+        html, body, #root {
+            height: 100%;
+        }
+        .flex-col-full-height {
+            min-height: 100%;
+        }
+        .main-content-area {
+            flex-grow: 1; 
+        }
+
+        /* Style cho từng mục tin tức trong cột bên phải */
+        .recent-news-item {
+            display: flex;
+            align-items: flex-start; /* Căn trên cùng */
+            padding: 12px; /* px-3 py-3 */
+            border-bottom: 1px solid #e5e7eb; /* Đường kẻ phân tách */
+            transition: background-color 0.2s ease-in-out;
+        }
+        .recent-news-item:last-child {
+            border-bottom: none; /* Không có đường kẻ ở mục cuối cùng */
+        }
+        .recent-news-item:hover {
+            background-color: #f9fafb; /* hover:bg-gray-50 */
+        }
+        .recent-news-icon {
+            font-size: 1.8rem; /* Kích thước icon */
+            color: #10B981; /* Màu xanh lá cây (teal-500) hoặc blue-500 */
+            margin-right: 12px; /* mr-3 */
+            flex-shrink: 0; /* Không co lại */
+        }
+        .recent-news-content {
+            flex-grow: 1; /* Cho phép nội dung chiếm hết không gian còn lại */
+        }
+        .recent-news-date {
+            font-size: 0.875rem; /* text-sm */
+            color: #6b7280; /* text-gray-500 */
+            margin-bottom: 4px; /* mb-1 */
+            display: flex;
+            align-items: center;
+        }
+        .recent-news-date i {
+            margin-right: 8px; /* mr-2 */
+        }
+        .recent-news-title {
+            font-size: 1rem; /* text-md */
+            font-weight: 600; /* font-semibold */
+            color: #374151; /* text-gray-700 */
+            line-height: 1.3;
+        }
+        .recent-news-summary {
+            font-size: 0.875rem; /* text-sm */
+            color: #6b7280; /* text-gray-600 */
+            margin-top: 4px; /* mt-1 */
+        }
+    </style>
+</head>
+<body class="flex h-screen hutech-font-body">
+    <div id="sidebar"></div>
+    <div class="flex-1 flex flex-col flex-col-full-height"> 
+        <div id="header"></div>
+        <main class="flex-1 p-6 overflow-y-auto bg-gray-100 main-content-area"> 
+            <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+                <div class="bg-gradient-to-r from-teal-600 to-cyan-700 text-white p-8 rounded-lg shadow-xl text-center mb-6">
+                    <h1 class="text-4xl font-extrabold mb-2 hutech-font-title">QUẢN LÝ TIN TỨC</h1>
+                    <p class="text-lg opacity-90 hutech-font-body">Theo dõi, thêm mới và chỉnh sửa thông tin tin tức một cách dễ dàng.</p>
+                </div>
+                <div class="flex justify-between items-center mb-6 flex-wrap gap-4">
+                    <button class="bg-teal-600 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded-lg flex items-center transition-colors duration-200 shadow-md" onclick="addNewTinTuc()">
+                        <i class="fas fa-plus mr-2"></i> Thêm mới
+                    </button>
+                    <div class="flex items-center space-x-2">
+                        <label for="itemsPerPage" class="text-gray-700 hutech-font-body">Hiển thị</label>
+                        <select id="itemsPerPage" class="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-teal-500 text-gray-700 hutech-font-body">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                        </select>
+                        <span class="text-gray-700 hutech-font-body">dòng</span>
+                    </div>
+                    <div class="relative">
+                        <input type="text" placeholder="Tìm kiếm..." class="border border-gray-300 rounded-lg p-2 pl-10 focus:outline-none focus:ring-2 focus:ring-teal-500 text-gray-800 hutech-font-body">
+                        <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-6">
+                <div class="lg:col-span-2 bg-white p-8 rounded-lg shadow-md hutech-font-body">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b-2 border-teal-500 pb-2 hutech-font-title">
+                        <i class="fas fa-newspaper text-teal-500 mr-3"></i> Danh sách Tin tức
+                    </h2>
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-teal-700 text-white">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider rounded-tl-lg">STT</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Tiêu đề</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Tác giả</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Ngày đăng</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider w-img-col">Hình ảnh</th> 
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider rounded-tr-lg">Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tinTucTableBody" class="bg-white divide-y divide-gray-200">
+                            </tbody>
+                    </table>
+                    <nav class="flex items-center justify-between pt-4">
+                        <div class="text-sm text-gray-700 hutech-font-body">
+                            Hiển thị <span class="font-medium">1</span> đến <span class="font-medium">1</span> trong <span class="font-medium">1</span> dòng
+                        </div>
+                        <div class="flex space-x-1">
+                            <button class="px-3 py-1 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-200 transition-colors duration-200 hutech-font-body">Trước</button>
+                            <button class="px-3 py-1 border border-blue-600 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 hutech-font-body">1</button>
+                            <button class="px-3 py-1 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-200 transition-colors duration-200 hutech-font-body">Sau</button>
+                        </div>
+                    </nav>
+                </div>
+
+                <div class="lg:col-span-1 bg-white p-8 rounded-lg shadow-md hutech-font-body flex flex-col h-full"> 
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b-2 border-blue-500 pb-2 hutech-font-title">
+                        <i class="fas fa-rss-square text-blue-500 mr-3"></i> Tin tức & Sự kiện mới
+                    </h2>
+                    <ul id="recentNewsList" class="space-y-4 sidebar-news-height flex-grow"> 
+                        </ul>
+                    <div class="text-right mt-6">
+                        <a href="#" class="text-blue-600 hover:text-blue-800 font-semibold hutech-font-body">Xem tất cả tin tức <i class="fas fa-angle-right ml-1"></i></a>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <div id="footer" class="mt-auto"></div> 
+    </div>
+    <div id="tinTucModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-gray-600 bg-opacity-50"> 
+        <div class="bg-white w-full max-w-lg p-6 rounded-lg shadow-lg relative">
+            <h2 id="tinTucModalTitle" class="text-2xl font-bold mb-4 text-gray-800 hutech-font-title">Thêm tin tức mới</h2> 
+            <form id="tinTucForm" class="space-y-4"> 
+                <input type="hidden" id="tinTucId"> 
+                <div>
+                    <label for="tieuDe" class="block text-sm font-medium text-gray-700 hutech-font-body">Tiêu đề</label>
+                    <input type="text" id="tieuDe" name="tieuDe" placeholder="Tiêu đề" class="w-full p-2 border rounded focus:ring-teal-500 focus:border-teal-500 text-gray-800 hutech-font-body" required />
+                </div>
+                <div>
+                    <label for="noiDungTomTat" class="block text-sm font-medium text-gray-700 hutech-font-body">Tóm tắt nội dung</label>
+                    <textarea id="noiDungTomTat" name="noiDungTomTat" placeholder="Tóm tắt nội dung" class="w-full p-2 border rounded focus:ring-teal-500 focus:border-teal-500 text-gray-800 hutech-font-body"></textarea>
+                </div>
+                <div>
+                    <label for="tenTacGia" class="block text-sm font-medium text-gray-700 hutech-font-body">Tên tác giả</label>
+                    <input type="text" id="tenTacGia" name="tenTacGia" placeholder="Tên tác giả" class="w-full p-2 border rounded focus:ring-teal-500 focus:border-teal-500 text-gray-800 hutech-font-body" />
+                </div>
+                <div>
+                    <label for="ngayDang" class="block text-sm font-medium text-gray-700 hutech-font-body">Ngày đăng</label>
+                    <input type="date" id="ngayDang" name="ngayDang" class="w-full p-2 border rounded focus:ring-teal-500 focus:border-teal-500 text-gray-800 hutech-font-body" required />
+                </div>
+                <div>
+                    <label for="urlHinhAnh" class="block text-sm font-medium text-gray-700 hutech-font-body">URL Hình ảnh</label>
+                    <input type="url" id="urlHinhAnh" name="urlHinhAnh" placeholder="URL Hình ảnh (ví dụ: https://example.com/image.jpg)" class="w-full p-2 border rounded focus:ring-teal-500 focus:border-teal-500 text-gray-800 hutech-font-body" />
+                </div>
+            </form>
+            <div class="flex justify-end mt-6 space-x-2">
+                <button onclick="closeTinTucModal()" class="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400 transition-colors duration-200 hutech-font-body">Hủy</button>
+                <button type="submit" form="tinTucForm" class="px-4 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-colors duration-200 shadow-md hutech-font-body">Lưu</button>
+            </div>
+            <button onclick="closeTinTucModal()" class="absolute top-2 right-3 text-gray-500 hover:text-gray-700 text-3xl">&times;</button>
+        </div>
+    </div>
+
+    <script src="js/globalConfig.js"></script>
+    <script src="js/layout.js"></script>
+    <script src="js/tintuc.js"></script>
+    <script src="js/header.js"></script>
+</body>
+</html>

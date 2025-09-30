@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, minimal-ui">
+    <title>Trang Chủ - Cổng Thông Tin Đoàn Viên</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css"> 
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .hutech-font-title {
+            font-family: 'Montserrat', sans-serif; 
+        }
+        .hutech-font-body {
+            font-family: 'Open Sans', sans-serif;
+        }
+    </style>
+</head>
+<body class="flex h-screen hutech-font-body">
+    <div id="sidebar"></div>
+
+    <div class="flex-1 flex flex-col">
+        <div id="header"></div>
+
+        <main class="flex-1 p-6 overflow-y-auto bg-gray-100">
+            <div class="relative bg-gradient-to-r from-teal-700 to-blue-800 text-white p-10 md:p-16 rounded-lg shadow-xl text-center mb-8 overflow-hidden">
+                <div class="absolute inset-0 bg-cover bg-center opacity-30" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/HUTECH_Logo.svg/1200px-HUTECH_Logo.svg.png'); background-size: 100px; background-repeat: repeat;"></div>
+                <div class="relative z-10">
+                    <h1 class="text-4xl md:text-5xl font-extrabold mb-4 hutech-font-title">CỔNG THÔNG TIN ĐOÀN VIÊN</h1>
+                    <p class="text-lg md:text-xl opacity-90 hutech-font-body">Nơi kết nối, chia sẻ và phát triển tuổi trẻ HUTECH</p>
+                    <a href="#" class="mt-6 inline-block bg-white text-teal-700 hover:bg-gray-100 px-8 py-3 rounded-full font-bold text-lg shadow-lg transition duration-300 ease-in-out">
+                        Tìm hiểu thêm <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div class="bg-white p-6 rounded-lg shadow-md flex items-center justify-between transition transform hover:scale-105 duration-300">
+                    <div>
+                        <p class="text-gray-500 text-sm hutech-font-body">Đoàn viên hiện có</p>
+                        <h2 id="homeDoanViensCount" class="text-3xl font-bold text-teal-600 hutech-font-title">Đang tải...</h2>
+                    </div>
+                    <i class="fas fa-users text-5xl text-teal-400 opacity-70"></i>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md flex items-center justify-between transition transform hover:scale-105 duration-300">
+                    <div>
+                        <p class="text-gray-500 text-sm hutech-font-body">Tin tức mới nhất</p>
+                        <h2 id="homeTinTucsCount" class="text-3xl font-bold text-blue-600 hutech-font-title">Đang tải...</h2>
+                    </div>
+                    <i class="fas fa-newspaper text-5xl text-blue-400 opacity-70"></i>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md flex items-center justify-between transition transform hover:scale-105 duration-300">
+                    <div>
+                        <p class="text-gray-500 text-sm hutech-font-body">Sự kiện sắp tới</p>
+                        <h2 id="homeEventsCount" class="text-3xl font-bold text-purple-600 hutech-font-title">Đang tải...</h2>
+                    </div>
+                    <i class="fas fa-calendar-alt text-5xl text-purple-400 opacity-70"></i>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md flex items-center justify-between transition transform hover:scale-105 duration-300">
+                    <div>
+                        <p class="text-gray-500 text-sm hutech-font-body">Hoạt động nổi bật</p>
+                        <h2 class="text-3xl font-bold text-green-600 hutech-font-title">Xem thêm</h2>
+                    </div>
+                    <i class="fas fa-bullhorn text-5xl text-green-400 opacity-70"></i>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-2 bg-white p-8 rounded-lg shadow-md hutech-font-body">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b-2 border-teal-500 pb-2 hutech-font-title">
+                        <i class="fas fa-bullhorn text-teal-500 mr-3"></i> Thông báo & Hoạt động nổi bật
+                    </h2>
+                    <ul id="thongBaoHoatDongList" class="space-y-4">
+                        <li>
+                            <a href="#" class="block hover:bg-gray-50 p-3 rounded-lg transition duration-200">
+                                <p class="text-sm text-gray-500"><i class="far fa-calendar-alt mr-2"></i> 25/05/2025</p>
+                                <h3 class="text-lg font-semibold text-blue-700 hover:text-blue-900 hutech-font-title">🎉 Chương trình "Mùa hè xanh 2025" sẽ khởi động vào tháng 7!</h3>
+                                <p class="text-gray-600 text-sm">Hãy sẵn sàng cho những trải nghiệm tình nguyện đầy ý nghĩa và sôi động...</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="block hover:bg-gray-50 p-3 rounded-lg transition duration-200">
+                                <p class="text-sm text-gray-500"><i class="far fa-calendar-alt mr-2"></i> 20/05/2025</p>
+                                <h3 class="text-lg font-semibold text-blue-700 hover:text-blue-900 hutech-font-title">⭐ Chúc mừng các đoàn viên đạt thành tích xuất sắc trong học kỳ vừa qua.</h3>
+                                <p class="text-gray-600 text-sm">Kết quả học tập nổi bật là minh chứng cho sự nỗ lực không ngừng...</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="block hover:bg-gray-50 p-3 rounded-lg transition duration-200">
+                                <p class="text-sm text-gray-500"><i class="far fa-calendar-alt mr-2"></i> 18/05/2025</p>
+                                <h3 class="text-lg font-semibold text-blue-700 hover:text-blue-900 hutech-font-title">💡 Hướng dẫn đăng ký lớp học kỹ năng mềm miễn phí.</h3>
+                                <p class="text-gray-600 text-sm">Nâng cao kỹ năng mềm để tự tin hơn trong học tập và công việc...</p>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="text-right mt-6">
+                        <a href="#" class="text-blue-600 hover:text-blue-800 font-semibold hutech-font-body">Xem tất cả thông báo <i class="fas fa-angle-right ml-1"></i></a>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-1 bg-white p-8 rounded-lg shadow-md hutech-font-body">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b-2 border-blue-500 pb-2 hutech-font-title">
+                        <i class="fas fa-rss-square text-blue-500 mr-3"></i> Tin tức & Sự kiện mới
+                    </h2>
+                    <ul id="latestNewsEventsList" class="space-y-4">
+                        <li>
+                            <a href="#" class="block hover:bg-gray-50 p-3 rounded-lg transition duration-200">
+                                <p class="text-sm text-gray-500"><i class="far fa-calendar-alt mr-2"></i> 28/05/2025</p>
+                                <h3 class="text-md font-semibold text-gray-700 hover:text-gray-900 hutech-font-title">HUTECH tổ chức Ngày hội Công nghệ AI 2025.</h3>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="block hover:bg-gray-50 p-3 rounded-lg transition duration-200">
+                                <p class="text-sm text-gray-500"><i class="far fa-calendar-alt mr-2"></i> 27/05/2025</p>
+                                <h3 class="text-md font-semibold text-gray-700 hover:text-gray-900 hutech-font-title">Đoàn trường phát động cuộc thi "Ý tưởng sáng tạo trẻ".</h3>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="block hover:bg-gray-50 p-3 rounded-lg transition duration-200">
+                                <p class="text-sm text-gray-500"><i class="far fa-calendar-alt mr-2"></i> 26/05/2025</p>
+                                <h3 class="text-md font-semibold text-gray-700 hover:text-gray-900 hutech-font-title">Hội thảo "Phát triển kỹ năng mềm cho sinh viên IT".</h3>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="text-right mt-6">
+                        <a href="#" class="text-blue-600 hover:text-blue-800 font-semibold hutech-font-body">Xem tất cả tin tức <i class="fas fa-angle-right ml-1"></i></a>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <div id="footer"></div>
+    </div>
+    <script src="js/globalConfig.js"></script>
+    <script src="js/layout.js"></script>
+    <script src="js/homeDefault.js"></script> 
+    <script src="js/header.js"></script>
+</body>
+</html>

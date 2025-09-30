@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý Bảng điểm</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .hutech-font-title {
+            font-family: 'Montserrat', sans-serif; 
+        }
+        .hutech-font-body {
+            font-family: 'Open Sans', sans-serif;
+        }
+        /* Custom styles for consistent look */
+        .card {
+            background-color: white;
+            padding: 1.5rem; /* p-6 */
+            border-radius: 0.5rem; /* rounded-lg */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
+        }
+        .table-header-bg {
+            background-color: #0D9488; /* teal-700 */
+        }
+        .primary-button {
+            background-color: #0D9488; /* teal-600 */
+            color: white;
+            font-weight: bold;
+            padding: 0.5rem 1rem; /* py-2 px-4 */
+            border-radius: 0.5rem;
+            transition: background-color 0.2s ease-in-out;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+        }
+        .primary-button:hover {
+            background-color: #0F766E; /* teal-700 */
+        }
+        .secondary-button {
+            background-color: #D1D5DB; /* gray-300 */
+            color: #374151; /* gray-800 */
+            font-weight: bold;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.2s ease-in-out;
+        }
+        .secondary-button:hover {
+            background-color: #9CA3AF; /* gray-400 */
+        }
+        .focus-ring-primary:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5); /* blue-500 for consistency */
+            border-color: rgba(59, 130, 246, 0.5);
+        }
+        /* Style cho modal content */
+        .modal-content-scroll {
+            max-height: calc(100vh - 100px); /* Điều chỉnh chiều cao tối đa của modal, trừ đi khoảng padding */
+            overflow-y: auto; /* Thêm thanh cuộn dọc */
+        }
+    </style>
+</head>
+<body class="flex h-screen hutech-font-body bg-gray-100">
+    <div id="sidebar"></div>
+    <div class="flex-1 flex flex-col min-h-screen">
+        <div id="header"></div>
+        <main class="flex-1 p-6 overflow-y-auto">
+            <div class="card mb-6">
+                <div class="bg-gradient-to-r from-teal-600 to-cyan-700 text-white p-8 rounded-lg shadow-xl text-center mb-6">
+                    <h1 class="text-4xl font-extrabold mb-2 hutech-font-title">QUẢN LÝ BẢNG ĐIỂM</h1>
+                    <p class="text-lg opacity-90 hutech-font-body">Theo dõi, thêm mới và chỉnh sửa bảng điểm sinh viên một cách dễ dàng.</p>
+                </div>
+
+                <div class="flex justify-between items-center mb-6 flex-wrap gap-4">
+                    <button class="primary-button flex items-center" onclick="addNewBangDiem()">
+                        <i class="fas fa-plus mr-2"></i> Thêm mới Điểm
+                    </button>
+                    <div class="flex items-center space-x-2">
+                        <label for="itemsPerPage" class="text-gray-700 hutech-font-body">Hiển thị</label>
+                        <select id="itemsPerPage" class="border border-gray-300 rounded-lg p-2 focus-ring-primary text-gray-700 hutech-font-body">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                        </select>
+                        <span class="text-gray-700 hutech-font-body">dòng</span>
+                    </div>
+                    <div class="relative flex items-center space-x-2">
+                        <input type="text" id="searchMaSoSinhVien" placeholder="Tìm kiếm theo MSVV..." class="border border-gray-300 rounded-lg p-2 pl-10 focus-ring-primary text-gray-800 hutech-font-body">
+                        <button onclick="searchBangDiemByMaSoSinhVien()" class="primary-button flex items-center px-3 py-2"> <i class="fas fa-search mr-2"></i> Tìm kiếm
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="studentInfoSection" class="card p-6 mb-8 hutech-font-body">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4 border-b-2 border-teal-500 pb-2 hutech-font-title">
+                    <i class="fas fa-user-circle text-teal-500 mr-3"></i> Thông tin sinh viên
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-gray-700">
+                    <div class="flex items-center"><strong class="w-28 flex-shrink-0">Mã số sinh viên:</strong> <span id="infoMaSoSinhVien" class="ml-2">N/A</span></div>
+                    <div class="flex items-center"><strong class="w-28 flex-shrink-0">Tên sinh viên:</strong> <span id="infoTenSinhVien" class="ml-2">N/A</span></div>
+                    <div class="flex items-center"><strong class="w-28 flex-shrink-0">Email:</strong> <span id="infoEmail" class="ml-2">N/A</span></div>
+                    <div class="flex items-center"><strong class="w-28 flex-shrink-0">Khoa:</strong> <span id="infoKhoa" class="ml-2">N/A</span></div>
+                    <div class="flex items-center"><strong class="w-28 flex-shrink-0">Ngành:</strong> <span id="infoNganh" class="ml-2">N/A</span></div>
+                    <div class="flex items-center"><strong class="w-28 flex-shrink-0">Khóa học:</strong> <span id="infoKhoaHoc" class="ml-2">N/A</span></div>
+                </div>
+            </div>
+            
+            <div id="gradeTablesContainer" class="space-y-8">
+                </div>
+
+            <div id="totalSummarySection" class="card mt-8 p-6 hutech-font-body">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4 border-b-2 border-blue-500 pb-2 hutech-font-title">
+                    <i class="fas fa-calculator text-blue-500 mr-3"></i> Tổng kết điểm trung bình
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700">
+                    <div><strong>Điểm trung bình học kỳ này:</strong> <span id="currentSemesterAvg">N/A</span></div>
+                    <div><strong>Điểm trung bình tích lũy:</strong> <span id="cumulativeAvg">N/A</span></div>
+                    <div><strong>Tổng số tín chỉ đạt:</strong> <span id="totalCreditsAchieved">N/A</span></div>
+                </div>
+            </div>
+
+            <nav class="flex items-center justify-between pt-4">
+                <div class="text-sm text-gray-700 hutech-font-body">
+                    Hiển thị <span class="font-medium">0</span> đến <span class="font-medium">0</span> trong <span class="font-medium">0</span> dòng
+                </div>
+                <div class="flex space-x-1">
+                    <button class="px-3 py-1 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-200 transition-colors duration-200 hutech-font-body">Trước</button>
+                    <button class="px-3 py-1 border border-blue-600 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 hutech-font-body">1</button>
+                    <button class="px-3 py-1 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-200 transition-colors duration-200 hutech-font-body">Sau</button>
+                </div>
+            </nav>
+        </main>
+        <div id="footer" class="mt-auto"></div>
+    </div>
+    <div id="bangDiemModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white p-8 rounded-lg shadow-xl w-full max-w-md relative modal-content-scroll"> 
+            <h2 id="bangDiemModalTitle" class="text-2xl font-bold mb-6 text-gray-800 hutech-font-title">Thêm Điểm mới</h2>
+            
+            <button class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-3xl" onclick="closeBangDiemModal()">
+                &times;
+            </button>
+
+            <form id="bangDiemForm" class="space-y-4">
+                <input type="hidden" id="bangDiemId"> 
+                <div>
+                    <label for="tenSinhVien" class="block text-sm font-medium text-gray-700 hutech-font-body">Tên sinh viên</label>
+                    <input type="text" id="tenSinhVien" name="tenSinhVien" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-teal-500 focus:border-teal-500 text-gray-800 hutech-font-body" required>
+                </div>
+                <div>
+                    <label for="maSoSinhVien" class="block text-sm font-medium text-gray-700 hutech-font-body">Mã số sinh viên</label>
+                    <input type="text" id="maSoSinhVien" name="maSoSinhVien" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-teal-500 focus:border-teal-500 text-gray-800 hutech-font-body" required>
+                </div>
+                <div>
+                    <label for="tenMonHoc" class="block text-sm font-medium text-gray-700 hutech-font-body">Tên môn học</label>
+                    <input type="text" id="tenMonHoc" name="tenMonHoc" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-teal-500 focus:border-teal-500 text-gray-800 hutech-font-body" required>
+                </div>
+                <div>
+                    <label for="diem" class="block text-sm font-medium text-gray-700 hutech-font-body">Điểm</label>
+                    <input type="number" step="0.01" id="diem" name="diem" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-teal-500 focus:border-teal-500 text-gray-800 hutech-font-body" required>
+                </div>
+                <div>
+                    <label for="hocKy" class="block text-sm font-medium text-gray-700 hutech-font-body">Học kỳ</label>
+                    <input type="text" id="hocKy" name="hocKy" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-teal-500 focus:border-teal-500 text-gray-800 hutech-font-body" required>
+                </div>
+                <div>
+                    <label for="maMonHoc" class="block text-sm font-medium text-gray-700 hutech-font-body">Mã môn học (Mã HP)</label>
+                    <input type="text" id="maMonHoc" name="maMonHoc" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-teal-500 focus:border-teal-500 text-gray-800 hutech-font-body">
+                </div>
+                <div>
+                    <label for="tinChi" class="block text-sm font-medium text-gray-700 hutech-font-body">Tín chỉ (TC)</label>
+                    <input type="number" id="tinChi" name="tinChi" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-teal-500 focus:border-teal-500 text-gray-800 hutech-font-body">
+                </div>
+                <div>
+                    <label for="phanTramKiemTra" class="block text-sm font-medium text-gray-700 hutech-font-body">% Kiểm tra (% KT)</label>
+                    <input type="number" id="phanTramKiemTra" name="phanTramKiemTra" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-teal-500 focus:border-teal-500 text-gray-800 hutech-font-body">
+                </div>
+                <div>
+                    <label for="phanTramThi" class="block text-sm font-medium text-gray-700 hutech-font-body">% Thi</label>
+                    <input type="number" id="phanTramThi" name="phanTramThi" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-teal-500 focus:border-teal-500 text-gray-800 hutech-font-body">
+                </div>
+                <div>
+                    <label for="diemKT1" class="block text-sm font-medium text-gray-700 hutech-font-body">Điểm KT1</label>
+                    <input type="number" step="0.01" id="diemKT1" name="diemKT1" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-teal-500 focus:border-teal-500 text-gray-800 hutech-font-body">
+                </div>
+                <div>
+                    <label for="diemKT2" class="block text-sm font-medium text-gray-700 hutech-font-body">Điểm KT2</label>
+                    <input type="number" step="0.01" id="diemKT2" name="diemKT2" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-teal-500 focus:border-teal-500 text-gray-800 hutech-font-body">
+                </div>
+                <div>
+                    <label for="diemTL1" class="block text-sm font-medium text-gray-700 hutech-font-body">Điểm TL1</label>
+                    <input type="number" step="0.01" id="diemTL1" name="diemTL1" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-teal-500 focus:border-teal-500 text-gray-800 hutech-font-body">
+                </div>
+                <div>
+                    <label for="diemTL2" class="block text-sm font-medium text-gray-700 hutech-font-body">Điểm TL2</label>
+                    <input type="number" step="0.01" id="diemTL2" name="diemTL2" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-teal-500 focus:border-teal-500 text-gray-800 hutech-font-body">
+                </div>
+                <div>
+                    <label for="diemTBHP" class="block text-sm font-medium text-gray-700 hutech-font-body">Điểm TBHP</label>
+                    <input type="number" step="0.01" id="diemTBHP" name="diemTBHP" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-teal-500 focus:border-teal-500 text-gray-800 hutech-font-body">
+                </div>
+                <div>
+                    <label for="diemChu" class="block text-sm font-medium text-gray-700 hutech-font-body">Điểm Chữ</label>
+                    <input type="text" id="diemChu" name="diemChu" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-teal-500 focus:border-teal-500 text-gray-800 hutech-font-body">
+                </div>
+                <div>
+                    <label for="diem4" class="block text-sm font-medium text-gray-700 hutech-font-body">Điểm Hệ 4</label>
+                    <input type="number" step="0.01" id="diem4" name="diem4" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-teal-500 focus:border-teal-500 text-gray-800 hutech-font-body">
+                </div>
+                
+                <div class="flex justify-end space-x-3 mt-6">
+                    <button type="button" onclick="closeBangDiemModal()" class="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400 transition-colors duration-200 hutech-font-body">Hủy</button>
+                    <button type="submit" form="bangDiemForm" class="px-4 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-colors duration-200 shadow-md hutech-font-body">Lưu</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/globalConfig.js"></script>
+    <script src="js/layout.js"></script>
+    <script src="js/bangDiem.js"></script>
+    <script src="js/header.js"></script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+ <header
+    class="bg-white shadow-md flex justify-between items-center px-6 py-3 border-b">
+    <h1 class="text-2xl font-semibold text-gray-800"></h1>
+
+    <div class="flex items-center space-x-4 relative">
+        <button onclick="toggleFullscreen()" title="Fullscreen"
+            class="text-xl">⛶</button>
+        <button title="Notifications" class="text-xl">🔔</button>
+        <button  onclick="toggleSettings()" title="Settings" class="text-xl">⚙️</button>
+        <div class="relative">
+            <button id="userDropdown" class="text-xl"
+                onclick="toggleDropdown()">👤</button>
+            <div id="dropdownMenu"
+                class="hidden absolute right-0 bg-white shadow-lg rounded mt-2 w-48">
+                <a href="../Pages/account/profile.html"
+                    class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Profile</a>
+                <a href="../Pages/setting.html"
+                    class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Settings</a>
+                <button onclick="togglelogout()"
+                    class="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-100">Logout</button>
+            </div>
+        </div>
+    </div>
+</header>
+<script src="js/header.js"></script>

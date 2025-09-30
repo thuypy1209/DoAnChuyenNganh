@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Tổng quan hệ thống</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .hutech-font-title {
+            font-family: 'Montserrat', sans-serif; 
+        }
+        .hutech-font-body {
+            font-family: 'Open Sans', sans-serif;
+        }
+        /* Custom styles for consistency */
+        .card {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .stat-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            background-color: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: transform 0.3s ease-in-out;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        .stat-icon {
+            font-size: 3.5rem; 
+            opacity: 0.6; 
+        }
+        .action-button {
+            background-color: #0D9488; /* teal-600 */
+            color: white;
+            font-weight: bold;
+            padding: 0.75rem 1.5rem; 
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s ease-in-out;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+        }
+        .action-button:hover {
+            background-color: #0F766E; /* teal-700 */
+        }
+        /* Biểu đồ placeholder */
+        .chart-placeholder {
+            height: 300px;
+            background-color: #f0f4f8; /* Light blue-gray */
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: #6b7280;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border: 1px dashed #cbd5e1; /* border-gray-300 */
+        }
+        .chart-placeholder img {
+            max-width: 80%;
+            max-height: 80%;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body class="flex h-screen hutech-font-body bg-gray-100">
+    <div id="sidebar"></div>
+    <div class="flex-1 flex flex-col">
+        <div id="header"></div>
+        <main class="flex-1 p-6 overflow-y-auto">
+            <div class="card mb-6">
+                <div class="bg-gradient-to-r from-teal-600 to-cyan-700 text-white p-8 rounded-lg shadow-xl text-center mb-6">
+                    <h1 class="text-4xl md:text-5xl font-extrabold mb-2 hutech-font-title">DASHBOARD - TỔNG QUAN HỆ THỐNG</h1>
+                    <p class="text-lg opacity-90 hutech-font-body">Theo dõi các chỉ số quan trọng của hệ thống Đoàn viên.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div class="stat-card">
+                        <div>
+                            <p class="text-gray-500 text-sm hutech-font-body">Tổng số Đoàn viên</p>
+                            <h2 id="totalDoanViens" class="text-3xl font-bold text-teal-600 hutech-font-title">Đang tải...</h2>
+                        </div>
+                        <i class="fas fa-users text-teal-400 stat-icon"></i>
+                    </div>
+                    <div class="stat-card">
+                        <div>
+                            <p class="text-gray-500 text-sm hutech-font-body">Tổng số Tin tức</p>
+                            <h2 id="totalTinTucs" class="text-3xl font-bold text-blue-600 hutech-font-title">Đang tải...</h2>
+                        </div>
+                        <i class="fas fa-newspaper text-blue-400 stat-icon"></i>
+                    </div>
+                    <div class="stat-card">
+                        <div>
+                            <p class="text-gray-500 text-sm hutech-font-body">Tổng số Lịch thi/Lớp</p>
+                            <h2 id="totalLichThis" class="text-3xl font-bold text-purple-600 hutech-font-title">Đang tải...</h2>
+                        </div>
+                        <i class="fas fa-calendar-alt text-purple-400 stat-icon"></i>
+                    </div>
+                    <div class="stat-card">
+                        <div>
+                            <p class="text-gray-500 text-sm hutech-font-body">Tổng số Danh mục</p>
+                            <h2 id="totalDanhMucs" class="text-3xl font-bold text-green-600 hutech-font-title">Đang tải...</h2>
+                        </div>
+                        <i class="fas fa-list-alt text-green-400 stat-icon"></i>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4 border-b-2 border-yellow-500 pb-2 hutech-font-title">
+                        <i class="fas fa-bolt text-yellow-500 mr-3"></i> Hành động nhanh
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <button class="action-button bg-teal-600 hover:bg-teal-700" onclick="loadMainContent('QLDV');">
+                            <i class="fas fa-user-plus mr-3"></i> Thêm Đoàn viên
+                        </button>
+                        <button class="action-button bg-teal-600 hover:bg-teal-700" onclick="loadMainContent('TinTuc');">
+                            <i class="fas fa-plus-square mr-3"></i> Đăng Tin tức
+                        </button>
+                        <button class="action-button bg-teal-600 hover:bg-teal-700" onclick="loadMainContent('LichThi');">
+                            <i class="fas fa-calendar-plus mr-3"></i> Thêm Lịch thi
+                        </button>
+                        <button class="action-button bg-teal-600 hover:bg-teal-700" onclick="loadMainContent('DanhMuc');">
+                            <i class="fas fa-folder-plus mr-3"></i> Thêm Danh mục
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card p-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4 border-b-2 border-blue-500 pb-2 hutech-font-title">
+                        <i class="fas fa-chart-bar text-blue-500 mr-3"></i> Biểu đồ tổng quan
+                    </h2>
+                    <div class="chart-placeholder">
+                        <img src="https://via.placeholder.com/400x250/F0F4F8/6B7280?text=BI%E1%BB%82U+%C4%90%E1%BB%92+TH%E1%BB%90NG+K%C3%8A" alt="Biểu đồ thống kê placeholder">
+                        <p class="hutech-font-body text-gray-700 mt-4">Dữ liệu thống kê chi tiết sẽ hiển thị tại đây.</p>
+                        <p class="text-sm mt-2 hutech-font-body text-gray-600">Tính năng này đang trong quá trình phát triển.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <div id="footer"></div>
+    </div>
+    <script src="js/globalConfig.js"></script>
+    <script src="js/layout.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/header.js"> </script>
+</body>
+</html>
