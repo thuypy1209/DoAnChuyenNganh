@@ -1,0 +1,65 @@
+<header class="bg-white shadow-md">
+    <div class="container mx-auto px-8 py-4 flex justify-between items-center">
+        <div class="flex items-center">
+            <img src="../images/hutech_logo.png" alt="Logo HUTECH" class="h-20">
+        </div>
+        
+        <div class="flex flex-col items-end space-y-2">
+            <div class="flex items-center space-x-6">
+                <div class="flex items-center space-x-2 text-sm text-gray-600">
+                    <img src="../images/vn.jpg" alt="Tiếng Việt" class="w-5 h-auto">
+                    <span>Tiếng Việt</span>
+                    <span class="text-gray-300">|</span>
+                    <img src="../images/en.jpg" alt="English" class="w-5 h-auto">
+                    <span>English</span>
+                </div>
+
+                <div class="flex">
+                    <input type="text" placeholder="Tìm kiếm" 
+                           class="border border-gray-300 rounded-l-md py-1 px-3 w-40 focus:outline-none focus:border-blue-500">
+                    <button class="bg-blue-800 text-white px-3 rounded-r-md hover:bg-blue-700" aria-label="Tìm kiếm">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-2">
+                 <img src="../images/30-nam-hutech.png" alt="30 Years HUTECH" class="h-24
+                 ">
+                 <img src="../images/qs-stars.png" alt="QS Stars" class="h-12">
+            </div>
+        </div>
+    </div>
+</header>
+
+<nav class="bg-blue-900 text-white shadow-lg">
+    <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+        <a href="home.html" class="flex items-center space-x-2">
+            <i class="fas fa-home text-xl"></i>
+            <span class="text-xl font-bold hidden sm:inline">Trang Chủ</span>
+        </a>
+
+        <ul class="hidden md:flex items-center space-x-6">
+            <li><a href="dashbroad.html" class="hover:text-yellow-400">Dashboard</a></li>
+            <li><a href="QLDV.html" class="hover:text-yellow-400">Quản lý Đoàn viên</a></li>
+            <li><a href="QLTT.html" class="hover:text-yellow-400">Quản lý Tin tức</a></li>
+            <li><a href="lichthi.html" class="hover:text-yellow-400">Quản lý Lịch thi</a></li>
+            <li><a href="bangdiem.html" class="hover:text-yellow-400">Quản lý Bảng điểm</a></li>
+            
+            <li class="relative">
+                <button id="dropdown-button" class="hover:text-yellow-400 flex items-center">
+                    Thêm
+                    <i class="fas fa-chevron-down ml-2 text-xs"></i>
+                </button>
+                <div id="dropdown-menu" class="absolute right-0 mt-2 w-48 bg-white text-black rounded-md shadow-lg py-1 hidden z-10">
+                    <a href="danhmuc.html" class="block px-4 py-2 text-sm hover:bg-gray-100">Quản lý Danh mục</a>
+                    <a href="hosobaocao.html" class="block px-4 py-2 text-sm hover:bg-gray-100">Quản lý Hồ sơ</a>
+                    <a href="account/changepassword.html" class="block px-4 py-2 text-sm hover:bg-gray-100">Đổi mật khẩu</a>
+                </div>
+            </li>
+        </ul>
+
+        <div class="flex items-center space-x-6">
+            </div>
+    </div>
+</nav>

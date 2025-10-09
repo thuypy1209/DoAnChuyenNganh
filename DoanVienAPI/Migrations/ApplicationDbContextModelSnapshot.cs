@@ -22,6 +22,101 @@ namespace DoanVienAPI.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("DoanVien", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AnhDaiDien")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ChucVu")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Cmnd")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DanToc")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GioiTinh")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HeDaoTao")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HoTen")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LyLuanChinhTri")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MaDinhDanh")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("NgayCap")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("NgaySinh")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("NgayTao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("NgayVaoDang")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("NgayVaoDoan")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("NgheNghiep")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NghiQuyetKetNap")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NgoaiNgu")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NoiCap")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("QueQuan")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SoDienThoai")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SoTheDoan")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ThuongTru")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TonGiao")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TrinhDoChuyenMon")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TrinhDoTinHoc")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TrinhDoVanHoa")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DoanViens");
+                });
+
             modelBuilder.Entity("DoanVienAPI.Areas.Identity.Data.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -204,55 +299,6 @@ namespace DoanVienAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("DanhMucs");
-                });
-
-            modelBuilder.Entity("DoanVienAPI.Models.DoanVien", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<string>("HoTen")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<string>("Khoa")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("KhoaHoc")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("MaDoanVien")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Nganh")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime?>("NgaySinh")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("NgayTao")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("SoDienThoai")
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("DoanViens");
                 });
 
             modelBuilder.Entity("DoanVienAPI.Models.HoSoBaoCao", b =>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sách Đoàn viên</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body class="bg-gray-100 font-sans">
+
+    <div id="navbar-placeholder"></div>
+
+    <main class="container mx-auto p-8">
+
+        <div class="mb-6">
+            <p class="text-sm text-gray-500">THÔNG TIN CHUNG / DANH SÁCH ĐOÀN VIÊN</p>
+            <h1 class="text-3xl font-bold text-gray-800">Danh sách Đoàn viên</h1>
+        </div>
+
+        <div class="bg-white p-4 rounded-lg shadow-md mb-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                <select class="border border-gray-300 rounded-md p-2">
+                    <option>Chọn chi đoàn...</option>
+                    <option>Chi đoàn demo 3.1</option>
+                </select>
+                <input type="text" placeholder="Tên đoàn viên" class="border border-gray-300 rounded-md p-2">
+                <select class="border border-gray-300 rounded-md p-2">
+                    <option>Tất cả chức vụ</option>
+                    <option>Đoàn viên</option>
+                    <option>Ủy viên BCH</option>
+                    <option>Phó bí thư</option>
+                    <option>Bí thư</option>
+                </select>
+                <select class="border border-gray-300 rounded-md p-2">
+                    <option>Tất cả giới tính</option>
+                    <option>Nam</option>
+                    <option>Nữ</option>     
+                </select>
+                <div class="flex space-x-2">
+                    <button class="w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center">
+                        <i class="fas fa-search mr-2"></i> Tìm
+                    </button>
+                    <button class="w-full bg-green-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-600 transition-colors flex items-center justify-center">
+                        <i class="fas fa-file-excel mr-2"></i> Xuất
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full whitespace-nowrap">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="p-4 text-left font-semibold text-gray-600">STT</th>
+                            <th class="p-4 text-left font-semibold text-gray-600">HỌ VÀ TÊN</th>
+                            <th class="p-4 text-left font-semibold text-gray-600">MÃ ĐỊNH DANH</th>
+                            <th class="p-4 text-left font-semibold text-gray-600">NGÀY SINH</th>
+                            <th class="p-4 text-left font-semibold text-gray-600">GIỚI TÍNH</th>
+                            <th class="p-4 text-left font-semibold text-gray-600">DÂN TỘC</th>
+                            <th class="p-4 text-left font-semibold text-gray-600">TÔN GIÁO</th>
+                            <th class="p-4 text-left font-semibold text-gray-600">QUÊ QUÁN</th>
+                        </tr>
+                    </thead>
+                    <tbody id="danh-sach-doan-vien-body" class="divide-y divide-gray-200">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+
+    <div id="footer-placeholder"></div>
+    <script src="js/main.js"></script>
+    <script src="js/danhSachDoanVien.js"></script>
+    </body>
+</html>

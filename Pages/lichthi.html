@@ -1,214 +1,85 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Quản lý Lịch thi - Lớp tín chỉ</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý Lịch thi - Quản lý Đoàn viên</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        .hutech-font-title {
-            font-family: 'Montserrat', sans-serif;
-        }
-        .hutech-font-body {
-            font-family: 'Open Sans', sans-serif;
-        }
-        /* CSS tùy chỉnh cho bảng */
-        .table-img-icon {
-            width: 50px; /* Kích thước nhỏ cho icon/hình ảnh trong bảng */
-            height: 50px;
-            object-fit: contain; /* Đảm bảo hình ảnh không bị méo mó */
-        }
-        /* Tối ưu cột bên phải (Tin tức mới) */
-        .sidebar-news-height {
-            max-height: calc(100vh - 250px); /* Điều chỉnh chiều cao phù hợp */
-            overflow-y: auto; /* Thêm thanh cuộn */
-        }
-        .recent-news-item {
-            display: flex;
-            align-items: flex-start;
-            padding: 12px;
-            border-bottom: 1px solid #e5e7eb;
-            transition: background-color 0.2s ease-in-out;
-        }
-        .recent-news-item:last-child {
-            border-bottom: none;
-        }
-        .recent-news-item:hover {
-            background-color: #f9fafb;
-        }
-        .recent-news-icon {
-            font-size: 1.8rem;
-            color: #EF4444; /* Màu đỏ cho biểu tượng lịch thi */
-            margin-right: 12px;
-            flex-shrink: 0;
-        }
-        .recent-news-content {
-            flex-grow: 1;
-        }
-        .recent-news-date {
-            font-size: 0.875rem;
-            color: #6b7280;
-            margin-bottom: 4px;
-            display: flex;
-            align-items: center;
-        }
-        .recent-news-date i {
-            margin-right: 8px;
-        }
-        .recent-news-title {
-            font-size: 1rem;
-            font-weight: 600;
-            color: #374151;
-            line-height: 1.3;
-        }
-        .recent-news-summary {
-            font-size: 0.875rem;
-            color: #6b7280;
-            margin-top: 4px;
-        }
-
-        /* Styles để footer luôn ở cuối */
-        html, body, #root {
-            height: 100%;
-        }
-        .flex-col-full-height {
-            min-height: 100%;
-        }
-        .main-content-area {
-            flex-grow: 1;
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
-<body class="flex h-screen hutech-font-body">
-    <div id="sidebar"></div>
-    <div class="flex-1 flex flex-col flex-col-full-height">
-        <div id="header"></div>
-        <main class="flex-1 p-6 overflow-y-auto bg-gray-100 main-content-area">
-            <div class="bg-white p-6 rounded-lg shadow-md mb-6">
-                <div class="bg-gradient-to-r from-teal-600 to-cyan-700 text-white p-8 rounded-lg shadow-xl text-center mb-6">
-                    <h1 class="text-4xl font-extrabold mb-2 hutech-font-title">QUẢN LÝ LỊCH THI - LỚP TÍN CHỈ</h1>
-                    <p class="text-lg opacity-90 hutech-font-body">Quản lý lịch trình, thời gian, địa điểm các kỳ thi và lớp học.</p>
-                </div>
-                <div class="flex justify-between items-center mb-6 flex-wrap gap-4">
-                    <button class="bg-teal-600 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded-lg flex items-center transition-colors duration-200 shadow-md" onclick="addNewLichThi()">
-                        <i class="fas fa-plus mr-2"></i> Thêm mới
-                    </button>
-                    <div class="flex items-center space-x-2">
-                        <label for="itemsPerPageLichThi" class="text-gray-700 hutech-font-body">Hiển thị</label>
-                        <select id="itemsPerPageLichThi" class="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-teal-500 text-gray-700 hutech-font-body">
-                            <option value="10">10</option>
-                            <option value="25">25</option>
-                            <option value="50">50</option>
-                        </select>
-                        <span class="text-gray-700 hutech-font-body">dòng</span>
-                    </div>
+<body class="bg-gray-100 font-sans">
 
-                    <div class="relative">
-                        <input type="text" placeholder="Tìm kiếm lịch thi..." class="border border-gray-300 rounded-lg p-2 pl-10 focus:outline-none focus:ring-2 focus:ring-teal-500 text-gray-800 hutech-font-body">
-                        <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                    </div>
-                </div>
-            </div>
+    <div id="navbar-placeholder"></div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-6">
-                <div class="lg:col-span-2 bg-white p-8 rounded-lg shadow-md hutech-font-body">
-                    <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b-2 border-teal-500 pb-2 hutech-font-title">
-                        <i class="fas fa-calendar-alt text-teal-500 mr-3"></i> Danh sách Lịch thi
-                    </h2>
-                    <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-teal-700 text-white">
-                            <tr>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider rounded-tl-lg">STT</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Tên môn học</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Mã lớp</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Giảng viên</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Thời gian</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Địa điểm</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Sĩ số</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider rounded-tr-lg">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody id="lichThiTableBody" class="bg-white divide-y divide-gray-200">
-                            </tbody>
-                    </table>
-                    <nav class="flex items-center justify-between pt-4">
-                        <div class="text-sm text-gray-700 hutech-font-body">
-                            Hiển thị <span class="font-medium">0</span> đến <span class="font-medium">0</span> trong <span class="font-medium">0</span> dòng
-                        </div>
-                        <div class="flex space-x-1">
-                            <button class="px-3 py-1 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-200 transition-colors duration-200 hutech-font-body">Trước</button>
-                            <button class="px-3 py-1 border border-blue-600 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 hutech-font-body">1</button>
-                            <button class="px-3 py-1 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-200 transition-colors duration-200 hutech-font-body">Sau</button>
-                        </div>
-                    </nav>
-                </div>
+    <main class="container mx-auto p-8">
 
-                <div class="lg:col-span-1 bg-white p-8 rounded-lg shadow-md hutech-font-body flex flex-col h-full">
-                    <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b-2 border-red-500 pb-2 hutech-font-title">
-                        <i class="fas fa-exclamation-triangle text-red-500 mr-3"></i> Thông báo Lịch thi
-                    </h2>
-                    <ul id="recentLichThiList" class="space-y-4 sidebar-news-height flex-grow">
-                        </ul>
-                    <div class="text-right mt-6">
-                        <a href="#" class="text-blue-600 hover:text-blue-800 font-semibold hutech-font-body">Xem tất cả thông báo <i class="fas fa-angle-right ml-1"></i></a>
-                    </div>
-                </div>
-            </div>
-        </main>
-        <div id="footer" class="mt-auto"></div>
-    </div>
-    <div id="lichThiModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden items-center justify-center z-50">
-        <div class="bg-white p-8 rounded-lg shadow-xl w-full max-w-md relative">
-            <h2 id="lichThiModalTitle" class="text-2xl font-bold mb-6 text-gray-800 hutech-font-title">Thêm Lịch thi mới</h2>
-            
-            <button class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-3xl" onclick="closeLichThiModal()">
-                &times;
-            </button>
-
-            <form id="lichThiForm" class="space-y-4">
-                <input type="hidden" id="lichThiId"> 
-                <div>
-                    <label for="tenMonHoc" class="block text-sm font-medium text-gray-700 hutech-font-body">Tên môn học</label>
-                    <input type="text" id="tenMonHoc" name="tenMonHoc" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-teal-500 focus:border-teal-500 text-gray-800 hutech-font-body" required>
-                </div>
-                <div>
-                    <label for="maLop" class="block text-sm font-medium text-gray-700 hutech-font-body">Mã lớp</label>
-                    <input type="text" id="maLop" name="maLop" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-teal-500 focus:border-teal-500 text-gray-800 hutech-font-body" required>
-                </div>
-                <div>
-                    <label for="giangVien" class="block text-sm font-medium text-gray-700 hutech-font-body">Giảng viên</label>
-                    <input type="text" id="giangVien" name="giangVien" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-teal-500 focus:border-teal-500 text-gray-800 hutech-font-body" required>
-                </div>
-                <div>
-                    <label for="thoiGian" class="block text-sm font-medium text-gray-700 hutech-font-body">Thời gian (VD: 08:00 - 10:00 (Thứ 2))</label>
-                    <input type="text" id="thoiGian" name="thoiGian" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-teal-500 focus:border-teal-500 text-gray-800 hutech-font-body" required>
-                </div>
-                <div>
-                    <label for="diaDiem" class="block text-sm font-medium text-gray-700 hutech-font-body">Địa điểm</label>
-                    <input type="text" id="diaDiem" name="diaDiem" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-teal-500 focus:border-teal-500 text-gray-800 hutech-font-body" required>
-                </div>
-                <div>
-                    <label for="siSo" class="block text-sm font-medium text-gray-700 hutech-font-body">Sĩ số</label>
-                    <input type="number" id="siSo" name="siSo" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-teal-500 focus:border-teal-500 text-gray-800 hutech-font-body">
-                </div>
-                
-                <div class="flex justify-end space-x-3 mt-6">
-                    <button type="button" onclick="closeLichThiModal()" class="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400 transition-colors duration-200 hutech-font-body">Hủy</button>
-                    <button type="submit" form="lichThiForm" class="px-4 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-colors duration-200 shadow-md hutech-font-body">Lưu</button>
-                </div>
-            </form>
+        <div class="bg-blue-900 text-white p-8 rounded-lg shadow-md mb-8">
+            <h1 class="text-4xl font-bold">QUẢN LÝ LỊCH THI - LỚP TÍN CHỈ</h1>
+            <p class="mt-2">Quản lý lịch trình, thời gian, địa điểm các kỳ thi và lớp học.</p>
         </div>
-    </div>
 
-    <script src="js/globalConfig.js"></script>
-    <script src="js/layout.js"></script>
-    <script src="js/lichThi.js"></script>
-    <script src="js/header.js"></script>
+        <div class="flex flex-col md:flex-row justify-between items-center mb-6">
+            <div class="flex items-center space-x-4">
+                <a href="#" class="bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors flex items-center">
+                    <i class="fas fa-plus mr-2"></i> Thêm mới
+                </a>
+            </div>
+            <div class="relative mt-4 md:mt-0">
+                <input type="text" placeholder="Tìm kiếm lịch thi..." class="border border-gray-300 rounded-lg py-2 pl-10 pr-4 focus:outline-none focus:border-blue-500">
+                <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md overflow-x-auto">
+            <table class="w-full">
+                <thead class="bg-gray-100">
+                    <tr>
+                        <th class="p-4 text-left font-semibold text-gray-600">STT</th>
+                        <th class="p-4 text-left font-semibold text-gray-600">TÊN MÔN HỌC</th>
+                        <th class="p-4 text-left font-semibold text-gray-600">MÃ LỚP</th>
+                        <th class="p-4 text-left font-semibold text-gray-600">GIẢNG VIÊN</th>
+                        <th class="p-4 text-left font-semibold text-gray-600">THỜI GIAN</th>
+                        <th class="p-4 text-left font-semibold text-gray-600">ĐỊA ĐIỂM</th>
+                        <th class="p-4 text-left font-semibold text-gray-600">SĨ SỐ</th>
+                        <th class="p-4 text-left font-semibold text-gray-600">HÀNH ĐỘNG</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                    <tr>
+                        <td class="p-4">1</td>
+                        <td class="p-4 font-medium text-gray-800">Lập trình Web</td>
+                        <td class="p-4 text-gray-600">22DTHC1</td>
+                        <td class="p-4 text-gray-600">Nguyễn Thanh Đăng</td>
+                        <td class="p-4 text-gray-600">Thứ 2 (7h-11h)</td>
+                        <td class="p-4 text-gray-600">A-01.01</td>
+                        <td class="p-4 text-gray-600">50</td>
+                        <td class="p-4 flex space-x-2">
+                            <a href="#" class="text-blue-500 hover:text-blue-700" title="Sửa"><i class="fas fa-edit text-lg"></i></a>
+                            <a href="#" class="text-red-500 hover:text-red-700" title="Xóa"><i class="fas fa-trash-alt text-lg"></i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="p-4">2</td>
+                        <td class="p-4 font-medium text-gray-800">Cơ sở dữ liệu</td>
+                        <td class="p-4 text-gray-600">22DTHC2</td>
+                        <td class="p-4 text-gray-600">Trần Văn A</td>
+                        <td class="p-4 text-gray-600">Thứ 3 (13h-17h)</td>
+                        <td class="p-4 text-gray-600">B-02.05</td>
+                        <td class="p-4 text-gray-600">45</td>
+                        <td class="p-4 flex space-x-2">
+                            <a href="#" class="text-blue-500 hover:text-blue-700" title="Sửa"><i class="fas fa-edit text-lg"></i></a>
+                            <a href="#" class="text-red-500 hover:text-red-700" title="Xóa"><i class="fas fa-trash-alt text-lg"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="js/main.js"></script>
+
 </body>
 </html>

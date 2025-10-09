@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thu chi Quỹ Đoàn</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body class="bg-gray-100 font-sans">
+
+    <div id="navbar-placeholder"></div>
+
+    <main class="container mx-auto p-8">
+
+        <div class="mb-6">
+            <p class="text-sm text-gray-500">THÔNG TIN CHUNG / THEO DÕI THU CHI ĐOÀN PHÍ</p>
+            <h1 class="text-3xl font-bold text-gray-800">Thu chi quỹ Đoàn</h1>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <div class="border-b border-gray-200 mb-4">
+                <nav class="-mb-px flex space-x-8" aria-label="Tabs">
+                    <button id="tab-thu-phi" class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-blue-500 text-blue-600">
+                        Thu phí
+                    </button>
+                    <button id="tab-chi-phi" class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300">
+                        Chi Phí
+                    </button>
+                </nav>
+            </div>
+
+            <div id="content-thu-phi">
+                <div class="flex justify-end mb-4">
+                    <button class="bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors flex items-center">
+                        <i class="fas fa-plus mr-2"></i> Thêm mới
+                    </button>
+                </div>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full whitespace-nowrap">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="p-4 text-left font-semibold text-gray-600">STT</th>
+                                <th class="p-4 text-left font-semibold text-gray-600">Người thu</th>
+                                <th class="p-4 text-left font-semibold text-gray-600">Loại thu phí</th>
+                                <th class="p-4 text-left font-semibold text-gray-600">Nội dung</th>
+                                <th class="p-4 text-left font-semibold text-gray-600">Tổng thu</th>
+                                <th class="p-4 text-left font-semibold text-gray-600">Ngày thu</th>
+                                <th class="p-4 text-left font-semibold text-gray-600">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="thu-phi-table-body" class="divide-y divide-gray-200">
+                            <tr><td colspan="7" class="p-8 text-center text-gray-400">Đang tải dữ liệu...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="content-chi-phi" class="hidden">
+                <p class="text-center p-8 text-gray-500">Nội dung cho các khoản chi sẽ được hiển thị ở đây.</p>
+            </div>
+        </div>
+    </main>
+
+    <div id="footer-placeholder"></div>
+    <script src="/js/main.js"></script>
+    <script src="/js/thuChiDoanPhi.js"></script>
+</body>
+</html>

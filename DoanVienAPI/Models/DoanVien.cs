@@ -1,40 +1,40 @@
-using System.ComponentModel.DataAnnotations;
+// File: Models/DoanVien.cs
 using System;
+using System.ComponentModel.DataAnnotations;
 
-namespace DoanVienAPI.Models
+public class DoanVien
 {
-    public class DoanVien
-    {
-        [Key]
-        public int Id { get; set; }
+    [Key]
+    public int Id { get; set; }
 
-        [Required]
-        [StringLength(50)]
-        public string MaDoanVien { get; set; } // Mã số sinh viên
+    public string? MaDinhDanh { get; set; } // Sẽ khớp với doanVienData.maDinhDanh
 
-        [Required]
-        [StringLength(255)]
-        public string HoTen { get; set; }
+    [Required]
+    public string HoTen { get; set; } // Sẽ khớp với doanVienData.hoTen
 
-        public DateTime? NgaySinh { get; set; } // Có thể null nếu không nhập
-
-        [StringLength(20)]
-        public string? SoDienThoai { get; set; } // Có thể null
-
-        [StringLength(255)]
-        [EmailAddress]
-        public string? Email { get; set; } // Có thể null, thêm EmailAddress cho validation
-
-        public DateTime NgayTao { get; set; } // Tự động tạo khi thêm mới
-
-        // THÊM CÁC THUỘC TÍNH MỚI NÀY
-        [StringLength(100)]
-        public string? Khoa { get; set; } // Tên khoa, có thể null
-
-        [StringLength(100)]
-        public string? Nganh { get; set; } // Tên ngành, có thể null
-
-        [StringLength(50)]
-        public string? KhoaHoc { get; set; } // Khóa học (ví dụ: K20, K21), có thể null
-    }
+    public DateTime? NgaySinh { get; set; }
+    public string? GioiTinh { get; set; }
+    public string? DanToc { get; set; }
+    public string? TonGiao { get; set; }
+    public string? Email { get; set; }
+    public string? SoDienThoai { get; set; }
+    public string? Cmnd { get; set; }
+    public DateTime? NgayCap { get; set; }
+    public string? NoiCap { get; set; }
+    public string? QueQuan { get; set; }
+    public string? ThuongTru { get; set; }
+    public string? TrinhDoVanHoa { get; set; }
+    public string? TrinhDoChuyenMon { get; set; }
+    public string? LyLuanChinhTri { get; set; }
+    public string? TrinhDoTinHoc { get; set; }
+    public string? NgoaiNgu { get; set; }
+    public string? SoTheDoan { get; set; }
+    public DateTime? NgayVaoDoan { get; set; }
+    public DateTime? NgayVaoDang { get; set; }
+    public string? ChucVu { get; set; }
+    public string? NghiQuyetKetNap { get; set; }
+    public string? NgheNghiep { get; set; }
+    public string? HeDaoTao { get; set; }
+    public DateTime NgayTao { get; set; }
+    public string? AnhDaiDien { get; set; } // Để lưu đường dẫn tới file ảnh
 }

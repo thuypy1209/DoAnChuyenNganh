@@ -83,7 +83,7 @@ namespace DoanVienAPI.Controllers
             if (model.Password != model.ConfirmPassword)
                 return BadRequest("Password and Confirm Password do not match");
 
-            var allowedRoles = new List<string> {"Đoàn Trường","Đoàn Khoa","Đoàn Viên"};
+            var allowedRoles = new List<string> { "Admin", "Đoàn Trường", "Đoàn Khoa", "Đoàn Viên" };
 
             if (!allowedRoles.Contains(model.Role))
                 return BadRequest(new { success = false, message = "Bạn không được phép đăng ký loại tài khoản này." });

@@ -3,160 +3,213 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Tổng quan hệ thống</title>
+    <title>Dashboard - Quản lý Đoàn viên</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        .hutech-font-title {
-            font-family: 'Montserrat', sans-serif; 
-        }
-        .hutech-font-body {
-            font-family: 'Open Sans', sans-serif;
-        }
-        /* Custom styles for consistency */
-        .card {
-            background-color: white;
-            padding: 1.5rem;
-            border-radius: 0.5rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        }
-        .stat-card {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 1.5rem;
-            border-radius: 0.5rem;
-            background-color: white;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            transition: transform 0.3s ease-in-out;
-        }
-        .stat-card:hover {
-            transform: translateY(-5px);
-        }
-        .stat-icon {
-            font-size: 3.5rem; 
-            opacity: 0.6; 
-        }
-        .action-button {
-            background-color: #0D9488; /* teal-600 */
-            color: white;
-            font-weight: bold;
-            padding: 0.75rem 1.5rem; 
-            border-radius: 0.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background-color 0.2s ease-in-out;
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-        }
-        .action-button:hover {
-            background-color: #0F766E; /* teal-700 */
-        }
-        /* Biểu đồ placeholder */
-        .chart-placeholder {
-            height: 300px;
-            background-color: #f0f4f8; /* Light blue-gray */
-            border-radius: 0.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            color: #6b7280;
-            font-size: 1.2rem;
-            font-weight: 600;
-            border: 1px dashed #cbd5e1; /* border-gray-300 */
-        }
-        .chart-placeholder img {
-            max-width: 80%;
-            max-height: 80%;
-            opacity: 0.7;
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body class="flex h-screen hutech-font-body bg-gray-100">
-    <div id="sidebar"></div>
-    <div class="flex-1 flex flex-col">
-        <div id="header"></div>
-        <main class="flex-1 p-6 overflow-y-auto">
-            <div class="card mb-6">
-                <div class="bg-gradient-to-r from-teal-600 to-cyan-700 text-white p-8 rounded-lg shadow-xl text-center mb-6">
-                    <h1 class="text-4xl md:text-5xl font-extrabold mb-2 hutech-font-title">DASHBOARD - TỔNG QUAN HỆ THỐNG</h1>
-                    <p class="text-lg opacity-90 hutech-font-body">Theo dõi các chỉ số quan trọng của hệ thống Đoàn viên.</p>
-                </div>
+<body class="bg-gray-100 font-sans">
 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                    <div class="stat-card">
-                        <div>
-                            <p class="text-gray-500 text-sm hutech-font-body">Tổng số Đoàn viên</p>
-                            <h2 id="totalDoanViens" class="text-3xl font-bold text-teal-600 hutech-font-title">Đang tải...</h2>
-                        </div>
-                        <i class="fas fa-users text-teal-400 stat-icon"></i>
-                    </div>
-                    <div class="stat-card">
-                        <div>
-                            <p class="text-gray-500 text-sm hutech-font-body">Tổng số Tin tức</p>
-                            <h2 id="totalTinTucs" class="text-3xl font-bold text-blue-600 hutech-font-title">Đang tải...</h2>
-                        </div>
-                        <i class="fas fa-newspaper text-blue-400 stat-icon"></i>
-                    </div>
-                    <div class="stat-card">
-                        <div>
-                            <p class="text-gray-500 text-sm hutech-font-body">Tổng số Lịch thi/Lớp</p>
-                            <h2 id="totalLichThis" class="text-3xl font-bold text-purple-600 hutech-font-title">Đang tải...</h2>
-                        </div>
-                        <i class="fas fa-calendar-alt text-purple-400 stat-icon"></i>
-                    </div>
-                    <div class="stat-card">
-                        <div>
-                            <p class="text-gray-500 text-sm hutech-font-body">Tổng số Danh mục</p>
-                            <h2 id="totalDanhMucs" class="text-3xl font-bold text-green-600 hutech-font-title">Đang tải...</h2>
-                        </div>
-                        <i class="fas fa-list-alt text-green-400 stat-icon"></i>
-                    </div>
-                </div>
+    <div id="navbar-placeholder"></div>
 
-                <div class="mb-8">
-                    <h2 class="text-2xl font-bold text-gray-800 mb-4 border-b-2 border-yellow-500 pb-2 hutech-font-title">
-                        <i class="fas fa-bolt text-yellow-500 mr-3"></i> Hành động nhanh
-                    </h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                        <button class="action-button bg-teal-600 hover:bg-teal-700" onclick="loadMainContent('QLDV');">
-                            <i class="fas fa-user-plus mr-3"></i> Thêm Đoàn viên
-                        </button>
-                        <button class="action-button bg-teal-600 hover:bg-teal-700" onclick="loadMainContent('TinTuc');">
-                            <i class="fas fa-plus-square mr-3"></i> Đăng Tin tức
-                        </button>
-                        <button class="action-button bg-teal-600 hover:bg-teal-700" onclick="loadMainContent('LichThi');">
-                            <i class="fas fa-calendar-plus mr-3"></i> Thêm Lịch thi
-                        </button>
-                        <button class="action-button bg-teal-600 hover:bg-teal-700" onclick="loadMainContent('DanhMuc');">
-                            <i class="fas fa-folder-plus mr-3"></i> Thêm Danh mục
-                        </button>
+    <main class="container mx-auto p-8">
+        
+        <div class="mb-8">
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img src="images/banner1.jpg" alt="Banner 1" class="w-full h-auto max-h-96 object-cover rounded-lg">
                     </div>
+                    <div class="swiper-slide">
+                        <img src="images/banner2.jpg" alt="Banner 2" class="w-full h-auto max-h-96 object-cover rounded-lg">
+                    </div>
+                
                 </div>
+                <div class="swiper-button-next text-white"></div>
+                <div class="swiper-button-prev text-white"></div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
 
-                <div class="card p-8">
-                    <h2 class="text-2xl font-bold text-gray-800 mb-4 border-b-2 border-blue-500 pb-2 hutech-font-title">
-                        <i class="fas fa-chart-bar text-blue-500 mr-3"></i> Biểu đồ tổng quan
-                    </h2>
-                    <div class="chart-placeholder">
-                        <img src="https://via.placeholder.com/400x250/F0F4F8/6B7280?text=BI%E1%BB%82U+%C4%90%E1%BB%92+TH%E1%BB%90NG+K%C3%8A" alt="Biểu đồ thống kê placeholder">
-                        <p class="hutech-font-body text-gray-700 mt-4">Dữ liệu thống kê chi tiết sẽ hiển thị tại đây.</p>
-                        <p class="text-sm mt-2 hutech-font-body text-gray-600">Tính năng này đang trong quá trình phát triển.</p>
-                    </div>
+        <h2 class="text-3xl font-bold text-gray-800 mb-8">Tổng quan</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white p-6 rounded-lg shadow-md">
+    <h3 class="text-gray-500 mb-2 text-center">Tỷ lệ Đoàn viên</h3>
+    <canvas id="doanVienChart"></canvas>
+</div>
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                 <h3 class="text-gray-500 mb-2">Tin tức theo tháng</h3>
+                 <canvas id="tinTucChart"></canvas>
+            </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+    <h3 class="text-gray-500 mb-2 text-center">Phân loại Sự kiện</h3>
+    <canvas id="suKienChart"></canvas>
+</div>
+
+<div class="bg-white p-6 rounded-lg shadow-md">
+    <h3 class="text-gray-500 mb-2 text-center">Các chỉ số Hoạt động</h3>
+    <canvas id="hoatDongChart"></canvas>
+</div>
+
+
+
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-8">
+
+    <div class="lg:col-span-2 bg-white p-6 rounded-lg shadow-md">
+        <h3 class="text-xl font-bold mb-6 text-blue-900">Thông báo & Hoạt động nổi bật</h3>
+        <ul class="space-y-6">
+            <li class="flex items-start space-x-4">
+                <div class="flex-shrink-0 w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                    <i class="fas fa-water text-blue-600"></i> </div>
+                <div>
+                    <h4 class="font-semibold text-gray-800">Chương trình "Mùa hè xanh 2025" sẽ khởi động vào tháng 7.</h4>
+                    <p class="text-sm text-gray-500">Chi tiết về địa điểm và thời gian sẽ được cập nhật sớm.</p>
+                </div>
+            </li>
+            <li class="flex items-start space-x-4">
+                <div class="flex-shrink-0 w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center">
+                    <i class="fas fa-star text-yellow-600"></i> </div>
+                <div>
+                    <h4 class="font-semibold text-gray-800">Chúc mừng các đoàn viên đạt thành tích xuất sắc trong học kỳ vừa qua.</h4>
+                    <p class="text-sm text-gray-500">Danh sách vinh danh sẽ được công bố vào tuần tới.</p>
+                </div>
+            </li>
+            <li class="flex items-start space-x-4">
+                <div class="flex-shrink-0 w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                    <i class="fas fa-book-open text-green-600"></i> </div>
+                <div>
+                    <h4 class="font-semibold text-gray-800">Hướng dẫn đăng ký lớp học kỹ năng mềm miễn phí.</h4>
+                    <p class="text-sm text-gray-500">Đăng ký tại văn phòng Đoàn trước ngày 15/10.</p>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="bg-white p-6 rounded-lg shadow-md">
+        <h3 class="text-xl font-bold mb-6 text-blue-900">Tin tức & Sự kiện mới</h3>
+        <div class="space-y-4">
+            <div class="flex items-center space-x-3 group cursor-pointer">
+                <img src="images/tin-tuc-1.jpg" alt="thumbnail" class="w-16 h-16 object-cover rounded-md flex-shrink-0">
+                <div>
+                    <h5 class="font-semibold text-gray-700 group-hover:text-blue-700">Tiêu đề tin tức mới sẽ xuất hiện ở đây.</h5>
+                    <p class="text-xs text-gray-500">30/09/2025</p>
                 </div>
             </div>
-        </main>
-        <div id="footer"></div>
+            <div class="border-t border-gray-100"></div>
+            <div class="flex items-center space-x-3 group cursor-pointer">
+                <img src="images/tin-tuc-2.jpg" alt="thumbnail" class="w-16 h-16 object-cover rounded-md flex-shrink-0">
+                <div>
+                    <h5 class="font-semibold text-gray-700 group-hover:text-blue-700">Một tin tức khác về hoạt động sắp tới.</h5>
+                    <p class="text-xs text-gray-500">29/09/2025</p>
+                </div>
+            </div>
+        </div>
     </div>
-    <script src="js/globalConfig.js"></script>
-    <script src="js/layout.js"></script>
-    <script src="js/dashboard.js"></script>
-    <script src="js/header.js"> </script>
+
+</div>
+
+   </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    
+    <script src="js/main.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Kích hoạt Swiper
+            var swiper = new Swiper(".mySwiper", {
+                loop: true,
+                autoplay: {
+                    delay: 3000,
+                    disableOnInteraction: false,
+                },
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev",
+                },
+            });
+
+            // --- Code vẽ các biểu đồ ---
+            
+            // Biểu đồ tin tức
+            const ctx = document.getElementById('tinTucChart');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9'],
+                    datasets: [{
+                        label: 'Số tin tức đã đăng',
+                        data: [3, 5, 2, 7],
+                        backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                        borderColor: 'rgba(59, 130, 246, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: { scales: { y: { beginAtZero: true } }, plugins: { legend: { display: false } } }
+            });
+
+            // Biểu đồ đoàn viên
+            const ctxDoanVien = document.getElementById('doanVienChart');
+            new Chart(ctxDoanVien, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Nam', 'Nữ'],
+                    datasets: [{
+                        label: 'Số lượng',
+                        data: [3, 1],
+                        backgroundColor: ['rgba(59, 130, 246, 0.8)', 'rgba(236, 72, 153, 0.8)'],
+                        borderColor: ['rgba(59, 130, 246, 1)', 'rgba(236, 72, 153, 1)'],
+                        borderWidth: 1
+                    }]
+                },
+                options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
+            });
+
+            // Biểu đồ sự kiện
+            const ctxSuKien = document.getElementById('suKienChart');
+            new Chart(ctxSuKien, {
+                type: 'pie',
+                data: {
+                    labels: ['Học thuật', 'Văn nghệ', 'Tình nguyện'],
+                    datasets: [{
+                        label: 'Số lượng sự kiện',
+                        data: [2, 1, 1],
+                        backgroundColor: ['rgba(239, 68, 68, 0.8)', 'rgba(245, 158, 11, 0.8)', 'rgba(34, 197, 94, 0.8)'],
+                        borderColor: '#fff',
+                        borderWidth: 2
+                    }]
+                },
+                options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
+            });
+
+            // Biểu đồ hoạt động
+            const ctxHoatDong = document.getElementById('hoatDongChart');
+            new Chart(ctxHoatDong, {
+                type: 'radar',
+                data: {
+                    labels: ['Mùa hè xanh', 'Tiếp sức mùa thi', 'Chủ nhật xanh', 'Hiến máu', 'Văn nghệ'],
+                    datasets: [{
+                        label: 'Mức độ tham gia',
+                        data: [8, 7, 9, 6, 8],
+                        fill: true,
+                        backgroundColor: 'rgba(16, 185, 129, 0.2)',
+                        borderColor: 'rgba(16, 185, 129, 1)',
+                    }]
+                },
+                options: { responsive: true, plugins: { legend: { display: false } } }
+            });
+        });
+    </script>
 </body>
 </html>

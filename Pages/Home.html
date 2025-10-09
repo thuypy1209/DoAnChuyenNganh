@@ -2,142 +2,343 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, minimal-ui">
-    <title>Trang Chủ - Cổng Thông Tin Đoàn Viên</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Chủ - Quản lý Đoàn viên</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/style.css"> 
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        .hutech-font-title {
-            font-family: 'Montserrat', sans-serif; 
-        }
-        .hutech-font-body {
-            font-family: 'Open Sans', sans-serif;
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 </head>
-<body class="flex h-screen hutech-font-body">
-    <div id="sidebar"></div>
+<body class="bg-gray-100 font-sans">
 
-    <div class="flex-1 flex flex-col">
-        <div id="header"></div>
+    <div id="navbar-placeholder"></div>
 
-        <main class="flex-1 p-6 overflow-y-auto bg-gray-100">
-            <div class="relative bg-gradient-to-r from-teal-700 to-blue-800 text-white p-10 md:p-16 rounded-lg shadow-xl text-center mb-8 overflow-hidden">
-                <div class="absolute inset-0 bg-cover bg-center opacity-30" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/HUTECH_Logo.svg/1200px-HUTECH_Logo.svg.png'); background-size: 100px; background-repeat: repeat;"></div>
-                <div class="relative z-10">
-                    <h1 class="text-4xl md:text-5xl font-extrabold mb-4 hutech-font-title">CỔNG THÔNG TIN ĐOÀN VIÊN</h1>
-                    <p class="text-lg md:text-xl opacity-90 hutech-font-body">Nơi kết nối, chia sẻ và phát triển tuổi trẻ HUTECH</p>
-                    <a href="#" class="mt-6 inline-block bg-white text-teal-700 hover:bg-gray-100 px-8 py-3 rounded-full font-bold text-lg shadow-lg transition duration-300 ease-in-out">
-                        Tìm hiểu thêm <i class="fas fa-arrow-right ml-2"></i>
-                    </a>
+    <main class="container mx-auto p-8">
+
+        <div class="mb-8">
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img src="images/welcome-newbies.jpg" alt="Welcome Newbies" class="w-full h-auto max-h-[450px] object-cover rounded-lg"></div>
+                    <div class="swiper-slide"><img src="images/banner1.jpg" alt="Banner 1" class="w-full h-auto max-h-[450px] object-cover rounded-lg"></div>
+                    <div class="swiper-slide"><img src="images/banner2.jpg" alt="Banner 2" class="w-full h-auto max-h-[450px] object-cover rounded-lg"></div>
                 </div>
+                <div class="swiper-button-next text-white"></div>
+                <div class="swiper-button-prev text-white"></div>
+                <div class="swiper-pagination"></div>
             </div>
+        </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                <div class="bg-white p-6 rounded-lg shadow-md flex items-center justify-between transition transform hover:scale-105 duration-300">
-                    <div>
-                        <p class="text-gray-500 text-sm hutech-font-body">Đoàn viên hiện có</p>
-                        <h2 id="homeDoanViensCount" class="text-3xl font-bold text-teal-600 hutech-font-title">Đang tải...</h2>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2 bg-white p-6 rounded-lg shadow-md h-full">
+                <div class="flex justify-between items-center bg-gray-100 p-0 mb-4 rounded-t-lg overflow-hidden">
+                    <div class="flex items-center">
+                        <div class="bg-red-600 p-3"><i class="fas fa-bullhorn text-white text-xl"></i></div>
+                        <h2 class="text-lg font-bold text-blue-900 uppercase ml-4">Tin HUTECH</h2>
                     </div>
-                    <i class="fas fa-users text-5xl text-teal-400 opacity-70"></i>
+                    <a href="#" class="text-sm font-semibold hover:text-red-500 mr-4">Xem tất cả >></a>
                 </div>
-                <div class="bg-white p-6 rounded-lg shadow-md flex items-center justify-between transition transform hover:scale-105 duration-300">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <p class="text-gray-500 text-sm hutech-font-body">Tin tức mới nhất</p>
-                        <h2 id="homeTinTucsCount" class="text-3xl font-bold text-blue-600 hutech-font-title">Đang tải...</h2>
-                    </div>
-                    <i class="fas fa-newspaper text-5xl text-blue-400 opacity-70"></i>
-                </div>
-                <div class="bg-white p-6 rounded-lg shadow-md flex items-center justify-between transition transform hover:scale-105 duration-300">
-                    <div>
-                        <p class="text-gray-500 text-sm hutech-font-body">Sự kiện sắp tới</p>
-                        <h2 id="homeEventsCount" class="text-3xl font-bold text-purple-600 hutech-font-title">Đang tải...</h2>
-                    </div>
-                    <i class="fas fa-calendar-alt text-5xl text-purple-400 opacity-70"></i>
-                </div>
-                <div class="bg-white p-6 rounded-lg shadow-md flex items-center justify-between transition transform hover:scale-105 duration-300">
-                    <div>
-                        <p class="text-gray-500 text-sm hutech-font-body">Hoạt động nổi bật</p>
-                        <h2 class="text-3xl font-bold text-green-600 hutech-font-title">Xem thêm</h2>
-                    </div>
-                    <i class="fas fa-bullhorn text-5xl text-green-400 opacity-70"></i>
-                </div>
-            </div>
+                        <div class="group cursor-pointer">
+                            <img src="images/tin-tuc-chinh.jpg" alt="Tin tức chính" class="w-full rounded-lg mb-2 object-cover">
+                            <h3 class="text-xl font-bold group-hover:text-blue-700">HUTECH và University of San Carlos (Philippines) thúc đẩy hợp tác quốc tế</h3>
+                            <div class="text-sm text-gray-500 mt-2">Ngày 15/09/2025, tại Trụ sở chính HUTECH đã diễn ra buổi làm việc giữa Đại diện Trường Đại học Công nghệ TP.HCM (HUTECH) và Đại diện Trường University of San Carlos (USC), Philippines nhằm thúc đẩy các hoạt động hợp tác quốc tế trong thời gian tới.</div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <div class="lg:col-span-2 bg-white p-8 rounded-lg shadow-md hutech-font-body">
-                    <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b-2 border-teal-500 pb-2 hutech-font-title">
-                        <i class="fas fa-bullhorn text-teal-500 mr-3"></i> Thông báo & Hoạt động nổi bật
-                    </h2>
-                    <ul id="thongBaoHoatDongList" class="space-y-4">
-                        <li>
-                            <a href="#" class="block hover:bg-gray-50 p-3 rounded-lg transition duration-200">
-                                <p class="text-sm text-gray-500"><i class="far fa-calendar-alt mr-2"></i> 25/05/2025</p>
-                                <h3 class="text-lg font-semibold text-blue-700 hover:text-blue-900 hutech-font-title">🎉 Chương trình "Mùa hè xanh 2025" sẽ khởi động vào tháng 7!</h3>
-                                <p class="text-gray-600 text-sm">Hãy sẵn sàng cho những trải nghiệm tình nguyện đầy ý nghĩa và sôi động...</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="block hover:bg-gray-50 p-3 rounded-lg transition duration-200">
-                                <p class="text-sm text-gray-500"><i class="far fa-calendar-alt mr-2"></i> 20/05/2025</p>
-                                <h3 class="text-lg font-semibold text-blue-700 hover:text-blue-900 hutech-font-title">⭐ Chúc mừng các đoàn viên đạt thành tích xuất sắc trong học kỳ vừa qua.</h3>
-                                <p class="text-gray-600 text-sm">Kết quả học tập nổi bật là minh chứng cho sự nỗ lực không ngừng...</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="block hover:bg-gray-50 p-3 rounded-lg transition duration-200">
-                                <p class="text-sm text-gray-500"><i class="far fa-calendar-alt mr-2"></i> 18/05/2025</p>
-                                <h3 class="text-lg font-semibold text-blue-700 hover:text-blue-900 hutech-font-title">💡 Hướng dẫn đăng ký lớp học kỹ năng mềm miễn phí.</h3>
-                                <p class="text-gray-600 text-sm">Nâng cao kỹ năng mềm để tự tin hơn trong học tập và công việc...</p>
-                            </a>
-                        </li>
-                    </ul>
-                    <div class="text-right mt-6">
-                        <a href="#" class="text-blue-600 hover:text-blue-800 font-semibold hutech-font-body">Xem tất cả thông báo <i class="fas fa-angle-right ml-1"></i></a>
+                        </div>
                     </div>
-                </div>
+                    <div class="space-y-4">
+                        <div class="group flex items-start space-x-4 cursor-pointer">
+                            <img src="images/tin-tuc-phu.jpg" alt="Tin tức phụ" class="flex-shrink-0 w-32 h-20 object-cover rounded-md">
+                            <div><h4 class="font-semibold group-hover:text-blue-700">[Hội thảo CB-GV-NV HUTECH 2025]: Rực lửa...</h4></div>
 
-                <div class="lg:col-span-1 bg-white p-8 rounded-lg shadow-md hutech-font-body">
-                    <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b-2 border-blue-500 pb-2 hutech-font-title">
-                        <i class="fas fa-rss-square text-blue-500 mr-3"></i> Tin tức & Sự kiện mới
-                    </h2>
-                    <ul id="latestNewsEventsList" class="space-y-4">
-                        <li>
-                            <a href="#" class="block hover:bg-gray-50 p-3 rounded-lg transition duration-200">
-                                <p class="text-sm text-gray-500"><i class="far fa-calendar-alt mr-2"></i> 28/05/2025</p>
-                                <h3 class="text-md font-semibold text-gray-700 hover:text-gray-900 hutech-font-title">HUTECH tổ chức Ngày hội Công nghệ AI 2025.</h3>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="block hover:bg-gray-50 p-3 rounded-lg transition duration-200">
-                                <p class="text-sm text-gray-500"><i class="far fa-calendar-alt mr-2"></i> 27/05/2025</p>
-                                <h3 class="text-md font-semibold text-gray-700 hover:text-gray-900 hutech-font-title">Đoàn trường phát động cuộc thi "Ý tưởng sáng tạo trẻ".</h3>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="block hover:bg-gray-50 p-3 rounded-lg transition duration-200">
-                                <p class="text-sm text-gray-500"><i class="far fa-calendar-alt mr-2"></i> 26/05/2025</p>
-                                <h3 class="text-md font-semibold text-gray-700 hover:text-gray-900 hutech-font-title">Hội thảo "Phát triển kỹ năng mềm cho sinh viên IT".</h3>
-                            </a>
-                        </li>
-                    </ul>
-                    <div class="text-right mt-6">
-                        <a href="#" class="text-blue-600 hover:text-blue-800 font-semibold hutech-font-body">Xem tất cả tin tức <i class="fas fa-angle-right ml-1"></i></a>
+                        </div>
+                        <div class="group flex items-start space-x-4 cursor-pointer">
+                           <img src="images/tin-tuc-phu2.jpg" alt="Tin tức phụ" class="flex-shrink-0 w-32 h-20 object-cover rounded-md">
+                            <div><h4 class="font-semibold group-hover:text-blue-700">Xu hướng mô phỏng và tính toán số...</h4></div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </main>
-        <div id="footer"></div>
+            <div>
+                <div class="space-y-2">
+                    <div class="flex items-center bg-gray-100 rounded-t-md overflow-hidden">
+                        <div class="bg-red-600 p-3"><i class="fas fa-book-reader text-white text-xl"></i></div>
+                        <h3 class="text-lg font-bold text-blue-900 uppercase ml-4">Hệ thống đào tạo</h3>
+                    </div>
+                    <div class="flex flex-col space-y-2">
+                        <a href="#" class="flex items-center w-full p-3 bg-blue-700 text-white font-semibold hover:bg-blue-600 transition-colors"><i class="fas fa-graduation-cap w-6 mr-3 text-lg"></i><span>Tuyển sinh Tiến sĩ</span></a>
+                        <a href="#" class="flex items-center w-full p-3 bg-sky-500 text-white font-semibold hover:bg-sky-400 transition-colors"><i class="fas fa-user-graduate w-6 mr-3 text-lg"></i><span>Tuyển sinh Thạc sĩ</span></a>
+                        <a href="#" class="flex items-center w-full p-3 bg-red-600 text-white font-semibold hover:bg-red-500 transition-colors"><i class="fas fa-university w-6 mr-3 text-lg"></i><span>Tuyển sinh Đại học</span></a>
+                        <a href="#" class="flex items-center w-full p-3 bg-green-600 text-white font-semibold hover:bg-green-500 transition-colors"><i class="fas fa-book w-6 mr-3 text-lg"></i><span>Đào tạo Quốc tế</span></a>
+                        <a href="#" class="flex items-center w-full p-3 bg-yellow-500 text-white font-semibold hover:bg-yellow-400 transition-colors"><i class="fas fa-chalkboard-teacher w-6 mr-3 text-lg"></i><span>Đào tạo Liên thông</span></a>
+                        <a href="#" class="flex items-center w-full p-3 bg-purple-600 text-white font-semibold hover:bg-purple-500 transition-colors"><i class="fas fa-certificate w-6 mr-3 text-lg"></i><span>Đào tạo Văn bằng 2</span></a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-8">
+            <div class="lg:col-span-2 bg-white p-6 rounded-lg shadow-md">
+                <div class="flex items-center bg-gray-100 p-0 mb-4 rounded-t-lg overflow-hidden">
+                    <div class="bg-red-600 p-3"><i class="fas fa-users text-white text-xl"></i></div>
+                    <h2 class="text-lg font-bold text-blue-900 uppercase ml-4">Hoạt động sinh viên</h2>
+                </div>
+                <div class="group cursor-pointer">
+                    <img src="images/hoat-dong-sinh-vien.jpg" alt="hoat dong sing vien" class="w-full rounded-lg mb-2 object-cover">
+                    <h3 class="text-xl font-bold group-hover:text-blue-700">Chào đón tân sinh viên 2025 Viện Văn hóa - Nghệ thuật - Thể thao</h3>
+                    <div class="text-sm text-gray-500 mt-2">Sáng ngày 20/09/2025, Viện Văn hóa - Nghệ thuật - Thể thao, Trường Đại học Công nghệ TP.HCM (HUTECH) đã tổ chức chương trình "Chào đón Tân sinh viên 2025" tại Hội trường Nguyễn Văn Đạo, cơ sở 475A Điện Biên Phủ, Quận 3, TP.HCM. Chương trình nhằm tạo không khí vui tươi, phấn khởi và gắn kết giữa các tân sinh viên với nhau cũng như với thầy cô trong Viện.</div>
+                </div>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <div class="flex items-center bg-gray-100 p-0 mb-4 rounded-t-lg overflow-hidden">
+                    <div class="bg-red-600 p-3"><i class="fas fa-star text-white text-xl"></i></div>
+                    <h3 class="text-lg font-bold text-blue-900 uppercase ml-4">Tin nổi bật</h3>
+                </div>
+                <ul class="space-y-4">
+                    <li class="border-b pb-2"><a href="#" class="font-semibold text-gray-700 hover:text-blue-700">Tra cứu kết quả xét tuyển đại học 2025</a> <span class="bg-red-500 text-white text-xs font-semibold ml-2 px-2 py-1 rounded">mới</span></li>
+                    <li class="border-b pb-2"><a href="#" class="font-semibold text-gray-700 hover:text-blue-700">Hướng dẫn làm thủ tục nhập học 2025</a> <span class="bg-red-500 text-white text-xs font-semibold ml-2 px-2 py-1 rounded">mới</span></li>
+                    <li class="border-b pb-2"><a href="#" class="font-semibold text-gray-700 hover:text-blue-700">HUTECH công bố điểm chuẩn trúng tuyển đại học 2025</a> <span class="bg-red-500 text-white text-xs font-semibold ml-2 px-2 py-1 rounded">mới</span></li>
+                    <li class="border-b pb-2"><a href="#" class="font-semibold text-gray-700 hover:text-blue-700">HUTECH công bố điểm Sàn của trường Đại học ta 2025</a> <span class="bg-red-500 text-white text-xs font-semibold ml-2 px-2 py-1 rounded">mới</span></li>
+                    <li class="border-b pb-2"><a href="#" class="font-semibold text-gray-700 hover:text-blue-700">Chính Sách Học sinh Nghèo của Trường HUYECH 2025</a> <span class="bg-red-500 text-white text-xs font-semibold ml-2 px-2 py-1 rounded">mới</span></li>
+                    <li class="border-b pb-2"><a href="#" class="font-semibold text-gray-700 hover:text-blue-700">HUTECH Công Bố Tuyển Sinh Bằng Thạc Sĩ 2 2025</a> <span class="bg-red-500 text-white text-xs font-semibold ml-2 px-2 py-1 rounded">mới</span></li>
+                    
+                </ul>
+            </div>
+        </div>
+
+        <div class="mt-8">
+    <div class="flex items-center mb-4">
+        <i class="fas fa-play-circle text-2xl text-orange-500 mr-2"></i>
+        <h2 class="text-xl font-bold text-gray-800 uppercase">MEDIA</h2>
     </div>
-    <script src="js/globalConfig.js"></script>
-    <script src="js/layout.js"></script>
-    <script src="js/homeDefault.js"></script> 
-    <script src="js/header.js"></script>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <div class="group bg-white rounded-lg shadow-md overflow-hidden cursor-pointer">
+            <div class="relative">
+                <img src="images/media1.jpg" alt="Media 1" class="w-full h-40 object-cover">
+                <div class="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                    <i class="fas fa-play text-white text-4xl"></i>
+                </div>
+            </div>
+            <div class="p-4">
+                <h3 class="font-semibold text-gray-800">HUTECH & Niềm tự hào khi đồng hành cùng người trẻ ‘chạm đến’ thành công!</h3>
+            </div>
+        </div>
+
+        <div class="group bg-white rounded-lg shadow-md overflow-hidden cursor-pointer">
+            <div class="relative">
+                <img src="images/media2.jpg" alt="Media 2" class="w-full h-40 object-cover">
+                <div class="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                    <i class="fas fa-play text-white text-4xl"></i>
+                </div>
+            </div>
+            <div class="p-4">
+                <h3 class="font-semibold text-gray-800">HUTECH Stories Ep.165 | Doanh nhân "Hoàng chân đất" miệt mài "truyền lửa" khởi nghiệp cho sinh viên</h3>
+            </div>
+        </div>
+
+        <div class="group bg-white rounded-lg shadow-md overflow-hidden cursor-pointer">
+            <div class="relative">
+                <img src="images/media3.jpg" alt="Media 3" class="w-full h-40 object-cover">
+                <div class="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                    <i class="fas fa-play text-white text-4xl"></i>
+                </div>
+            </div>
+            <div class="p-4">
+                <h3 class="font-semibold text-gray-800">[Viral clip] "Điểm chạm" của hai thế hệ!</h3>
+            </div>
+        </div>
+
+        <div class="group bg-white rounded-lg shadow-md overflow-hidden cursor-pointer">
+            <div class="relative">
+                <img src="images/media4.jpg" alt="Media 4" class="w-full h-40 object-cover">
+                <div class="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                    <i class="fas fa-play text-white text-4xl"></i>
+                </div>
+            </div>
+            <div class="p-4">
+                <h3 class="font-semibold text-gray-800">HUTECH Stories Ep.164 | Nữ sinh HUTECH & Niềm say mê với robot và trí tuệ nhân tạo</h3>
+            </div>
+        </div>
+
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-8">
+
+    <div class="lg:col-span-2 bg-white p-6 rounded-lg shadow-md">
+        <div class="flex items-center bg-gray-100 p-0 mb-4 rounded-t-lg overflow-hidden">
+            <div class="bg-red-600 p-3">
+                <i class="fas fa-bullhorn text-white text-xl"></i>
+            </div>
+            <h2 class="text-lg font-bold text-blue-900 uppercase ml-4">Tin tuyển sinh</h2>
+        </div>
+
+        <div class="mb-6">
+            <div class="group cursor-pointer">
+                <img src="images/tin-tuyen-sinh-chinh.jpg" alt="Tin tuyển sinh chính" class="w-full rounded-lg mb-2">
+                <h3 class="text-xl font-bold group-hover:text-blue-700">HUTECH gia hạn nhập học đến hết 02/9</h3>
+                <p class="text-sm text-gray-600 mt-1">HUTECH gia hạn thời gian gia hạn xác nhận nhập học đến trước 17h ngày 02/9.</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4"> 
+    
+    <a href="#" class="group cursor-pointer flex flex-col h-full"> 
+        <div class="w-full aspect-video overflow-hidden rounded-lg mb-2">
+            <img src="images/tin-tuyen-sinh-nho-1.jpg" alt="Tuyển sinh Tiến sĩ" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+        </div>
+        <h5 class="font-semibold text-sm h-14 overflow-hidden group-hover:text-blue-700 transition-colors">
+            HUTECH thông báo tuyển sinh đào tạo trình độ Tiến sĩ đợt 1 năm 2026
+        </h5>
+    </a>
+
+    <a href="#" class="group cursor-pointer flex flex-col h-full">
+        <div class="w-full aspect-video overflow-hidden rounded-lg mb-2">
+            <img src="images/tin-tuyen-sinh-nho-2.jpg" alt="Tuyển sinh Thạc sĩ" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+        </div>
+        <h5 class="font-semibold text-sm h-14 overflow-hidden group-hover:text-blue-700 transition-colors">
+            HUTECH thông báo tuyển sinh trình độ Thạc sĩ đợt 1 năm 2026 với 16 chuyên ngành
+        </h5>
+    </a>
+    
+    <a href="#" class="group cursor-pointer flex flex-col h-full">
+        <div class="w-full aspect-video overflow-hidden rounded-lg mb-2">
+            <img src="images/tin-tuyen-sinh-nho-3.jpg" alt="Tuyển bổ sung Đại học" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+        </div>
+        <h5 class="font-semibold text-sm h-14 overflow-hidden group-hover:text-blue-700 transition-colors">
+            HUTECH thông báo xét tuyển bổ sung tất cả các ngành Đại học chính quy đến 10/9
+        </h5>
+    </a>
+
+    <a href="#" class="group cursor-pointer flex flex-col h-full">
+        <div class="w-full aspect-video overflow-hidden rounded-lg mb-2">
+            <img src="images/tin-tuyen-sinh-nho-4.jpg" alt="Nữ sinh Công nghệ" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+        </div>
+        <h5 class="font-semibold text-sm h-14 overflow-hidden group-hover:text-blue-700 transition-colors">
+            Nhiều nữ sinh thế hệ mới chọn chinh phục nhóm ngành Công nghệ - Kỹ thuật tại HUTECH
+        </h5>
+    </a>
+</div>
+    </div>
+
+    <div class="bg-white p-6 rounded-lg shadow-md">
+        <div class="flex items-center bg-gray-100 p-0 mb-4 rounded-t-lg overflow-hidden">
+            <div class="bg-red-600 p-3">
+                <i class="fas fa-calendar-alt text-white text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-blue-900 uppercase ml-4">Lịch sự kiện</h3>
+        </div>
+        
+        <ul class="space-y-4">
+            <li class="flex items-start space-x-4">
+                <div class="text-center bg-red-500 text-white p-2 rounded-lg w-20 flex-shrink-0">
+                    <p class="font-bold">Thứ 2</p>
+                    <p class="text-sm">20/10/2025</p>
+                </div>
+                <div>
+                    <h5 class="font-semibold hover:text-blue-700 cursor-pointer">Vòng loại Giải đấu National Student Open Cup 2025</h5>
+                    <p class="text-sm text-gray-500"><i class="fas fa-map-marker-alt"></i> Sảnh E1</p>
+                </div>
+            </li>
+            <li class="flex items-start space-x-4">
+                <div class="text-center bg-red-500 text-white p-2 rounded-lg w-20 flex-shrink-0">
+                    <p class="font-bold">Thứ 2</p>
+                    <p class="text-sm">13/10/2025</p>
+                </div>
+                <div>
+                    <h5 class="font-semibold hover:text-blue-700 cursor-pointer">Lễ khai mạc chương trình GHF Model United Nations 2025</h5>
+                    <p class="text-sm text-gray-500"><i class="fas fa-map-marker-alt"></i> B-02.09</p>
+                </div>
+            </li>
+            <li class="flex items-start space-x-4">
+                <div class="text-center bg-red-500 text-white p-2 rounded-lg w-20 flex-shrink-0">
+                    <p class="font-bold">Thứ 6</p>
+                    <p class="text-sm">10/10/2025</p>
+                </div>
+                <div>
+                    <h5 class="font-semibold hover:text-blue-700 cursor-pointer">Hội thảo "Xu hướng mô phỏng và tính toán số trong kỹ thuật hiện nay"</h5>
+                    <p class="text-sm text-gray-500"><i class="fas fa-map-marker-alt"></i> Hội trường Nguyễn Văn Đạo</p>
+                </div>
+            </li>
+            <li class="flex items-start space-x-4">
+                <div class="text-center bg-red-500 text-white p-2 rounded-lg w-20 flex-shrink-0">
+                    <p class="font-bold">Thứ 4</p>
+                    <p class="text-sm">08/10/2025</p>
+                </div>
+                <div>
+                    <h5 class="font-semibold hover:text-blue-700 cursor-pointer">Hội thảo "Cơ hội nghề nghiệp trong lĩnh vực Kỹ thuật Xây dựng"</h5>
+                    <p class="text-sm text-gray-500"><i class="fas fa-map-marker-alt"></i> Hội trường A1.01</p>
+                </div>
+            </li>
+            <li class="flex items-start space-x-4">
+                <div class="text-center bg-red-500 text-white p-2 rounded-lg w-20 flex-shrink-0">
+                    <p class="font-bold">Thứ 2</p>
+                    <p class="text-sm">06/10/2025</p>
+                </div>
+                <div>
+                    <h5 class="font-semibold hover:text-blue-700 cursor-pointer">Hội thảo "Cơ hội nghề nghiệp trong lĩnh vực Kỹ thuật Xây dựng"</h5>
+                    <p class="text-sm text-gray-500"><i class="fas fa-map-marker-alt"></i> Hội trường A1.01</p>
+                </div>
+        </ul>
+    </div>
+
+</div>
+
+    </main>
+    <div class="mt-8 bg-yellow-300 p-6 rounded-lg shadow-md">
+    <div class="flex justify-between items-center mb-4">
+        <h2 class="text-xl font-bold text-gray-800 uppercase border-l-4 border-orange-500 pl-3">HUTECH eMagazine</h2>
+        <a href="#" class="text-sm font-semibold hover:text-red-500">Xem thêm >></a>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <div class="group bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer">
+            <img src="images/emagazine1.jpg" alt="eMagazine 1" class="w-full h-40 object-cover">
+            <div class="p-4">
+                <h3 class="font-semibold text-gray-800 text-sm">Kỷ niệm 30 năm thành lập: HUTECH tặng học bổng hấp dẫn, học phí cố định toàn khóa cho thí sinh cả nước</h3>
+            </div>
+        </div>
+
+        <div class="group bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer">
+            <img src="images/emagazine2.jpg" alt="eMagazine 2" class="w-full h-40 object-cover">
+            <div class="p-4">
+                <h3 class="font-semibold text-gray-800 text-sm">Phụ huynh, thí sinh hào hứng chờ ngày "nhập trường" tại HUTECH</h3>
+            </div>
+        </div>
+
+        <div class="group bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer">
+            <img src="images/emagazine3.jpg" alt="eMagazine 3" class="w-full h-40 object-cover">
+            <div class="p-4">
+                <h3 class="font-semibold text-gray-800 text-sm">Chào đón newbies K2025: "Nhiều ưu đãi đặc biệt cho hành trình đại học đáng nhớ!"</h3>
+            </div>
+        </div>
+
+        <div class="group bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer">
+            <img src="images/emagazine4.jpg" alt="eMagazine 4" class="w-full h-40 object-cover">
+            <div class="p-4">
+                <h3 class="font-semibold text-gray-800 text-sm">Những điểm nhấn rực rỡ, đậm chất HUTECH đón chào kỷ niệm 30 năm thành lập Trường (1995 - 2025)</h3>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var swiper = new Swiper(".mySwiper", {
+                loop: true,
+                autoplay: { delay: 3000, disableOnInteraction: false },
+                pagination: { el: ".swiper-pagination", clickable: true },
+                navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
+            });
+        });
+    </script>
 </body>
 </html>

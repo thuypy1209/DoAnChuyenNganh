@@ -34,7 +34,7 @@ builder.Services.AddDirectoryBrowser();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin",
-        policyBuilder => policyBuilder.WithOrigins("http://127.0.0.1:5500", "http://localhost:5500") // Cổng của Live Server
+        policyBuilder => policyBuilder.WithOrigins("http://127.0.0.1:5500")
                                      .AllowAnyHeader()
                                      .AllowAnyMethod());
 });
@@ -99,13 +99,9 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.AccessDeniedPath = "/Account/AccessDenied";
 });
 
-var app = builder.Build();
+// Dán toàn bộ phần này để thay thế cho khối "var app = ..." cũ
 
-using (var scope = app.Services.CreateScope())
-{
-    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-    await IdentityRoles.SeedRolesAsync(roleManager);
-}
+var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -114,39 +110,16 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-// app.UseHttpsRedirection(); 
-app.UseRouting();
+app.UseStaticFiles(); // Cho phép truy cập các file trong wwwroot
 
-// Áp dụng CORS policy (phải đặt TRƯỚC app.UseAuthorization() nếu có)
-app.UseCors("AllowSpecificOrigin");
+app.UseRouting(); // --- BƯỚC 1: Xác định tuyến đường
 
-// BẮT ĐẦU PHẦN CẤU HÌNH PHỤC VỤ STATIC FILES TỐI ƯU CHO LIVE SERVER
-// KHÔNG CẦN phục vụ thư mục 'Pages' từ Backend nữa nếu Live Server lo phần đó
-// Bạn chỉ cần đảm bảo các API và các file upload từ Backend được phục vụ
-// Nếu bạn muốn dùng Live Server, thì Live Server sẽ tự phục vụ các file HTML/JS/CSS trong thư mục Pages.
-// Các cấu hình UseStaticFiles dưới đây chỉ dành cho các file mà Backend cần phục vụ trực tiếp (vd: uploads)
+app.UseCors("AllowSpecificOrigin"); // --- BƯỚC 2: Áp dụng luật CORS
 
-// Cấu hình phục vụ các tệp tĩnh từ thư mục wwwroot của dự án DoanVienAPI (mặc định)
-// Ví dụ: wwwroot/uploads sẽ được truy cập qua /uploads
-app.UseStaticFiles(); 
+app.UseCors("AllowFrontend");
 
-app.UseStaticFiles(new StaticFileOptions
-{
-    FileProvider = new PhysicalFileProvider(
-        Path.Combine(builder.Environment.ContentRootPath, "wwwroot", "uploads")),
-    RequestPath = "/uploads" 
-});
-
-app.UseDirectoryBrowser(new DirectoryBrowserOptions
-{
-    FileProvider = new PhysicalFileProvider(
-        Path.Combine(builder.Environment.ContentRootPath, "wwwroot", "uploads")),
-    RequestPath = "/uploads"
-});
-// KẾT THÚC PHẦN CẤU HÌNH PHỤC VỤ STATIC FILES TỐI ƯU CHO LIVE SERVER
-
-app.UseAuthentication();
-app.UseAuthorization();
+app.UseAuthentication(); // --- BƯỚC 3: Xác thực (bạn là ai?)
+app.UseAuthorization(); // --- BƯỚC 4: Phân quyền (bạn được làm gì?)
 
 app.MapControllers();
 

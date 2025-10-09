@@ -16,7 +16,7 @@ async function login() {
             localStorage.setItem('token', data.token);
             message.style.color = 'green';
             message.innerText = 'Đăng nhập thành công!';
-            setTimeout(() => window.location.href = '../Home.html', 1000);
+            setTimeout(() => window.location.href = '../dashbroad.html', 1000);
         } else {
             const error = await res.text();
             message.style.color = 'red';

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kết nạp Đoàn viên</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body class="bg-gray-100 font-sans">
+
+    <div id="navbar-placeholder"></div>
+
+    <main class="container mx-auto p-8">
+
+        <div class="mb-6">
+            <p class="text-sm text-gray-500">NGHIỆP VỤ QUẢN LÝ ĐOÀN VIÊN / KẾT NẠP ĐOÀN VIÊN</p>
+            <h1 class="text-3xl font-bold text-gray-800">Kết nạp đoàn viên</h1>
+        </div>
+        
+        <div class="border-b border-gray-200 mb-6">
+            <nav class="-mb-px flex space-x-8" aria-label="Tabs">
+                <a href="#" class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-blue-500 text-blue-600">
+                    Nhập kết nạp đoàn viên
+                </a>
+                <a href="#" class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300">
+                    Xử lý kết nạp
+                </a>
+                <a href="#" class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300">
+                    Cấp thẻ đoàn viên
+                </a>
+                </nav>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class="flex justify-end mb-4">
+                <button class="bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors flex items-center">
+                    <i class="fas fa-file-excel mr-2"></i> IMPORT EXCEL
+                </button>
+            </div>
+            
+            <form id="ketNapForm">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-x-6 gap-y-4">
+                    <div class="md:col-span-1 flex flex-col items-center">
+                        <img id="avatar-preview" src="https://via.placeholder.com/150" alt="Avatar Preview" class="w-32 h-32 mb-4 border-2 border-dashed rounded-full object-cover">
+                        <label for="avatar-input" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg text-sm cursor-pointer hover:bg-gray-300">Đổi Avatar</label>
+                        <input type="file" id="avatar-input" accept="image/*" class="hidden">
+                    </div>
+
+                    <div class="md:col-span-3">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-4">
+                            <div>
+                                <label for="ma-dinh-danh" class="block text-sm font-medium text-gray-700">Mã định danh đoàn viên</label>
+                                <input type="text" id="ma-dinh-danh" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3">
+                            </div>
+                            <div>
+                                <label for="ho-ten" class="block text-sm font-medium text-gray-700">Họ tên (*)</label>
+                                <input type="text" id="ho-ten" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3">
+                            </div>
+                            <div>
+                                <label for="ngay-sinh" class="block text-sm font-medium text-gray-700">Ngày Sinh (*)</label>
+                                <input type="date" id="ngay-sinh" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3">
+                            </div>
+                            </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 pt-6 border-t">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="flex items-center">
+                            <input id="so-yeu-ly-lich" type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded">
+                            <label for="so-yeu-ly-lich" class="ml-2 block text-sm text-gray-900">Sơ yếu lý lịch và đơn xin vào đoàn</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="bien-ban-hop-xet" type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded">
+                            <label for="bien-ban-hop-xet" class="ml-2 block text-sm text-gray-900">Biên bản họp xét kết nạp đoàn viên của chi đoàn</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="giay-dam-bao" type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded">
+                            <label for="giay-dam-bao" class="ml-2 block text-sm text-gray-900">Giấy đảm bảo thanh niên vào đoàn</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="giay-chung-nhan" type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded">
+                            <label for="giay-chung-nhan" class="ml-2 block text-sm text-gray-900">Giấy chứng nhận đã học lớp cảm tình đoàn</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 flex justify-end">
+                    <button type="submit" class="bg-green-600 text-white font-bold px-6 py-2 rounded-lg hover:bg-green-700 flex items-center">
+                        <i class="fas fa-arrow-right mr-2"></i> Chuyển xử lý
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <div id="footer-placeholder"></div>
+    <script src="/js/main.js"></script>
+    <script src="/js/ketNapDoanVien.js"></script> 
+</body>
+</html>
