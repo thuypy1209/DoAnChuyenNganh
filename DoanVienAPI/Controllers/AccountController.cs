@@ -10,6 +10,9 @@ using System.Diagnostics.Eventing.Reader;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using System.Linq;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace DoanVienAPI.Controllers
 {
@@ -22,32 +25,37 @@ namespace DoanVienAPI.Controllers
         private readonly IConfiguration _configuration;
 
         public AccountController(UserManager<ApplicationUser> userManager,
-                                         RoleManager<IdentityRole> roleManager,
-                                         IConfiguration configuration)
+                                     RoleManager<IdentityRole> roleManager,
+                                     IConfiguration configuration)
         {
             _userManager = userManager;
             _roleManager = roleManager;
-            _configuration = configuration;  
+            _configuration = configuration;
         }
+
         private async Task<string> GenerateJwtToken(ApplicationUser user)
         {
             var roles = await _userManager.GetRolesAsync(user);
 
             var claims = new List<Claim>
             {
+                // SỬA LỖI CS8604: user.UserName và user.Id có thể là null
                 new Claim(JwtRegisteredClaimNames.Sub, user.UserName ?? string.Empty),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(ClaimTypes.NameIdentifier, user.Id ?? string.Empty),
                 new Claim(ClaimTypes.Name, user.UserName ?? string.Empty)
             };
 
-            // Thêm vai trò
+            // Thêm vai trò (Giữ nguyên logic phân quyền)
             foreach (var role in roles)
             {
                 claims.Add(new Claim(ClaimTypes.Role, role));
             }
 
             var jwtKey = _configuration["Jwt:Key"];
+            if (string.IsNullOrEmpty(jwtKey))
+                throw new InvalidOperationException("JWT Key is missing in configuration.");
+
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
@@ -62,7 +70,7 @@ namespace DoanVienAPI.Controllers
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-
+        // HÀM REGISTER (Đăng ký)
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] Register model)
         {
@@ -85,8 +93,9 @@ namespace DoanVienAPI.Controllers
 
             var allowedRoles = new List<string> { "Admin", "Đoàn Trường", "Đoàn Khoa", "Đoàn Viên" };
 
-            if (!allowedRoles.Contains(model.Role))
-                return BadRequest(new { success = false, message = "Bạn không được phép đăng ký loại tài khoản này." });
+            // XỬ LÝ LỖI NULL
+            if (model.Role == null || !allowedRoles.Contains(model.Role))
+                return BadRequest(new { success = false, message = "Vai trò không hợp lệ." });
 
             var user = new ApplicationUser
             {
@@ -107,18 +116,21 @@ namespace DoanVienAPI.Controllers
 
         }
 
+        // HÀM LOGIN (Đăng nhập)
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] Login model)
         {
-            var user = await _userManager.FindByNameAsync(model.UserName); // DÙNG USERNAME
+            // SỬA LỖI CS8604: model.UserName có thể là null
+            if (string.IsNullOrEmpty(model.UserName) || string.IsNullOrEmpty(model.Password))
+                return Unauthorized("Tên đăng nhập và mật khẩu không được để trống.");
+
+            var user = await _userManager.FindByNameAsync(model.UserName);
+
             if (user == null || !await _userManager.CheckPasswordAsync(user, model.Password))
                 return Unauthorized("Tên đăng nhập hoặc mật khẩu không đúng.");
 
             var userRoles = await _userManager.GetRolesAsync(user);
             Console.WriteLine("User roles from DB: " + string.Join(", ", userRoles));
-
-
-
 
             var authClaims = new List<Claim>
             {
@@ -151,17 +163,22 @@ namespace DoanVienAPI.Controllers
             });
         }
 
+        // HÀM GET PROFILE
         [Authorize]
         [HttpGet("profile")]
         public async Task<IActionResult> GetProfile()
         {
-            var userId = User.FindFirstValue(ClaimTypes.Name);
-            var user = await _userManager.FindByNameAsync(userId);
-            var role = await _userManager.GetRolesAsync(user);
-            var userRole = role.FirstOrDefault();
+            // SỬA LỖI CS8604: User.FindFirstValue(ClaimTypes.Name) có thể là null
+            var userName = User.FindFirstValue(ClaimTypes.Name);
+            if (string.IsNullOrEmpty(userName))
+                return Unauthorized("Không xác định được người dùng đăng nhập.");
 
+            var user = await _userManager.FindByNameAsync(userName);
             if (user == null)
                 return NotFound("Không tìm thấy người dùng");
+
+            var role = await _userManager.GetRolesAsync(user);
+            var userRole = role.FirstOrDefault() ?? "Đoàn Viên";
 
             return Ok(new
             {
@@ -171,6 +188,8 @@ namespace DoanVienAPI.Controllers
                 Role = userRole
             });
         }
+
+        // HÀM CHANGE PASSWORD
         [Authorize]
         [HttpPost("changepassword")]
         public async Task<IActionResult> ChangePassword([FromBody] ChangePassword model)
@@ -206,11 +225,5 @@ namespace DoanVienAPI.Controllers
             return Ok(new { success = true, message = "Đổi mật khẩu thành công" });
 
         }
-
-
-
-
-
     }
-
 }

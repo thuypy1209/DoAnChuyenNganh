@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">Chi Tiết Tin Tức - Quản lý Đoàn viên</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body class="bg-gray-100 font-sans">
+
+    <div id="navbar-placeholder"></div>
+
+    <main class="container mx-auto p-8">
+        <div class="bg-white p-8 rounded-lg shadow-xl">
+            <h1 id="news-title" class="text-3xl lg:text-4xl font-extrabold text-gray-800 mb-4">
+                Đang tải Tiêu đề...
+            </h1>
+            
+            <div class="text-sm text-gray-500 border-b pb-4 mb-6">
+                <i class="fas fa-calendar-alt mr-2"></i> Ngày đăng: <span id="news-date">...</span> 
+                <span class="mx-3">|</span>
+                <i class="fas fa-user-edit mr-2"></i> Người đăng: <span id="news-author">Admin</span>
+            </div>
+
+            <div class="mb-8">
+                <img id="news-image" src="" alt="Hình ảnh tin tức" class="w-full h-auto object-cover rounded-lg shadow-md">
+            </div>
+            
+            <div id="news-content" class="text-lg leading-relaxed text-gray-700">
+                <p>Nội dung đang được tải. Vui lòng chờ...</p>
+            </div>
+
+            <div class="mt-10 pt-4 border-t text-right">
+                <a href="Home.html" class="text-blue-600 hover:text-blue-800 font-semibold">
+                    <i class="fas fa-arrow-left mr-2"></i> Quay lại Trang chủ
+                </a>
+            </div>
+        </div>
+        <div class="mt-12 pt-6 border-t border-gray-300">
+    <h2 class="text-2xl font-bold text-gray-800 mb-6 border-l-4 border-red-600 pl-3">Các tin khác</h2>
+    
+    <div id="related-news-container" class="space-y-6">
+        <p class="text-gray-500" id="loading-related-news">Đang tải các tin tức khác...</p>
+    </div>
+    </div>
+    </main>
+
+    <div id="footer-placeholder"></div>
+    <script>
+    // Định nghĩa nội dung mẫu (TỰ TẠO)
+    const SAMPLE_NEWS_DATA = {
+        TieuDe: "Đón đợi vòng Chung kết Cuộc thi “Ý tưởng Đổi mới sáng tạo...”",
+        NgayDang: "2025-10-21T00:00:00",
+        AnhMinhHoa: "https://file1.hutech.edu.vn/file/news/1429301761017752.png",
+        NoiDung: `
+            <p class="mb-4 font-bold">Trải qua hai vòng Sơ loại và Bán kết, top 10 chung cuộc đã sẵn sàng tranh tài tại vòng Chung kết Cuộc thi “Ý tưởng Đổi mới sáng tạo các trường Đại học tại vùng Đông Nam Bộ” sẽ diễn ra vào ngày 25/10 tới tại Trung tâm Đào tạo Nhân lực chất lượng cao (Phân khu Đào tạo E1, Khu công nghệ cao, Phường Tăng Nhơn Phú, TP.HCM) của Trường Đại học Công nghệ TP.HCM (HUTECH).</p>
+            
+            <p class="mb-4">Chương trình thu hút hàng trăm ý tưởng sáng tạo từ sinh viên các trường đại học trong khu vực. Đây là cơ hội để các bạn trẻ biến ý tưởng thành sản phẩm thực tế và tìm kiếm nguồn đầu tư.</p>
+
+            <img src="images/tin-tuc-chinh.jpg" alt="Hoạt động" class="w-full rounded-lg mb-4">
+            
+            <p>Vòng chung kết hứa hẹn sẽ là một cuộc so tài hấp dẫn, nơi các đội thi trình bày dự án của mình trước Hội đồng Giám khảo uy tín. Chúc các đội thi đạt kết quả tốt nhất!</p>
+        `
+    };
+    
+</script>
+
+    <script src="js/main.js"></script> 
+    <script src="js/tinTucChiTiet.js" type="module"></script> 
+    
+</body>
+</html>

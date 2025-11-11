@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nghiệp vụ: Đoàn viên Danh dự</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body class="bg-gray-100 font-sans">
+
+    <div id="navbar-placeholder"></div>
+
+    <main class="container mx-auto p-8">
+
+        <div class="mb-6">
+            <p class="text-sm text-gray-500">NGHIỆP VỤ QUẢN LÝ ĐOÀN VIÊN / ĐOÀN VIÊN DANH DỰ</p>
+            <h1 class="text-3xl font-bold text-gray-800">Đoàn viên danh dự</h1>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <div class="border-b border-gray-200 mb-4">
+                <nav class="-mb-px flex space-x-8" aria-label="Tabs">
+                    <button data-content-id="content-ket-nap" class="tab-button whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-blue-500 text-blue-600">
+                        Danh sách kết nạp đoàn viên danh dự
+                    </button>
+                    <button data-content-id="content-da-ket-nap" class="tab-button whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300">
+                        Danh sách đoàn viên danh dự
+                    </button>
+                </nav>
+            </div>
+
+            <div id="content-ket-nap" class="tab-content">
+                <div id="view-chon-dv">
+                    <div class="flex justify-end mb-4">
+                        <button id="btn-show-xac-nhan" class="bg-green-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-600">
+                            <i class="fas fa-user-check mr-2"></i> ĐOÀN VIÊN DANH DỰ
+                        </button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="p-3 w-10"><input type="checkbox"></th>
+                                    <th class="p-3 text-left font-semibold text-gray-600">Họ và tên</th>
+                                    <th class="p-3 text-left font-semibold text-gray-600">Ngày sinh</th>
+                                    <th class="p-3 text-left font-semibold text-gray-600">Ngày vào đoàn</th>
+                                    <th class="p-3 text-left font-semibold text-gray-600">Chức vụ</th>
+                                    <th class="p-3 text-left font-semibold text-gray-600">Trạng thái</th>
+                                </tr>
+                            </thead>
+                            <tbody id="chon-dv-table-body" class="divide-y">
+                                <tr>
+                                    <td class="p-3"><input type="checkbox" class="dv-checkbox"></td>
+                                    <td class="p-3">Bùi Đan Linh</td>
+                                    <td class="p-3">15/10/1990</td>
+                                    <td class="p-3">11/07/2022</td>
+                                    <td class="p-3">Đoàn viên</td>
+                                    <td class="p-3">Không xử lý</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="view-xac-nhan" class="hidden">
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <div class="lg:col-span-2 space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">ĐOÀN CƠ SỞ NHẬN</label>
+                                <select class="mt-1 block w-full border border-gray-300 rounded-md p-2"><option>Đoàn cơ sở demo 2</option></select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">NGÀY HIỆU LỰC</label>
+                                <input type="date" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
+                            </div>
+                             <div>
+                                <label class="block text-sm font-medium text-gray-700">TẬP TIN ĐÍNH KÈM</label>
+                                <button class="mt-1 w-full border border-gray-300 rounded-md p-2 text-left text-gray-500 hover:bg-gray-50">+ FILE ĐÍNH KÈM</button>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">NỘI DUNG</label>
+                                <textarea rows="4" class="mt-1 block w-full border border-gray-300 rounded-md p-2">Đề nghị xét công nhận đoàn viên danh dự</textarea>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="font-bold mb-2">DANH SÁCH ĐOÀN VIÊN XÉT KẾT NẠP</h3>
+                            <div class="border rounded-md max-h-64 overflow-y-auto">
+                                <table class="w-full">
+                                    <thead><tr><th class="p-2 text-left">Stt</th><th class="p-2 text-left">Họ và tên</th><th class="p-2 text-left">Xóa</th></tr></thead>
+                                    <tbody id="xac-nhan-list-body"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-8 flex justify-start space-x-2">
+                        <button class="bg-green-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-600">CHUYỂN XỬ LÝ</button>
+                        <button id="btn-quay-lai-chon-dv" class="bg-gray-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-gray-600">QUAY LẠI</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="content-da-ket-nap" class="tab-content hidden">
+                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 items-end border-b pb-4 mb-4">
+                    <div><label class="block text-sm">MÃ ĐOÀN VIÊN</label><input type="text" class="mt-1 w-full p-2 border rounded-md"></div>
+                    <div><label class="block text-sm">HỌ TÊN</label><input type="text" class="mt-1 w-full p-2 border rounded-md"></div>
+                    <div><label class="block text-sm">CMT/CCCD</label><input type="text" class="mt-1 w-full p-2 border rounded-md"></div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div><label class="block text-sm">TỪ NGÀY</label><input type="date" class="mt-1 w-full p-2 border rounded-md"></div>
+                        <div><label class="block text-sm">ĐẾN NGÀY</label><input type="date" class="mt-1 w-full p-2 border rounded-md"></div>
+                    </div>
+                    <div><button class="w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700">XEM</button></div>
+                </div>
+                 <div class="overflow-x-auto">
+                     <table class="w-full">
+                        <thead class="bg-gray-50">
+                             <tr>
+                                <th class="p-3 text-left font-semibold text-gray-600">Họ tên</th>
+                                <th class="p-3 text-left font-semibold text-gray-600">Ngày trưởng thành</th>
+                                <th class="p-3 text-left font-semibold text-gray-600">Ngày xét</th>
+                                <th class="p-3 text-left font-semibold text-gray-600">Số quyết định</th>
+                                <th class="p-3 text-left font-semibold text-gray-600">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y">
+                            <tr><td colspan="5" class="p-8 text-center text-gray-500">Không có dữ liệu.</td></tr>
+                        </tbody>
+                    </table>
+                 </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="footer-placeholder"></div>
+    <script src="/js/main.js"></script>
+    <script src="/js/doanVienDanhDu.js"></script> 
+</body>
+</html>

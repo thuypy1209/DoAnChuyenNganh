@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiện ích khác</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body class="bg-gray-100 font-sans">
+
+    <div id="navbar-placeholder"></div>
+
+    <main class="container mx-auto p-8">
+
+        <div class="mb-6">
+            <h1 class="text-3xl font-bold text-gray-800">Tiện ích khác</h1>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <div class="border-b border-gray-200 mb-6">
+                <nav class="-mb-px flex space-x-8" aria-label="Tabs">
+                    <button data-content-id="content-moi-hop" class="tab-button whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-blue-500 text-blue-600">
+                        <i class="fas fa-calendar-alt mr-2"></i>Mời họp
+                    </button>
+                    <button data-content-id="content-y-kien" class="tab-button whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300">
+                        <i class="fas fa-lightbulb mr-2"></i>Ý kiến sáng tạo
+                    </button>
+                    <button data-content-id="content-chia-se" class="tab-button whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300">
+                        <i class="fas fa-share-alt mr-2"></i>Chia sẻ
+                    </button>
+                </nav>
+            </div>
+
+            <div id="content-moi-hop" class="tab-content">
+                <div class="flex justify-end mb-4">
+                    <button class="bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 flex items-center">
+                        <i class="fas fa-plus mr-2"></i> Tạo cuộc họp mới
+                    </button>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="p-4 text-left font-semibold text-gray-600">Tiêu đề cuộc họp</th>
+                                <th class="p-4 text-left font-semibold text-gray-600">Thời gian</th>
+                                <th class="p-4 text-left font-semibold text-gray-600">Địa điểm</th>
+                                <th class="p-4 text-left font-semibold text-gray-600">Trạng thái</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y">
+                            <tr><td colspan="4" class="p-8 text-center text-gray-500">Chưa có cuộc họp nào.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="content-y-kien" class="tab-content hidden">
+                 <div class="flex justify-end mb-4">
+                    <button class="bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 flex items-center">
+                        <i class="fas fa-plus mr-2"></i> Gửi ý kiến mới
+                    </button>
+                </div>
+                <div class="space-y-4">
+                    <div class="border rounded-lg p-4">
+                        <h3 class="font-bold text-lg">Tổ chức workshop về AI</h3>
+                        <p class="text-gray-600 mt-2">Đề xuất tổ chức một buổi workshop giới thiệu về các ứng dụng của AI cho sinh viên...</p>
+                        <div class="text-sm text-gray-400 mt-3">Gửi bởi: Nguyễn Văn A - Ngày: 09/10/2025</div>
+                    </div>
+                    <p class="text-center p-8 text-gray-500">Chưa có ý kiến nào.</p>
+                </div>
+            </div>
+            
+            <div id="content-chia-se" class="tab-content hidden">
+                <div class="mb-4 border-b pb-4">
+                    <textarea class="w-full p-2 border rounded-md" rows="3" placeholder="Bạn muốn chia sẻ điều gì?"></textarea>
+                    <div class="flex justify-end mt-2">
+                        <button class="bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700">Đăng</button>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                     <div class="border rounded-lg p-4">
+                        <p class="text-gray-800">Tài liệu tham khảo môn Lập trình mạng rất hay, mọi người xem thử nhé: [link]</p>
+                        <div class="text-sm text-gray-400 mt-3">Đăng bởi: Trần Thị B - Ngày: 09/10/2025</div>
+                    </div>
+                    <p class="text-center p-8 text-gray-500">Chưa có bài chia sẻ nào.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="footer-placeholder"></div>
+    <script src="/js/main.js"></script>
+    <script src="/js/tienIchKhac.js"></script> 
+</body>
+</html>

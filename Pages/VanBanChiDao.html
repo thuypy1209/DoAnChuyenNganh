@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Các văn bản chỉ đạo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body class="bg-gray-100 font-sans">
+
+    <div id="navbar-placeholder"></div>
+
+    <main class="container mx-auto p-8">
+
+        <div class="mb-6">
+            <h1 class="text-3xl font-bold text-gray-800">Các văn bản chỉ đạo</h1>
+        </div>
+
+        <div class="bg-white p-4 rounded-lg shadow-md mb-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 items-end">
+                
+                <div class="lg:col-span-1">
+                    <label class="block text-sm font-medium text-gray-700">Tên văn bản</label>
+                    <input type="text" placeholder="Nhập tên văn bản cần tìm" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
+                </div>
+
+                <div class="lg:col-span-1">
+                    <label class="block text-sm font-medium text-gray-700">Ngày ban hành</label>
+                    <div class="flex items-center mt-1">
+                        <input type="date" placeholder="Ngày bắt đầu" class="block w-full border border-gray-300 rounded-l-md p-2">
+                        
+                    </div>
+                </div>
+                
+                <div class="lg:col-span-1">
+                    <label class="block text-sm font-medium text-gray-700">Trạng thái ban hành xuống</label>
+                    <select class="mt-1 block w-full border border-gray-300 rounded-md p-2">
+                        <option>Chọn trạng thái ban hành</option>
+                    </select>
+                </div>
+
+                <div class="lg:col-span-1">
+                    <label class="block text-sm font-medium text-gray-700">Trạng thái xem</label>
+                    <select class="mt-1 block w-full border border-gray-300 rounded-md p-2">
+                        <option>Chọn trạng thái xem</option>
+                    </select>
+                </div>
+                
+                <div class="lg:col-span-1 flex items-center">
+                    <button class="bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 w-full">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <div class="border-b border-gray-200 mb-4">
+                <nav class="-mb-px flex space-x-8" aria-label="Tabs">
+                    <button id="tab-vb-banhanh" data-content-id="content-vb-banhanh" class="tab-button whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-blue-500 text-blue-600">
+                        Văn bản được ban hành
+                    </button>
+                    <button id="tab-vb-donvi" data-content-id="content-vb-donvi" class="tab-button whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300">
+                        Văn bản của đơn vị
+                    </button>
+                </nav>
+            </div>
+            
+            <div id="content-vb-banhanh" class="tab-content">
+                <div class="flex justify-end mb-4">
+                    <button class="bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors flex items-center">
+                        <i class="fas fa-plus mr-2"></i> UP văn bản mới
+                    </button>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full whitespace-nowrap">
+                        <thead class="bg-blue-800 text-white">
+                            <tr>
+                                <th class="p-4 text-left font-semibold">#</th>
+                                <th class="p-4 text-left font-semibold">Tên Văn bản</th>
+                                <th class="p-4 text-left font-semibold">Loại văn bản</th>
+                                <th class="p-4 text-left font-semibold">Đơn vị ban hành</th>
+                                <th class="p-4 text-left font-semibold">Ngày ban hành</th>
+                                <th class="p-4 text-left font-semibold">Trạng thái</th>
+                                <th class="p-4 text-left font-semibold">Tác vụ</th>
+                            </tr>
+                        </thead>
+                        <tbody id="van-ban-banhanh-table-body" class="divide-y divide-gray-200">
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="content-vb-donvi" class="tab-content hidden">
+                <div class="flex justify-end mb-4">
+                    <button class="bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors flex items-center">
+                        <i class="fas fa-plus mr-2"></i> Tạo mới văn bản
+                    </button>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full whitespace-nowrap">
+                        <thead class="bg-blue-800 text-white">
+                            <tr>
+                                <th class="p-4 text-left font-semibold">#</th>
+                                <th class="p-4 text-left font-semibold">Tên Văn bản</th>
+                                <th class="p-4 text-left font-semibold">Loại văn bản</th>
+                                <th class="p-4 text-left font-semibold">Ngày tạo</th>
+                                <th class="p-4 text-left font-semibold">Trạng thái</th>
+                                <th class="p-4 text-left font-semibold">Tác vụ</th>
+                            </tr>
+                        </thead>
+                        <tbody id="van-ban-donvi-table-body" class="divide-y divide-gray-200">
+                             </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="footer-placeholder"></div>
+    <script src="/js/main.js"></script>
+    <script src="/js/vanBanChiDao.js"></script> 
+</body>
+</html>

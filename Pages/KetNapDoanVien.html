@@ -31,6 +31,7 @@
                 </a>
                 </nav>
         </div>
+        
 
         <div class="bg-white p-6 rounded-lg shadow-md">
             <div class="flex justify-end mb-4">
@@ -48,43 +49,222 @@
                     </div>
 
                     <div class="md:col-span-3">
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-4">
-                            <div>
-                                <label for="ma-dinh-danh" class="block text-sm font-medium text-gray-700">Mã định danh đoàn viên</label>
-                                <input type="text" id="ma-dinh-danh" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3">
-                            </div>
-                            <div>
-                                <label for="ho-ten" class="block text-sm font-medium text-gray-700">Họ tên (*)</label>
-                                <input type="text" id="ho-ten" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3">
-                            </div>
-                            <div>
-                                <label for="ngay-sinh" class="block text-sm font-medium text-gray-700">Ngày Sinh (*)</label>
-                                <input type="date" id="ngay-sinh" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3">
-                            </div>
-                            </div>
+                        <div class="md:col-span-3">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-4">
+                
+                <div>
+                    <label for="ma-dinh-danh" class="block text-sm font-medium text-gray-700">Mã định danh đoàn viên</label>
+                    <input type="text" id="ma-dinh-danh" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" placeholder="0">
+                </div>
+                <div>
+                    <label for="ho-ten" class="block text-sm font-medium text-gray-700">Họ tên (*)</label>
+                    <input type="text" id="ho-ten" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+                <div>
+                    <label for="ngay-sinh" class="block text-sm font-medium text-gray-700">Ngày Sinh (*)</label>
+                    <input type="date" id="ngay-sinh" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+
+                <div>
+                    <label for="gioi-tinh" class="block text-sm font-medium text-gray-700">Giới tính (*)</label>
+                    <select id="gioi-tinh" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                        <option>Nam</option>
+                        <option>Nữ</option>
+                        <option>Khác</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="dan-toc" class="block text-sm font-medium text-gray-700">Dân tộc</label>
+                    <input type="text" id="dan-toc" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+                <div>
+                    <label for="chung-minh-nhan-dan" class="block text-sm font-medium text-gray-700">Chứng minh nhân dân</label>
+                    <input type="text" id="chung-minh-nhan-dan" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+
+                <div>
+                    <label for="ngay-cap" class="block text-sm font-medium text-gray-700">Ngày cấp</label>
+                    <input type="date" id="ngay-cap" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+                <div>
+                    <label for="noi-cap" class="block text-sm font-medium text-gray-700">Nơi cấp</label>
+                    <input type="text" id="noi-cap" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+                <div>
+                    <label for="ton-giao" class="block text-sm font-medium text-gray-700">Tôn giáo</label>
+                    <input type="text" id="ton-giao" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+                
+                <div>
+                    <label for="trinh-do-van-hoa" class="block text-sm font-medium text-gray-700">Trình độ văn hóa</label>
+                    <input type="text" id="trinh-do-van-hoa" placeholder="Ví dụ: 12/12" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+                <div>
+                    <label for="trinh-do-chuyen-mon" class="block text-sm font-medium text-gray-700">Trình độ chuyên môn</label>
+                    <select id="trinh-do-chuyen-mon" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                        <option>Chọn trình độ chuyên môn</option>
+                        <option>Đại học</option>
+                        <option>Cao đẳng</option>
+                        <option>Trung cấp</option>
+                    </select>
+                </div>
+                 <div>
+                    <label for="ly-luan-chinh-tri" class="block text-sm font-medium text-gray-700">Lý luận chính trị</label>
+                    <select id="ly-luan-chinh-tri" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                        <option>Chọn lý luận chính trị</option>
+                        <option>Sơ cấp</option>
+                        <option>Trung cấp</option>
+                        <option>Cao cấp</option>
+                    </select>
+                </div>
+                
+                <div class="md:col-span-3 grid grid-cols-1 md:grid-cols-3 gap-x-6">
+                    <div>
+                        <label for="que-quan-tinh" class="block text-sm font-medium text-gray-700">Quê quán (Tỉnh/Thành) (*)</label>
+                        <select id="que-quan-tinh" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                            <option>Chọn Tỉnh/Thành</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="que-quan-huyen" class="block text-sm font-medium text-gray-700">Quê quán (Quận/Huyện) (*)</label>
+                        <select id="que-quan-huyen" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                             <option>Chọn Quận/Huyện</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="que-quan-xa" class="block text-sm font-medium text-gray-700">Quê quán (Xã/Phường) (*)</label>
+                        <select id="que-quan-xa" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                             <option>Chọn Xã/Phường</option>
+                        </select>
                     </div>
                 </div>
 
-                <div class="mt-6 pt-6 border-t">
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <div class="flex items-center">
-                            <input id="so-yeu-ly-lich" type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded">
-                            <label for="so-yeu-ly-lich" class="ml-2 block text-sm text-gray-900">Sơ yếu lý lịch và đơn xin vào đoàn</label>
-                        </div>
-                        <div class="flex items-center">
-                            <input id="bien-ban-hop-xet" type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded">
-                            <label for="bien-ban-hop-xet" class="ml-2 block text-sm text-gray-900">Biên bản họp xét kết nạp đoàn viên của chi đoàn</label>
-                        </div>
-                        <div class="flex items-center">
-                            <input id="giay-dam-bao" type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded">
-                            <label for="giay-dam-bao" class="ml-2 block text-sm text-gray-900">Giấy đảm bảo thanh niên vào đoàn</label>
-                        </div>
-                        <div class="flex items-center">
-                            <input id="giay-chung-nhan" type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded">
-                            <label for="giay-chung-nhan" class="ml-2 block text-sm text-gray-900">Giấy chứng nhận đã học lớp cảm tình đoàn</label>
-                        </div>
+                <div class="md:col-span-3 grid grid-cols-1 md:grid-cols-3 gap-x-6">
+                    <div>
+                        <label for="thuong-tru-tinh" class="block text-sm font-medium text-gray-700">Thường trú (Tỉnh/Thành) (*)</label>
+                        <select id="thuong-tru-tinh" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                            <option>Chọn Tỉnh/Thành</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="thuong-tru-huyen" class="block text-sm font-medium text-gray-700">Thường trú (Quận/Huyện) (*)</label>
+                        <select id="thuong-tru-huyen" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                            <option>Chọn Quận/Huyện</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="thuong-tru-xa" class="block text-sm font-medium text-gray-700">Thường trú (Xã/Phường) (*)</label>
+                        <select id="thuong-tru-xa" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                            <option>Chọn Xã/Phường</option>
+                        </select>
                     </div>
                 </div>
+
+                <div>
+                    <label for="trinh-do-tin-hoc" class="block text-sm font-medium text-gray-700">Trình độ tin học</label>
+                    <select id="trinh-do-tin-hoc" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                        <option>Chọn trình độ tin học</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="ngoai-ngu" class="block text-sm font-medium text-gray-700">Ngoại ngữ</label>
+                    <select id="ngoai-ngu" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                        <option>Chọn ngoại ngữ</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="nghi-quyet" class="block text-sm font-medium text-gray-700">Nghị quyết chuẩn y kết nạp Đoàn</label>
+                    <input type="text" id="nghi-quyet" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+                
+                <div>
+                    <label for="so-the-doan" class="block text-sm font-medium text-gray-700">Số thẻ đoàn</label>
+                    <input type="text" id="so-the-doan" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+                <div>
+                    <label for="thoi-gian-vao-doan" class="block text-sm font-medium text-gray-700">Thời gian vào Đoàn (*)</label>
+                    <input type="date" id="thoi-gian-vao-doan" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+                <div>
+                    <label for="to-chuc-sinh-hoat" class="block text-sm font-medium text-gray-700">Tổ chức sinh hoạt</label>
+                     <select id="to-chuc-sinh-hoat" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                        <option>Đoàn viên</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="chuc-vu-trong-chi-doan" class="block text-sm font-medium text-gray-700">Chức vụ trong chi đoàn (*)</label>
+                    <select id="chuc-vu-trong-chi-doan" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                        <option>Đoàn viên</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="he-dao-tao" class="block text-sm font-medium text-gray-700">Hệ đào tạo</label>
+                    <select id="he-dao-tao" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                        <option>Chọn hệ đào tạo</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="doan-vien-danh-du" class="block text-sm font-medium text-gray-700">Đoàn viên danh dự</label>
+                    <input type="text" id="doan-vien-danh-du" placeholder="Không" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+                
+                <div>
+                    <label for="thoi-gian-vao-dang" class="block text-sm font-medium text-gray-700">Thời gian vào Đảng</label>
+                    <input type="date" id="thoi-gian-vao-dang" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+                <div>
+                    <label for="nghe-nghiep-hien-nay" class="block text-sm font-medium text-gray-700">Nghề nghiệp hiện nay (*)</label>
+                    <select id="nghe-nghiep-hien-nay" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                        <option>Chọn nghề nghiệp hiện nay</option>
+                        <option>Sinh viên</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                    <input type="email" id="email" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+                
+                <div>
+                    <label for="dien-thoai" class="block text-sm font-medium text-gray-700">Điện thoại</label>
+                    <input type="tel" id="dien-thoai" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+                 <div>
+                    <label for="so-doan-vien" class="block text-sm font-medium text-gray-700">Sổ đoàn viên</label>
+                    <input type="text" id="so-doan-vien" placeholder="Không" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+                 <div>
+                    <label for="co-huong-luong" class="block text-sm font-medium text-gray-700">Có hưởng lương</label>
+                    <input type="text" id="co-huong-luong" placeholder="Không" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+            </div>
+        </div>
+                </div>
+
+                <div class="mt-6 pt-6 border-t">
+  <div class="flex flex-wrap items-center gap-x-8 gap-y-4">
+    <label class="flex items-center space-x-2">
+      <input id="so-yeu-ly-lich" type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded">
+      <span class="text-sm text-gray-900">Sơ yếu lý lịch và đơn xin vào đoàn</span>
+    </label>
+
+    <label class="flex items-center space-x-2">
+      <input id="bien-ban-hop-xet" type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded">
+      <span class="text-sm text-gray-900">Biên bản họp xét kết nạp đoàn viên của chi đoàn</span>
+    </label>
+
+    <label class="flex items-center space-x-2">
+      <input id="giay-dam-bao" type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded">
+      <span class="text-sm text-gray-900">Giấy đảm bảo thanh niên vào đoàn</span>
+    </label>
+
+    <label class="flex items-center space-x-2">
+      <input id="giay-chung-nhan" type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded">
+      <span class="text-sm text-gray-900">Giấy chứng nhận đã học lớp cảm tình đoàn</span>
+    </label>
+  </div>
+</div>
+
 
                 <div class="mt-8 flex justify-end">
                     <button type="submit" class="bg-green-600 text-white font-bold px-6 py-2 rounded-lg hover:bg-green-700 flex items-center">

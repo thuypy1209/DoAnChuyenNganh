@@ -99,27 +99,25 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.AccessDeniedPath = "/Account/AccessDenied";
 });
 
-// Dán toàn bộ phần này để thay thế cho khối "var app = ..." cũ
+
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-app.UseStaticFiles(); // Cho phép truy cập các file trong wwwroot
+app.UseStaticFiles();
 
-app.UseRouting(); // --- BƯỚC 1: Xác định tuyến đường
-
-app.UseCors("AllowSpecificOrigin"); // --- BƯỚC 2: Áp dụng luật CORS
+app.UseRouting(); 
+app.UseCors("AllowSpecificOrigin"); // --- Là nó nè 5 Tiếng của 
 
 app.UseCors("AllowFrontend");
 
-app.UseAuthentication(); // --- BƯỚC 3: Xác thực (bạn là ai?)
-app.UseAuthorization(); // --- BƯỚC 4: Phân quyền (bạn được làm gì?)
+app.UseAuthentication(); 
+app.UseAuthorization(); 
 
 app.MapControllers();
 

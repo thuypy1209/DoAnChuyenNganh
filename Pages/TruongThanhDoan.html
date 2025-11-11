@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nghiệp vụ: Trưởng thành Đoàn</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body class="bg-gray-100 font-sans">
+
+    <div id="navbar-placeholder"></div>
+
+    <main class="container mx-auto p-8">
+
+        <div class="mb-6">
+            <h1 class="text-3xl font-bold text-gray-800">Trưởng thành đoàn</h1>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <div class="border-b border-gray-200 mb-4">
+                <nav class="-mb-px flex space-x-8" aria-label="Tabs">
+                    <button data-content-id="content-den-tuoi" class="tab-button whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-blue-500 text-blue-600">
+                        Danh sách đến tuổi trưởng thành đoàn
+                    </button>
+                    <button data-content-id="content-tiep-tuc" class="tab-button whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300">
+                        Danh sách tiếp tục sinh hoạt
+                    </button>
+                    <button data-content-id="content-da-truong-thanh" class="tab-button whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300">
+                        Danh sách trưởng thành đoàn
+                    </button>
+                </nav>
+            </div>
+
+            <div id="content-den-tuoi" class="tab-content">
+                
+                <div id="view-danh-sach-de-xuat">
+                    <div class="flex justify-end mb-4 space-x-2">
+                        <button id="btn-xac-nhan-truong-thanh" class="bg-green-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-600 flex items-center">
+                            <i class="fas fa-paper-plane mr-2"></i> TRƯỞNG THÀNH ĐOÀN
+                        </button>
+                         <button class="bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600 flex items-center">
+                            <i class="fas fa-sync-alt mr-2"></i> TIẾP TỤC SINH HOẠT
+                        </button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="p-3 w-10"><input type="checkbox" id="select-all-checkbox" title="Chọn tất cả"></th>
+                                    <th class="p-3 text-left font-semibold text-gray-600">Họ và tên</th>
+                                    <th class="p-3 text-left font-semibold text-gray-600">Ngày sinh</th>
+                                    <th class="p-3 text-left font-semibold text-gray-600">Ngày vào đoàn</th>
+                                    <th class="p-3 text-left font-semibold text-gray-600">Chức vụ</th>
+                                </tr>
+                            </thead>
+                            <tbody id="den-tuoi-table-body" class="divide-y">
+                                <tr>
+                                    <td class="p-3"><input type="checkbox" class="member-checkbox"></td>
+                                    <td class="p-3">Duy test 2</td>
+                                    <td class="p-3">21/02/1990</td>
+                                    <td class="p-3">21/02/2005</td>
+                                    <td class="p-3">Đoàn viên</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3"><input type="checkbox" class="member-checkbox"></td>
+                                    <td class="p-3">TEST</td>
+                                    <td class="p-3">09/06/1991</td>
+                                    <td class="p-3">01/01/1999</td>
+                                    <td class="p-3">Đoàn viên</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="view-xac-nhan-truong-thanh" class="hidden">
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <div class="lg:col-span-2 space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Số QĐ</label>
+                                <input type="text" placeholder="Nhập quyết định" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Ngày hiệu lực</label>
+                                <input type="date" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">CHỌN FILE QĐ</label>
+                                <button class="mt-1 w-full border border-gray-300 rounded-md p-2 text-left text-gray-500 hover:bg-gray-50">+ FILE QĐ</button>
+                            </div>
+                             <div>
+                                <label class="block text-sm font-medium text-gray-700">NỘI DUNG</label>
+                                <textarea rows="4" class="mt-1 block w-full border border-gray-300 rounded-md p-2">Trưởng thành đoàn</textarea>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="font-bold mb-2">DANH SÁCH TRƯỞNG THÀNH ĐOÀN</h3>
+                            <div class="border rounded-md max-h-64 overflow-y-auto">
+                                <table class="w-full">
+                                    <thead>
+                                        <tr>
+                                            <th class="p-2 text-left">Stt</th>
+                                            <th class="p-2 text-left">Họ và tên</th>
+                                            <th class="p-2 text-left">Xóa</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="confirm-list-body">
+                                        </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-8 flex justify-start space-x-2">
+                        <button class="bg-green-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-600">XÁC NHẬN</button>
+                        <button id="btn-quay-lai" class="bg-gray-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-gray-600">QUAY LẠI</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div id="content-tiep-tuc" class="tab-content hidden">
+                <div class="overflow-x-auto">
+                  <table class="w-full">
+                      <thead class="bg-gray-50">
+                           <tr>
+                    <th class="p-3 text-left font-semibold text-gray-600">STT</th>
+                    <th class="p-3 text-left font-semibold text-gray-600">Họ và tên</th>
+                    <th class="p-3 text-left font-semibold text-gray-600">Ngày sinh</th>
+                    <th class="p-3 text-left font-semibold text-gray-600">Ngày vào đoàn</th>
+                    <th class="p-3 text-left font-semibold text-gray-600">Chức vụ</th>
+                       </tr>
+                        </thead>
+            <tbody class="divide-y">
+                <tr><td colspan="5" class="p-8 text-center text-gray-500">Chưa có ai trong danh sách này.</td></tr>
+            </tbody>
+        </table>
+     </div>
+</div>
+            
+            <div id="content-da-truong-thanh" class="tab-content hidden">
+     <div class="overflow-x-auto">
+         <table class="w-full">
+            <thead class="bg-gray-50">
+                 <tr>
+                    <th class="p-3 text-left font-semibold text-gray-600">STT</th>
+                    <th class="p-3 text-left font-semibold text-gray-600">Họ và tên</th>
+                    <th class="p-3 text-left font-semibold text-gray-600">Ngày sinh</th>
+                    <th class="p-3 text-left font-semibold text-gray-600">Ngày trưởng thành</th>
+                    <th class="p-3 text-left font-semibold text-gray-600">Số quyết định</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y">
+                <tr><td colspan="5" class="p-8 text-center text-gray-500">Chưa có ai trong danh sách này.</td></tr>
+            </tbody>
+        </table>
+     </div>
+</div>
+        </div>
+    </main>
+
+    <div id="footer-placeholder"></div>
+    <script src="/js/main.js"></script>
+    <script src="/js/truongThanhDoan.js"></script> 
+</body>
+</html>

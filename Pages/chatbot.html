@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HUTECH Admission AI Chatbot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body {
+            background-color: #e3f2fd;
+        }
+        main::-webkit-scrollbar { width: 8px; }
+        main::-webkit-scrollbar-thumb { background-color: #bdbdbd; border-radius: 3px; }
+        .suggestion-scroll::-webkit-scrollbar { height: 6px; }
+        .suggestion-scroll::-webkit-scrollbar-thumb { background-color: #bdbdbd; border-radius: 3px; }
+        /* Auto-resize textarea */
+        #chat-input {
+            resize: none;
+            overflow-y: auto;
+            min-height: 20px;
+            max-height: 100px;
+        }
+        #chat-input:focus {
+            min-height: 40px;
+        }
+    </style>
+</head>
+<body class="font-sans">
+    <div class="flex flex-col h-screen">
+       <header class="bg-white/90 backdrop-blur-sm shadow-sm p-3 flex justify-between items-center border-b z-20">
+    <div class="flex items-center space-x-3">
+        <img src="../images/hutech.png" alt="Logo" class="h-8">
+        <span class="font-bold text-lg text-blue-600">HUTECH Admission AI Chatbot</span>
+        <span class="text-gray-300">|</span>
+        <button class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-3 py-2 rounded-lg text-sm shadow-md hover:opacity-90 flex items-center">
+            <i class="fas fa-plus mr-2"></i> Cuộc trò chuyện mới
+        </button>
+    </div>
+    <div class="flex items-center space-x-4">
+        <a href="home.html" class="text-gray-600 hover:text-blue-600 text-sm flex items-center">
+            <i class="fas fa-redo-alt mr-2"></i> Trở về trang chủ
+        </a>
+        <button class="bg-sky-200 text-sky-800 font-semibold px-4 py-2 rounded-lg text-sm hover:bg-sky-300">
+            Đăng nhập
+        </button>
+    </div>
+</header>
+
+        <div class="flex-grow relative">
+            <main class="absolute inset-0 overflow-y-auto pb-52">
+                <div id="chat-messages" class="w-full max-w-3xl mx-auto pt-8 px-4 flex flex-col items-center">
+                    <div id="welcome-screen" class="text-center">
+                        <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
+                            <img src="../images/chatbot_icon.png" alt="Chatbot Icon" class="w-16 h-16">
+                        </div>
+                        <h1 class="text-3xl font-bold text-gray-800 mb-2">HUTECH Admission AI Chatbot xin chào!</h1>
+                        <p class="text-gray-600">Chào bạn! Bạn đang liên lạc với HUTECH Admission AI Chatbot...</p>
+                    </div>
+                </div>
+            </main>
+
+            <footer class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-[#e3f2fd] to-transparent z-10">
+                <div class="w-full max-w-3xl mx-auto">
+                    <div class="mb-3">
+                        <div class="suggestion-scroll flex space-x-3 overflow-x-auto pb-2 -mx-2 px-2">
+                            <button class="suggestion-btn flex-shrink-0 bg-white/90 rounded-lg p-3 text-sm text-left hover:bg-white shadow-sm border cursor-pointer transition-colors">Chính sách học phí của HUTECH năm 2025?</button>
+                            <button class="suggestion-btn flex-shrink-0 bg-white/90 rounded-lg p-3 text-sm text-left hover:bg-white shadow-sm border cursor-pointer transition-colors">Thông tin liên hệ trực tiếp đến Trung tâm Tư vấn tuyển sinh HUTECH?</button>
+                            <button class="suggestion-btn flex-shrink-0 bg-white/90 rounded-lg p-3 text-sm text-left hover:bg-white shadow-sm border cursor-pointer transition-colors">Năm 2025, HUTECH có những ngành đào tạo nào?</button>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md p-2 flex items-center border">
+                        <textarea id="chat-input" rows="1" placeholder="Nhắn tin cho HUTECH Admission AI Chatbot..." class="flex-grow p-2 bg-transparent focus:outline-none"></textarea>
+                        <button id="send-btn" class="text-gray-400 hover:text-blue-600 p-2 disabled:opacity-50" disabled>
+                            <i class="fas fa-paper-plane text-xl"></i>
+                        </button>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Giả sử chatbot_data.js có data, em thêm mẫu ở dưới nếu chưa có -->
+    <script>
+        // Mẫu data nếu chatbot_data.js chưa có (thay bằng file thật của anh/chị)
+        const chatbotData = {
+            "Chính sách học phí của HUTECH năm 2025?": "Năm 2025, học phí HUTECH dao động từ 20-50 triệu/năm tùy ngành. Chi tiết: Kỹ thuật: 25tr, Kinh tế: 30tr, Y-Dược: 40tr. Có học bổng lên đến 100% cho thí sinh top đầu. Liên hệ hotline 1900-xxx để tư vấn cụ thể!",
+            "Thông tin liên hệ trực tiếp đến Trung tâm Tư vấn tuyển sinh HUTECH?": "Trung tâm Tư vấn Tuyển sinh HUTECH: Địa chỉ: 475A Điện Biên Phủ, Q.Bình Thạnh, TP.HCM. Hotline: 028 7300 3079. Email: tts@hutech.edu.vn. Giờ làm việc: 8h-17h (T2-T6). Website: hutech.edu.vn",
+            "Năm 2025, HUTECH có những ngành đào tạo nào?": "Năm 2025, HUTECH đào tạo 70+ ngành: Công nghệ Thông tin, Kỹ thuật Cơ khí, Kinh doanh Quốc tế, Du lịch, Y khoa... Xét tuyển dựa trên điểm THPT, học bạ hoặc chứng chỉ quốc tế. Danh sách chi tiết tại: tuyensinh.hutech.edu.vn"
+        };
+    </script>
+    <script src="/js/chatbotPage.js"></script>
+    <script src="/js/chatbot_data.js"></script>
+    
+</body>
+</html>
