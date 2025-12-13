@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Xét Danh Hiệu - Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body class="bg-gray-50 font-sans text-gray-800">
+
+    <div class="flex h-screen overflow-hidden">
+        <aside class="w-64 bg-blue-900 text-white hidden md:block">
+            <div class="p-6"><h1 class="font-bold text-xl">MENU ADMIN</h1></div>
+            <div class="px-4"><a href="quanLySinhVien.html" class="block py-2 text-gray-400 hover:text-white"> <i class="fas fa-arrow-left mr-2"></i> QL Sinh Viên</a></div>
+            
+        </aside>
+
+        <div class="flex-grow flex flex-col h-screen overflow-y-auto">
+            <main class="p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <div>
+                        <h1 class="text-2xl font-bold text-blue-900 uppercase">Xét Duyệt Sinh Viên 5 Tốt</h1>
+                        <p class="text-sm text-gray-500">Hệ thống tự động lọc sinh viên đạt chuẩn (Điểm >= 80)</p>
+                    </div>
+                    
+                    <div class="flex gap-2">
+                        <input type="text" id="txtTenDanhHieu" value="Sinh viên 5 tốt cấp Trường 2025" class="border rounded px-3 py-2 w-64 font-bold text-blue-900">
+                        <button onclick="capDanhHieu()" class="bg-yellow-500 text-white px-6 py-2 rounded-lg font-bold hover:bg-yellow-600 shadow-lg flex items-center gap-2">
+                            <i class="fas fa-award"></i> CẤP CHỨNG NHẬN ĐỒNG LOẠT
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                    <table class="w-full text-left border-collapse">
+                        <thead class="bg-blue-900 text-white text-xs uppercase font-bold">
+                            <tr>
+                                <th class="p-4 border-b w-10"><input type="checkbox" id="checkAll" onclick="toggleAll(this)"></th>
+                                <th class="p-4 border-b">Sinh viên</th>
+                                <th class="p-4 border-b">Lớp / Khoa</th>
+                                <th class="p-4 border-b text-center">Điểm Rèn Luyện</th>
+                                <th class="p-4 border-b text-center">Xếp loại</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody" class="text-sm text-gray-700">
+                            <tr><td colspan="5" class="p-8 text-center text-gray-400">Đang lọc dữ liệu...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="../js/admin_xetDanhHieu.js"></script>
+</body>
+</html>

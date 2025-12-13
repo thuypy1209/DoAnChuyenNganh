@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     async function findAnswer(userQuestion) {
         try {
-            const response = await fetch('https://localhost:7006/api/chatbot/ask', { // ⚠️ THAY ĐÚNG SỐ CỔNG CỦA BẠN
+            const response = await fetch('http://127.0.0.1:5114/api/chatbot/ask', { // ⚠️ THAY ĐÚNG SỐ CỔNG CỦA BẠN
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ Question: userQuestion }),

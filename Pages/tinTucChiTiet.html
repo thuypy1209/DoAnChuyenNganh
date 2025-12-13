@@ -3,71 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="page-title">Chi Tiết Tin Tức - Quản lý Đoàn viên</title>
+    <title>Chi Tiết Tin Tức - HUTECH</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
-<body class="bg-gray-100 font-sans">
+<body class="bg-gray-50 font-sans flex flex-col min-h-screen">
 
     <div id="navbar-placeholder"></div>
 
-    <main class="container mx-auto p-8">
-        <div class="bg-white p-8 rounded-lg shadow-xl">
-            <h1 id="news-title" class="text-3xl lg:text-4xl font-extrabold text-gray-800 mb-4">
-                Đang tải Tiêu đề...
-            </h1>
+    <main class="container mx-auto px-4 py-8 pt-24 flex-grow max-w-4xl">
+        
+        <a href="javascript:history.back()" class="inline-flex items-center text-gray-500 hover:text-blue-900 mb-6 transition-colors">
+            <i class="fas fa-arrow-left mr-2"></i> Quay lại
+        </a>
+
+        <div class="bg-white rounded-2xl shadow-sm overflow-hidden min-h-[400px]">
             
-            <div class="text-sm text-gray-500 border-b pb-4 mb-6">
-                <i class="fas fa-calendar-alt mr-2"></i> Ngày đăng: <span id="news-date">...</span> 
-                <span class="mx-3">|</span>
-                <i class="fas fa-user-edit mr-2"></i> Người đăng: <span id="news-author">Admin</span>
+            <div class="relative h-64 md:h-80 w-full">
+                <img id="newsImage" src="images/banner1.jpg" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
             </div>
 
-            <div class="mb-8">
-                <img id="news-image" src="" alt="Hình ảnh tin tức" class="w-full h-auto object-cover rounded-lg shadow-md">
-            </div>
-            
-            <div id="news-content" class="text-lg leading-relaxed text-gray-700">
-                <p>Nội dung đang được tải. Vui lòng chờ...</p>
-            </div>
+            <div class="p-8">
+                <div class="flex items-center gap-4 text-sm text-gray-500 mb-4">
+                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full font-bold text-xs uppercase">Tin tức</span>
+                    <span class="flex items-center"><i class="far fa-calendar-alt mr-2"></i> <span id="newsDate">--/--/----</span></span>
+                </div>
 
-            <div class="mt-10 pt-4 border-t text-right">
-                <a href="Home.html" class="text-blue-600 hover:text-blue-800 font-semibold">
-                    <i class="fas fa-arrow-left mr-2"></i> Quay lại Trang chủ
-                </a>
+                <h1 id="newsTitle" class="text-3xl md:text-4xl font-bold text-gray-900 mb-6 leading-tight">
+                    Đang tải tiêu đề...
+                </h1>
+
+                <div id="newsContent" class="prose max-w-none text-gray-700 leading-relaxed text-lg">
+                    <p class="text-center text-gray-400">Đang tải nội dung...</p>
+                </div>
             </div>
         </div>
-        <div class="mt-12 pt-6 border-t border-gray-300">
-    <h2 class="text-2xl font-bold text-gray-800 mb-6 border-l-4 border-red-600 pl-3">Các tin khác</h2>
-    
-    <div id="related-news-container" class="space-y-6">
-        <p class="text-gray-500" id="loading-related-news">Đang tải các tin tức khác...</p>
-    </div>
-    </div>
+
     </main>
 
     <div id="footer-placeholder"></div>
-    <script>
-    // Định nghĩa nội dung mẫu (TỰ TẠO)
-    const SAMPLE_NEWS_DATA = {
-        TieuDe: "Đón đợi vòng Chung kết Cuộc thi “Ý tưởng Đổi mới sáng tạo...”",
-        NgayDang: "2025-10-21T00:00:00",
-        AnhMinhHoa: "https://file1.hutech.edu.vn/file/news/1429301761017752.png",
-        NoiDung: `
-            <p class="mb-4 font-bold">Trải qua hai vòng Sơ loại và Bán kết, top 10 chung cuộc đã sẵn sàng tranh tài tại vòng Chung kết Cuộc thi “Ý tưởng Đổi mới sáng tạo các trường Đại học tại vùng Đông Nam Bộ” sẽ diễn ra vào ngày 25/10 tới tại Trung tâm Đào tạo Nhân lực chất lượng cao (Phân khu Đào tạo E1, Khu công nghệ cao, Phường Tăng Nhơn Phú, TP.HCM) của Trường Đại học Công nghệ TP.HCM (HUTECH).</p>
-            
-            <p class="mb-4">Chương trình thu hút hàng trăm ý tưởng sáng tạo từ sinh viên các trường đại học trong khu vực. Đây là cơ hội để các bạn trẻ biến ý tưởng thành sản phẩm thực tế và tìm kiếm nguồn đầu tư.</p>
 
-            <img src="images/tin-tuc-chinh.jpg" alt="Hoạt động" class="w-full rounded-lg mb-4">
-            
-            <p>Vòng chung kết hứa hẹn sẽ là một cuộc so tài hấp dẫn, nơi các đội thi trình bày dự án của mình trước Hội đồng Giám khảo uy tín. Chúc các đội thi đạt kết quả tốt nhất!</p>
-        `
-    };
-    
-</script>
-
-    <script src="js/main.js"></script> 
-    <script src="js/tinTucChiTiet.js" type="module"></script> 
-    
+    <script src="js/main.js"></script>
+    <script src="js/tinTucChiTiet.js"></script> 
 </body>
 </html>

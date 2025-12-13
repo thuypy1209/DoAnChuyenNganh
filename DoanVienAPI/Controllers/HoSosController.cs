@@ -127,7 +127,7 @@ namespace DoanVienAPI.Controllers
 
         // POST: api/HoSos (Thêm hồ sơ và tải tệp lên)
         [HttpPost]
-        public async Task<ActionResult<HoSoBaoCao>> PostHoSo([FromForm] HoSoBaoCao hoSo, IFormFile? file) // [FromForm] để nhận dữ liệu từ FormData
+        public async Task<ActionResult<HoSoBaoCao>> PostHoSo([FromForm] HoSoBaoCao hoSo, IFormFile? file)
         {
             if (_context.HoSos == null)
             {
@@ -139,14 +139,21 @@ namespace DoanVienAPI.Controllers
                 return BadRequest("Vui lòng tải lên một tệp tin.");
             }
 
-            // Lưu tệp vào thư mục wwwroot/uploads
+            // 1. Chuẩn bị thư mục
             var uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "uploads");
             if (!Directory.Exists(uploadsFolder))
             {
                 Directory.CreateDirectory(uploadsFolder);
             }
 
-            var uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+            // 👇👇👇 SỬA QUAN TRỌNG Ở ĐÂY 👇👇👇
+            // Lấy đuôi file (vd: .pdf)
+            var extension = Path.GetExtension(file.FileName);
+
+            // Đặt tên mới: Chỉ gồm mã số + đuôi (KHÔNG DÙNG TÊN TIẾNG VIỆT CŨ NỮA)
+            var uniqueFileName = $"file_{Guid.NewGuid()}{extension}";
+            // 👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆
+
             var filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
             using (var stream = new FileStream(filePath, FileMode.Create))
@@ -154,10 +161,14 @@ namespace DoanVienAPI.Controllers
                 await file.CopyToAsync(stream);
             }
 
-            hoSo.DuongDanTep = "/uploads/" + uniqueFileName; // Lưu đường dẫn tương đối trong database
-            hoSo.NgayNop = DateTime.Now; // Đặt ngày nộp
-            hoSo.NgayTao = DateTime.Now; // Đặt ngày tạo
-            hoSo.NgayCapNhat = DateTime.Now; // Đặt ngày cập nhật
+            // Lưu thông tin vào DB
+            hoSo.DuongDanTep = $"/uploads/{uniqueFileName}"; // Lưu đường dẫn
+            hoSo.NgayNop = DateTime.Now;
+            hoSo.NgayTao = DateTime.Now;
+            hoSo.NgayCapNhat = DateTime.Now;
+
+            // Đảm bảo trạng thái
+            if (string.IsNullOrEmpty(hoSo.TrangThai)) hoSo.TrangThai = "ChoDuyet";
 
             _context.HoSos.Add(hoSo);
             await _context.SaveChangesAsync();

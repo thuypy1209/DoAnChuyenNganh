@@ -1,7 +1,9 @@
 <header class="bg-white shadow-md">
     <div class="container mx-auto px-8 py-4 flex justify-between items-center">
         <div class="flex items-center">
-            <img src="../images/hutech_logo.png" alt="Logo HUTECH" class="h-20">
+            <a href="home.html">
+                <img src="../images/hutech_logo.png" alt="Logo HUTECH" class="h-20">
+            </a>
         </div>
         
         <div class="flex flex-col items-end space-y-2">
@@ -24,43 +26,87 @@
             </div>
 
             <div class="flex items-center space-x-2">
-                 <img src="../images/30-nam-hutech.png" alt="30 Years HUTECH" class="h-24
-                 ">
+                 <img src="../images/30-nam-hutech.png" alt="30 Years HUTECH" class="h-24">
                  <img src="../images/qs-stars.png" alt="QS Stars" class="h-12">
             </div>
         </div>
     </div>
 </header>
 
-<nav class="bg-blue-900 text-white shadow-lg">
+<nav class="bg-blue-900 text-white shadow-lg sticky top-0 z-50">
     <div class="container mx-auto px-6 py-3 flex justify-between items-center">
-        <a href="home.html" class="flex items-center space-x-2">
-            <i class="fas fa-home text-xl"></i>
-            <span class="text-xl font-bold hidden sm:inline">Trang Chủ</span>
+        
+        
+        <a href="home.html" class="flex items-center space-x-2 hover:text-yellow-400 transition-colors">
+            <i class="fas fa-book-reader text-xl"></i>
+            <span class="text-xl font-bold hidden sm:inline">Sổ Tay Rèn Luyện</span>
         </a>
 
-        <ul class="hidden md:flex items-center space-x-6">
-            <li><a href="dashbroad.html" class="hover:text-yellow-400">Dashboard</a></li>
-            <li><a href="QLDV.html" class="hover:text-yellow-400">Quản lý Đoàn viên</a></li>
-            <li><a href="QLTT.html" class="hover:text-yellow-400">Quản lý Tin tức</a></li>
-            <li><a href="lichthi.html" class="hover:text-yellow-400">Quản lý Lịch thi</a></li>
-            <li><a href="bangdiem.html" class="hover:text-yellow-400">Quản lý Bảng điểm</a></li>
+        <ul class="hidden md:flex items-center space-x-6 font-medium">
             
+            <li>
+                <a href="dangKyHoatDong.html" class="hover:text-yellow-400 flex items-center">
+                    <i class="fas fa-calendar-check mr-2"></i> Đăng Ký Hoạt Động
+                </a>
+            </li>
+
+            <li>
+                <a href="phongTrao.html" class="hover:text-yellow-400 flex items-center">
+                    <i class="fas fa-flag mr-2"></i> HĐ & Phong trào
+                </a>
+            </li>
+
+            <li>
+                <a href="khoTaiLieu.html" class="hover:text-yellow-400 flex items-center">
+                    <i class="fas fa-flag mr-2"></i> Kho Tài Liệu
+                </a>
+            </li>
+
+            <li>
+                <a href="chungNhan.html" class="hover:text-yellow-400 flex items-center" title="Tra cứu chứng nhận điện tử">
+                    <i class="fas fa-wallet mr-2"></i> Ví Chứng Nhận
+                </a>
+            </li>
             
-            <li class="relative">
-                <button id="dropdown-button" class="hover:text-yellow-400 flex items-center">
+            <li class="relative group">
+                <button class="hover:text-yellow-400 flex items-center focus:outline-none py-2 font-bold">
                     Thêm
-                    <i class="fas fa-chevron-down ml-2 text-xs"></i>
+                    <i class="fas fa-chevron-down ml-2 text-xs transition-transform group-hover:rotate-180"></i>
                 </button>
-                <div id="dropdown-menu" class="absolute right-0 mt-2 w-48 bg-white text-black rounded-md shadow-lg py-1 hidden z-10">
-                    <a href="danhmuc.html" class="block px-4 py-2 text-sm hover:bg-gray-100">Quản lý Danh mục</a>
-                    <a href="hosobaocao.html" class="block px-4 py-2 text-sm hover:bg-gray-100">Quản lý Hồ sơ</a>
-                    <a href="account/changepassword.html" class="block px-4 py-2 text-sm hover:bg-gray-100">Đổi mật khẩu</a>
+                
+                <div class="absolute right-0 mt-0 w-56 bg-white text-gray-800 rounded-md shadow-xl py-2 hidden group-hover:block z-50 border-t-4 border-yellow-400">
+                    
+                    <div class="px-4 py-1 text-xs font-bold text-red-400 uppercase">Học tập</div>
+                    <a href="lichthi.html" class="block px-4 py-2 text-sm hover:bg-blue-50 hover:text-blue-700">
+                        <i class="fas fa-calendar-alt mr-2 w-5 text-center"></i> Lịch thi
+                    </a>
+                    <a href="bangdiem.html" class="block px-4 py-2 text-sm hover:bg-blue-50 hover:text-blue-700">
+                        <i class="fas fa-chart-bar mr-2 w-5 text-center"></i> Bảng điểm
+                    </a>
+                    
+                    <div class="border-t my-1 border-gray-200"></div>
+
+                    <div class="px-4 py-1 text-xs font-bold text-red-400 uppercase">Quản trị viên</div>
+                    <a href="admin/index.html" class="block px-4 py-2 text-sm font-bold text-purple-700 hover:bg-purple-50">
+                         <i class="fas fa-user-shield mr-2 w-5 text-center"></i> Vào trang Admin
+                    </a>                  
+
+                    <div class="border-t my-1 border-gray-200"></div>
+
+                    <a href="account/changepassword.html" class="block px-4 py-2 text-sm hover:bg-blue-50 hover:text-blue-700">
+                        <i class="fas fa-key mr-2 w-5 text-center"></i> Đổi mật khẩu
+                    </a>
+                    <a href="account/login.html" class="block px-4 py-2 text-sm text-red-600 hover:bg-red-50 font-bold">
+                        <i class="fas fa-sign-out-alt mr-2 w-5 text-center"></i> Đăng xuất
+                    </a>
                 </div>
             </li>
         </ul>
 
-        <div class="flex items-center space-x-6">
-            </div>
+        <div class="md:hidden">
+            <button class="text-white focus:outline-none">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
     </div>
 </nav>

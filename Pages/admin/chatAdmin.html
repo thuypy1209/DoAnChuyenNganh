@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Hỗ Trợ Trực Tuyến - Admin Center</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        .active-user { background-color: #e0f2fe; border-right: 4px solid #0284c7; }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-thumb { bg-gray-300; border-radius: 4px; }
+    </style>
+</head>
+<body class="bg-gray-100 h-screen flex flex-col overflow-hidden">
+
+    <div class="bg-white h-16 border-b flex items-center px-6 justify-between shadow-sm z-10">
+        <h2 class="font-bold text-xl text-blue-900"><i class="fab fa-facebook-messenger mr-2"></i> Trung tâm tin nhắn</h2>
+        <div class="text-sm text-green-600 font-bold flex items-center gap-2">
+            <span class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></span> Trực tuyến
+        </div>
+    </div>
+
+    <div class="flex flex-grow overflow-hidden">
+        
+        <div class="w-80 bg-white border-r flex flex-col">
+            <div class="p-4 border-b">
+                <input type="text" placeholder="Tìm sinh viên..." class="w-full bg-gray-100 border-none rounded-full px-4 py-2 text-sm focus:ring-2 focus:ring-blue-200 outline-none">
+            </div>
+            
+            <div id="userList" class="flex-grow overflow-y-auto">
+                <p class="text-center text-gray-400 text-xs mt-10">Chưa có tin nhắn mới</p>
+            </div>
+        </div>
+
+        <div class="flex-grow flex flex-col bg-gray-50 relative">
+            
+            <div id="welcomeScreen" class="absolute inset-0 flex flex-col items-center justify-center text-gray-400">
+                <i class="far fa-comments text-6xl mb-4 text-gray-300"></i>
+                <p>Chọn một sinh viên để bắt đầu hỗ trợ</p>
+            </div>
+
+            <div id="chatHeader" class="h-14 bg-white border-b flex items-center px-6 justify-between hidden">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold" id="headerAvatar">V</div>
+                    <div>
+                        <h3 class="font-bold text-gray-800 text-sm" id="headerName">...</h3>
+                        <p class="text-[10px] text-gray-500" id="headerId">...</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="chatContent" class="flex-grow p-4 overflow-y-auto hidden">
+                </div>
+
+            <div id="chatInputArea" class="p-4 bg-white border-t hidden">
+                <div class="flex gap-2">
+                    <input type="text" id="adminInput" class="flex-grow border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:border-blue-500" placeholder="Nhập tin nhắn...">
+                    <button onclick="sendReply()" class="w-10 h-10 bg-blue-600 text-white rounded-full hover:bg-blue-700 flex items-center justify-center">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+    <script>
+        let currentUserId = null; // Đang chat với ai?
+        // Lưu trữ tạm tin nhắn của các user (Key: MSSV, Value: Array html)
+        const messagesStore = {}; 
+
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("http://localhost:5114/chatHub")
+            .withAutomaticReconnect()
+            .build();
+
+        // 1. KẾT NỐI ADMIN
+        async function start() {
+            try {
+                await connection.start();
+                await connection.invoke("JoinChat", "Admin", "Admin System", "Admin");
+            } catch (err) { setTimeout(start, 5000); }
+        }
+        start();
+
+        // 2. NHẬN TIN NHẮN TỪ SINH VIÊN
+        connection.on("ReceiveMessageFromUser", (userId, userName, message) => {
+            // Lưu tin nhắn vào kho tạm
+            if (!messagesStore[userId]) messagesStore[userId] = [];
+            
+            const msgHtml = `
+                <div class="flex flex-col items-start mb-3">
+                    <span class="bg-white p-3 rounded-2xl rounded-tl-none shadow-sm border text-sm max-w-lg">${message}</span>
+                    <span class="text-[10px] text-gray-400 ml-1 mt-1">${new Date().toLocaleTimeString()}</span>
+                </div>`;
+            messagesStore[userId].push(msgHtml);
+
+            // Cập nhật danh sách bên trái
+            updateUserList(userId, userName, message);
+
+            // Nếu đang mở chat với đúng người này -> Hiện tin nhắn luôn
+            if (currentUserId === userId) {
+                const container = document.getElementById("chatContent");
+                container.insertAdjacentHTML('beforeend', msgHtml);
+                container.scrollTop = container.scrollHeight;
+            } else {
+                // Nếu không -> Có thể hiện chấm đỏ chưa đọc (Nâng cao)
+            }
+        });
+
+        // 3. CẬP NHẬT DANH SÁCH BÊN TRÁI
+        function updateUserList(userId, userName, lastMsg) {
+            const list = document.getElementById("userList");
+            // Xóa item cũ của user này nếu có (để đưa lên đầu)
+            const oldItem = document.getElementById(`user_item_${userId}`);
+            if(oldItem) oldItem.remove();
+
+            // Tạo item mới
+            const html = `
+                <div id="user_item_${userId}" onclick="openChat('${userId}', '${userName}')" class="p-4 border-b hover:bg-gray-50 cursor-pointer transition-colors ${currentUserId===userId ? 'active-user' : ''}">
+                    <div class="flex justify-between items-start">
+                        <h4 class="font-bold text-gray-800 text-sm">${userName}</h4>
+                        <span class="text-[10px] text-gray-400">Mới</span>
+                    </div>
+                    <p class="text-xs text-gray-500 truncate mt-1 font-medium text-blue-800">${lastMsg}</p>
+                </div>
+            `;
+            // Chèn lên đầu danh sách
+            list.insertAdjacentHTML('afterbegin', html);
+            
+            // Ẩn thông báo "Chưa có tin nhắn"
+            const empty = list.querySelector('.text-center');
+            if(empty) empty.style.display = 'none';
+        }
+
+        // 4. MỞ CHAT VỚI 1 NGƯỜI
+        function openChat(userId, userName) {
+            currentUserId = userId;
+            
+            // UI Update
+            document.getElementById("welcomeScreen").classList.add("hidden");
+            document.getElementById("chatHeader").classList.remove("hidden");
+            document.getElementById("chatContent").classList.remove("hidden");
+            document.getElementById("chatInputArea").classList.remove("hidden");
+
+            // Update Header info
+            document.getElementById("headerName").innerText = userName;
+            document.getElementById("headerId").innerText = userId;
+            document.getElementById("headerAvatar").innerText = userName.charAt(0);
+
+            // Highlight Active Item
+            document.querySelectorAll("#userList > div").forEach(d => d.classList.remove("active-user"));
+            document.getElementById(`user_item_${userId}`).classList.add("active-user");
+
+            // Load tin nhắn cũ từ kho tạm
+            const container = document.getElementById("chatContent");
+            container.innerHTML = ""; // Xóa trắng
+            if (messagesStore[userId]) {
+                messagesStore[userId].forEach(html => container.insertAdjacentHTML('beforeend', html));
+            }
+            container.scrollTop = container.scrollHeight;
+        }
+
+        // 5. GỬI TRẢ LỜI
+        function sendReply() {
+            if(!currentUserId) return;
+            const input = document.getElementById("adminInput");
+            const msg = input.value;
+            
+            if(msg.trim() !== "") {
+                // Hiện tin nhắn của mình (Admin) lên
+                const myMsgHtml = `
+                    <div class="flex flex-col items-end mb-3">
+                        <span class="bg-blue-600 text-white p-3 rounded-2xl rounded-tr-none shadow-sm text-sm max-w-lg">${msg}</span>
+                    </div>`;
+                
+                // Lưu vào kho và hiện lên
+                if (!messagesStore[currentUserId]) messagesStore[currentUserId] = [];
+                messagesStore[currentUserId].push(myMsgHtml);
+
+                const container = document.getElementById("chatContent");
+                container.insertAdjacentHTML('beforeend', myMsgHtml);
+                container.scrollTop = container.scrollHeight;
+
+                // Gửi xuống Server (Gửi riêng cho User này)
+                connection.invoke("SendMessageToUser", currentUserId, msg).catch(err => console.error(err));
+                
+                input.value = "";
+                input.focus();
+            }
+        }
+
+        
+    </script>
+    
+</body>
+</html>

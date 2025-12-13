@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Hồ Sơ - Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body class="bg-gray-50 font-sans text-gray-800">
+
+    <div class="flex h-screen overflow-hidden">
+        
+        <aside class="w-64 bg-gradient-to-b from-blue-900 to-purple-900 text-white flex flex-col shadow-2xl z-20">
+            <div class="h-16 flex items-center justify-center border-b border-white/10">
+                <span class="text-lg font-bold uppercase">QUẢN TRỊ VIÊN</span>
+            </div>
+            <nav class="flex-grow py-6 px-3 space-y-1">
+                <a href="index.html" class="flex items-center px-4 py-3 hover:bg-white/10 rounded-lg text-gray-300"><i class="fas fa-tachometer-alt w-6 mr-3"></i> Dashboard</a>
+                <a href="quanLyHoSo.html" class="flex items-center px-4 py-3 bg-white/10 text-yellow-300 rounded-lg border-l-4 border-yellow-400 font-bold"><i class="fas fa-file-contract w-6 mr-3"></i> Quản Lý Hồ Sơ</a>
+                <a href="index.html" class="block py-2 px-4 hover:bg-gray-800 rounded text-red-300">Về trang ADMIN </a>
+            </nav>
+        </aside>
+
+        <div class="flex-grow flex flex-col h-screen overflow-y-auto">
+            <header class="bg-white h-16 shadow-sm flex items-center px-6 justify-between">
+                <h2 class="text-xl font-bold text-blue-900 uppercase">Quản Lý Nộp Hồ Sơ</h2>
+            </header>
+
+            <main class="p-6">
+                
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 mb-8">
+                    <h3 class="font-bold text-gray-800 mb-4 text-lg"><i class="fas fa-plus-circle text-blue-600 mr-2"></i> Tạo yêu cầu nộp hồ sơ mới</h3>
+                    <div class="flex gap-4">
+                        <input type="text" id="txtTieuDe" placeholder="Tên hồ sơ yêu cầu (VD: Bằng tốt nghiệp...)" class="flex-grow border p-2 rounded-lg">
+                        <input type="date" id="txtHanChot" class="border p-2 rounded-lg">
+                        <button onclick="createRequest()" class="bg-blue-900 text-white px-6 py-2 rounded-lg font-bold hover:bg-blue-800">Tạo mới</button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    
+                    <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-700 mb-4 border-b pb-2">Danh sách yêu cầu đang mở</h3>
+                        <div id="requestList" class="space-y-3 max-h-[400px] overflow-y-auto">
+                            <p class="text-center text-gray-400">Đang tải...</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-700 mb-4 border-b pb-2">Hồ sơ sinh viên đã nộp gần đây</h3>
+                        <div id="submissionList" class="space-y-3 max-h-[400px] overflow-y-auto">
+                            <p class="text-center text-gray-400">Đang tải...</p>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <script>
+        const API_YEUCAU = 'http://localhost:5114/api/HoSoYeuCau';
+        const API_SUBMISSION = 'http://localhost:5114/api/HoSos';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadRequests();
+            loadSubmissions();
+        });
+
+        // 1. Tải danh sách yêu cầu
+        async function loadRequests() {
+            try {
+                const res = await fetch(API_YEUCAU);
+                const data = await res.json();
+                const container = document.getElementById('requestList');
+                container.innerHTML = '';
+
+                data.forEach(item => {
+                    const date = item.hanChot ? new Date(item.hanChot).toLocaleDateString('vi-VN') : 'Vô thời hạn';
+                    const html = `
+                        <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg hover:bg-blue-50 transition-colors">
+                            <div>
+                                <p class="font-bold text-blue-900">${item.tieuDe || item.TieuDe}</p>
+                                <p class="text-xs text-gray-500"><i class="far fa-clock"></i> Hạn: ${date}</p>
+                            </div>
+                            <button onclick="deleteRequest(${item.id || item.Id})" class="text-red-500 hover:text-red-700"><i class="fas fa-trash"></i></button>
+                        </div>
+                    `;
+                    container.insertAdjacentHTML('beforeend', html);
+                });
+            } catch(e) { console.error(e); }
+        }
+
+        // 2. Tạo yêu cầu mới
+        async function createRequest() {
+            const tieuDe = document.getElementById('txtTieuDe').value;
+            const hanChot = document.getElementById('txtHanChot').value;
+
+            if(!tieuDe) return Swal.fire('Lỗi', 'Vui lòng nhập tiêu đề!', 'warning');
+
+            const data = {
+                TieuDe: tieuDe,
+                HanChot: hanChot ? hanChot : null,
+                BatBuoc: true
+            };
+
+            await fetch(API_YEUCAU, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data)
+            });
+
+            Swal.fire('Thành công', 'Đã tạo yêu cầu mới', 'success');
+            document.getElementById('txtTieuDe').value = '';
+            loadRequests();
+        }
+
+        // 3. Xóa yêu cầu
+        async function deleteRequest(id) {
+            if(confirm("Bạn chắc chắn muốn xóa yêu cầu này?")) {
+                await fetch(`${API_YEUCAU}/${id}`, { method: 'DELETE' });
+                loadRequests();
+            }
+        }
+
+        // --- SỬA HÀM NÀY TRONG FILE: admin/quanLyHoSo.html ---
+
+async function loadSubmissions() {
+    try {
+        const res = await fetch(API_SUBMISSION);
+        if (!res.ok) throw new Error("Lỗi kết nối API");
+
+        const data = await res.json();
+        const container = document.getElementById('submissionList');
+        container.innerHTML = '';
+
+        if (!data || data.length === 0) {
+            container.innerHTML = '<p class="text-center text-gray-400 py-4">Chưa có hồ sơ nào được nộp.</p>';
+            return;
+        }
+
+        // Sắp xếp: Mới nhất lên đầu
+        // Dùng getTime() để tránh lỗi Invalid Date khi trừ
+        data.sort((a, b) => {
+            const dateA = new Date(a.NgayNop || a.ngayNop || 0);
+            const dateB = new Date(b.NgayNop || b.ngayNop || 0);
+            return dateB - dateA;
+        });
+
+        data.forEach(sub => {
+            // 1. BẮT CẢ CHỮ HOA LẪN CHỮ THƯỜNG (Fix lỗi undefined)
+            const tenSv = sub.TenSinhVien || sub.tenSinhVien || 'Sinh viên';
+            const mssv = sub.MSSV || sub.mssv || '---';
+            const tenHoSo = sub.TenHoSo || sub.tenHoSo || 'Hồ sơ';
+            const linkFile = sub.DuongDanTep || sub.duongDanTep || '#';
+            
+            // 2. XỬ LÝ NGÀY THÁNG (Fix lỗi Invalid Date)
+            const rawDate = sub.NgayNop || sub.ngayNop;
+            let dateDisplay = '---';
+            if (rawDate) {
+                dateDisplay = new Date(rawDate).toLocaleDateString('vi-VN', {
+                    year: 'numeric', month: '2-digit', day: '2-digit',
+                    hour: '2-digit', minute: '2-digit'
+                });
+            }
+
+            const html = `
+                <div class="flex items-center gap-3 p-3 border-b border-gray-100 last:border-0 hover:bg-gray-50 transition-colors group">
+                    <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold text-sm uppercase">
+                        ${tenSv.charAt(0)}
+                    </div>
+                    <div class="flex-grow min-w-0">
+                        <p class="font-bold text-sm text-gray-800 truncate">
+                            ${tenSv} <span class="font-normal text-gray-500">(${mssv})</span>
+                        </p>
+                        <p class="text-xs text-blue-700 font-medium truncate">${tenHoSo}</p>
+                        <p class="text-[10px] text-gray-400 mt-0.5">
+                            <i class="far fa-clock"></i> ${dateDisplay}
+                        </p>
+                    </div>
+                    
+                    <a href="${linkFile}" target="_blank" class="text-green-600 hover:text-green-800 hover:bg-green-50 p-2 rounded-lg text-sm transition-all" title="Tải xuống">
+                        <i class="fas fa-download"></i>
+                    </a>
+
+                    <button onclick="deleteSubmission(${sub.Id || sub.id})" class="text-gray-300 hover:text-red-500 hover:bg-red-50 p-2 rounded-lg text-sm transition-all" title="Xóa hồ sơ này">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            `;
+            container.insertAdjacentHTML('beforeend', html);
+        });
+
+    } catch(e) { 
+        console.error(e); 
+        document.getElementById('submissionList').innerHTML = '<p class="text-center text-red-500 py-4">Lỗi tải dữ liệu!</p>';
+    }
+}   
+    // 5. Xóa hồ sơ đã nộp
+        async function deleteSubmission(id) {
+            if(confirm("Bạn chắc chắn muốn xóa hồ sơ này vĩnh viễn?")) {
+                try {
+                    const res = await fetch(`${API_SUBMISSION}/${id}`, { method: 'DELETE' });
+                    if(res.ok) {
+                        // Swal.fire('Đã xóa', '', 'success'); // Nếu muốn hiện thông báo đẹp
+                        loadSubmissions(); // Tải lại danh sách
+                    } else {
+                        alert("Lỗi khi xóa!");
+                    }
+                } catch(e) { console.error(e); }
+            }
+        }
+
+    </script>
+</body>
+</html>

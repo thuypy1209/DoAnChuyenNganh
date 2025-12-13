@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Duyệt Cấp Chứng Nhận - Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body class="bg-gray-50 font-sans text-gray-800">
+
+    <div class="flex h-screen overflow-hidden">
+        <aside class="w-64 bg-blue-900 text-white hidden md:block">
+            <div class="p-6"><h1 class="font-bold text-xl">MENU ADMIN</h1></div>
+            <div class="px-4"><a href="index.html" class="block py-2 text-gray-400 hover:text-white"> <i class="fas fa-arrow-left mr-2"></i> Dashboard</a></div>
+            <a href="index.html" class="block py-2 px-4 hover:bg-gray-800 rounded text-red-300">Về trang ADMIN </a>
+        </aside>
+
+        <div class="flex-grow flex flex-col h-screen overflow-y-auto">
+            <main class="p-6">
+                
+                <div class="flex justify-between items-center mb-6">
+                    <div>
+                        <h1 class="text-2xl font-bold text-blue-900 uppercase">XÉT DUYỆT CẤP CHỨNG NHẬN</h1>
+                        <p class="text-sm text-gray-500">Xử lý các yêu cầu cấp mới/cấp lại từ sinh viên</p>
+                    </div>
+                    
+                    <div class="bg-white p-1 rounded-lg border flex">
+                        <button onclick="loadRequests('ChoDuyet')" id="btnChoDuyet" class="px-4 py-2 bg-blue-100 text-blue-800 font-bold rounded text-sm">Chờ duyệt</button>
+                        <button onclick="loadRequests('DaDuyet')" id="btnDaDuyet" class="px-4 py-2 text-gray-500 hover:bg-gray-100 font-bold rounded text-sm">Đã cấp</button>
+                        <button onclick="loadRequests('TuChoi')" id="btnTuChoi" class="px-4 py-2 text-gray-500 hover:bg-gray-100 font-bold rounded text-sm">Từ chối</button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                    <table class="w-full text-left border-collapse">
+                        <thead class="bg-blue-900 text-white text-xs uppercase font-bold">
+                            <tr>
+                                <th class="p-4 border-b">Sinh viên</th>
+                                <th class="p-4 border-b">Hoạt động / Thành tích</th>
+                                <th class="p-4 border-b">Loại & Lý do</th>
+                                <th class="p-4 border-b text-center">Minh chứng</th>
+                                <th class="p-4 border-b text-center">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="requestTableBody" class="text-sm text-gray-700">
+                            <tr><td colspan="5" class="p-8 text-center text-gray-400">Đang tải dữ liệu...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <script src="../js/admin_duyetChungNhan.js"></script>
+</body>
+</html>

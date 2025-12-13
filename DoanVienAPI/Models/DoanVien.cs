@@ -37,4 +37,7 @@ public class DoanVien
     public string? HeDaoTao { get; set; }
     public DateTime NgayTao { get; set; }
     public string? AnhDaiDien { get; set; } // Để lưu đường dẫn tới file ảnh
+    public string? Lop { get; set; }
+    public string? Khoa { get; set; }
+    public string? MSSV { get; set; }
 }

@@ -1,215 +1,120 @@
-// Hàm đăng nhập
-async function login() {
-    const username = document.getElementById('username').value.trim();
-    const password = document.getElementById('password').value;
-    const message = document.getElementById('message');
-
-    try {
-        const res = await fetch('http://localhost:5114/api/Account/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ Username: username, Password: password })
-        });
-
-        if (res.ok) {
-            const data = await res.json();
-            localStorage.setItem('token', data.token);
-            message.style.color = 'green';
-            message.innerText = 'Đăng nhập thành công!';
-            setTimeout(() => window.location.href = '../dashbroad.html', 1000);
-        } else {
-            const error = await res.text();
-            message.style.color = 'red';
-            message.innerText = 'Sai tên đăng nhập hoặc mật khẩu.\n' + error;
-        }
-    } catch (err) {
-        message.style.color = 'red';
-        message.innerText = 'Lỗi kết nối đến server.';
+// Đợi trang web tải xong toàn bộ HTML rồi mới chạy code JS
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // Kiểm tra xem file Config đã nhận chưa
+    if (typeof CONFIG === 'undefined') {
+        alert("Lỗi: Không tìm thấy file globalConfig.js. Hãy kiểm tra lại file HTML!");
+        return;
     }
-}
 
-function togglePassword(event) {
-    const btn = event.currentTarget;
-    // Tìm input liên quan gần nhất (cùng nhóm hoặc cùng cha)
-    let passwordInput = btn.previousElementSibling;
-    // Nếu không tìm thấy, fallback về id cũ
-    if (!passwordInput || passwordInput.tagName !== 'INPUT') {
-        passwordInput = document.getElementById('password');
+    const API_URL = CONFIG.API_BASE_URL + '/Auth'; 
+    console.log("Javascript đã sẵn sàng! Đang tìm nút Đăng nhập...");
+
+    // Tìm nút đăng nhập
+    const btnLogin = document.getElementById('btnLogin');
+
+    // Kiểm tra xem có tìm thấy nút không
+    if (!btnLogin) {
+        alert("Lỗi nghiêm trọng: Không tìm thấy nút có id='btnLogin' trong file HTML. Hãy kiểm tra lại file login.html xem đã đặt đúng id chưa!");
+        return;
     }
-    if (!passwordInput) return;
 
-    if (passwordInput.type === 'password') {
-        passwordInput.type = 'text';
-        btn.textContent = '🙈';
-    } else {
-        passwordInput.type = 'password';
-        btn.textContent = '👁';
-    }
-}
+    // --- PHẦN 1: XỬ LÝ KHI BẤM NÚT "ĐĂNG NHẬP" ---
+    btnLogin.addEventListener('click', async function(e) {
+        alert("OK! Đã bắt được sự kiện click nút!"); // <--- Nếu thấy cái này là ngon!
+        e.preventDefault(); 
 
-// Kiểm tra nếu đã đăng nhập ở trang login/register thì chuyển hướng sang profile
-document.addEventListener('DOMContentLoaded', function () {
-    const token = localStorage.getItem('token');
-    const isLoginPage = window.location.pathname.toLowerCase().includes('login');
-    const isRegisterPage = window.location.pathname.toLowerCase().includes('register');
-    if (token && (isLoginPage || isRegisterPage)) {
-        window.location.href = 'profile.html';
-    }
-});
+        const emailElement = document.getElementById('email');
+        const passwordElement = document.getElementById('password');
 
-// Đăng ký
-const registerForm = document.getElementById('registerForm');
-if (registerForm) {
-    registerForm.addEventListener('submit', function (event) {
-        event.preventDefault();
-
-        const fullName = this.querySelector('input[name="fullName"]').value.trim();
-        const username = this.querySelector('input[name="username"]').value.trim().toLowerCase();
-        const email = this.querySelector('input[name="email"]').value.trim();
-        const password = this.querySelector('input[name="password"]').value;
-        const confirmPassword = this.querySelector('input[name="confirmPassword"]').value;
-        const role = this.querySelector('select[name="role"]').value;
-        const message = document.getElementById('message');
-
-        if (!fullName || !username) {
-            message.innerText = 'Vui lòng điền đầy đủ họ tên và tên đăng nhập.';
-            return;
+        if (!emailElement || !passwordElement) {
+             alert("Lỗi: Không tìm thấy ô nhập Email hoặc Password trong HTML");
+             return;
         }
-        if (!/^[a-zA-Z0-9]+$/.test(username)) {
-            message.innerText = 'Tên đăng nhập chỉ được chứa chữ cái và số.';
-            return;
-        }
-        if (password !== confirmPassword) {
-            message.innerText = 'Mật khẩu không khớp. Vui lòng kiểm tra lại.';
-            return;
-        }
-        if (!role) {
-            message.innerText = 'Vui lòng chọn loại tài khoản.';
+
+        const email = emailElement.value;
+        const password = passwordElement.value;
+
+        // 2. Kiểm tra sơ bộ
+        if (!email || !password) {
+            alert("Vui lòng nhập đầy đủ Email và Mật khẩu!");
             return;
         }
 
-        fetch('http://localhost:5114/api/Account/register', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                FullName: fullName,
-                Username: username,
-                Email: email,
-                Password: password,
-                ConfirmPassword: confirmPassword,
-                Role: role
-            })
-        })
-            .then(async response => {
-                const data = await response.json();
-                if (response.ok) {
-                    alert('Đăng ký thành công! Bạn có thể đăng nhập.');
-                    window.location.href = 'login.html';
-                } else {
-                    message.innerText = data.message || (data.errors ? data.errors.join('; ') : 'Đăng ký thất bại.');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                message.innerText = 'Đã xảy ra lỗi. Vui lòng thử lại.';
+        // 3. Gửi lên Server
+        try {
+            const response = await fetch(`${API_URL}/login`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: email, password: password })
             });
-    });
-}
 
-// Hàm đăng xuất
-function logout() {
-    localStorage.removeItem('token');
-    window.location.href = 'login.html';
-}
+            const data = await response.json();
 
-// Hiển thị thông tin profile nếu có phần tử profileContent
-document.addEventListener('DOMContentLoaded', function () {
-    const profileContainer = document.getElementById('profileContent');
-    if (!profileContainer) return;
-
-    const token = localStorage.getItem('token');
-    if (!token) {
-        profileContainer.innerHTML = `<p class="text-danger">Bạn chưa đăng nhập!</p>`;
-        setTimeout(() => window.location.href = 'login.html', 1500);
-        return;
-    }
-
-    fetch('http://localhost:5114/api/Account/profile', {
-        headers: { 'Authorization': 'Bearer ' + token }
-    })
-        .then(async response => {
             if (response.ok) {
-                const data = await response.json();
-                if (typeof data === 'string') {
-                    profileContainer.innerHTML = `<p><strong>Mã người dùng:</strong> ${data}</p>`;
+                alert("Đăng nhập đúng! Hãy kiểm tra Email để lấy mã OTP.");
+                
+                document.getElementById('btnLogin').style.display = 'none'; // Ẩn nút đăng nhập
+                
+                const otpSection = document.getElementById('otpSection');
+                if(otpSection) {
+                    otpSection.style.display = 'block'; // Hiện khung OTP
+                    otpSection.classList.remove('hidden'); // Nếu dùng Tailwind thì xóa class hidden
                 } else {
-                    profileContainer.innerHTML = `
-                        <p><strong>Tên đăng nhập:</strong> ${data.UserName || ''}</p>
-                        <p><strong>Email:</strong> ${data.Email || ''}</p>
-                        <p><strong>Vai trò:</strong> ${data.Role || ''}</p>
-                    `;
+                    alert("Lỗi: Không tìm thấy khung id='otpSection' để hiện lên");
                 }
-            } else if (response.status === 401) {
-                profileContainer.innerHTML = `<p class="text-danger">Bạn chưa đăng nhập hoặc token hết hạn.</p>`;
-                setTimeout(() => window.location.href = 'login.html', 1500);
+
+                document.getElementById('email').disabled = true;
+                document.getElementById('password').disabled = true;
             } else {
-                profileContainer.innerHTML = `<p class="text-danger">Không thể tải thông tin người dùng.</p>`;
+                alert("Lỗi từ Server: " + data.message);
             }
-        })
-        .catch(error => {
-            console.error('Profile fetch error:', error);
-            profileContainer.innerHTML = `<p class="text-danger">Lỗi kết nối đến server.</p>`;
-        });
-});
-// Hàm đổi mật khẩu
-document.getElementById('changeForm').addEventListener('submit', function (event) {
-    event.preventDefault();
-    const currentPassword = this.oldPassword.value;
-    const newPassword = this.newPassword.value;
-    const confirmNewPassword = this.confirmNewPassword.value;
+        } catch (error) {
+            console.error("Lỗi hệ thống:", error);
+            alert("Không kết nối được với Server. Kiểm tra xem Backend (cổng 5114) đã chạy chưa?");
+        }
+    });
 
-    if (newPassword !== confirmNewPassword) {
-        document.getElementById('message').innerText = 'Mật khẩu mới không khớp.';
-        return;
-    }
+    // --- PHẦN 2: XỬ LÝ KHI BẤM NÚT "XÁC NHẬN OTP" ---
+    const btnVerify = document.getElementById('btnVerifyOtp');
+    if (btnVerify) {
+        btnVerify.addEventListener('click', async function(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const otp = document.getElementById('otpCode').value;
 
-    // Lấy token từ localStorage
-    const token = localStorage.getItem('token');
-    if (!token) {
-        document.getElementById('message').innerText = 'Bạn chưa đăng nhập!';
-        setTimeout(() => window.location.href = 'login.html', 1500);
-        return;
-    }
+            if (!otp) { alert("Vui lòng nhập mã OTP!"); return; }
 
-    fetch('http://localhost:5114/api/Account/changepassword', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + token
-        },
-        body: JSON.stringify({ CurrentPassword: currentPassword, NewPassword: newPassword, ConfirmPassword: confirmNewPassword })
-    })
-        .then(response => response.json().then(data => ({ ok: response.ok, data })))
-        .then(result => {
-            // Log để kiểm tra dữ liệu trả về từ backend
-            console.log(result.data);
+            try {
+                const response = await fetch(`${API_URL}/verify-otp`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: email, otpCode: otp })
+                });
 
-            if (result.ok) {
-                localStorage.removeItem('token');
-                alert('Đổi mật khẩu thành công. Vui lòng đăng nhập lại.');
-                window.location.href = 'login.html';
-            } else {
-                // Hiển thị tất cả lỗi trả về từ backend
-                let msg = result.data.message || 'Lỗi đổi mật khẩu.';
-                if (result.data.errors && Array.isArray(result.data.errors)) {
-                    msg += '\n' + result.data.errors.join('\n');
+                const data = await response.json();
+
+                if (response.ok) {
+                    localStorage.setItem('userRole', data.role);
+                    localStorage.setItem('userName', data.fullName);
+                    localStorage.setItem('userId', data.userId);
+
+                    alert("Thành công! Chào " + data.fullName);
+
+                    if (data.role === 'Admin') {
+    // Sửa thành đường dẫn tuyệt đối chuẩn xác:
+    window.location.href = '/PAGES/admin/index.html'; 
+} else {
+    // Sửa thành đường dẫn về trang chủ:
+    window.location.href = '/PAGES/Home.html'; 
+}
+                } else {
+                    alert("Lỗi: " + data.message);
                 }
-                document.getElementById('message').innerText = msg;
+            } catch (error) {
+                console.error(error);
+                alert("Lỗi khi xác thực OTP.");
             }
-        })
-        .catch(error => {
-            console.error('Lỗi:', error);
-            document.getElementById('message').innerText = 'Đã xảy ra lỗi. Vui lòng thử lại.';
         });
-
+    }
 });

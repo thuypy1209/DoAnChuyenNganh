@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý Hoạt động - Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body class="bg-while-50 font-sans text-gray-800">
+
+    <div class="flex h-screen overflow-hidden">
+        <aside class="w-64 bg-blue-900 text-white flex-shrink-0 hidden md:block">
+            <div class="p-4 text-center font-bold text-xl border-b border-blue-900">ADMIN PANEL</div>
+            <nav class="p-4 space-y-2">
+                <a href="index.html" class="block py-2 px-4 hover:bg-gray-800 rounded">Dashboard</a>
+                <a href="quanLyHoatDong.html" class="block py-2 px-4 bg-blue-900 rounded text-white font-bold">QL Hoạt động</a>
+                <a href="index.html" class="block py-2 px-4 hover:bg-gray-800 rounded text-red-300">Về trang ADMIN </a>
+                <a href="../home.html" class="block py-2 px-4 hover:bg-gray-800 rounded text-red-300">Về trang Sinh viên</a>
+            </nav>
+        </aside>
+
+        <div class="flex-grow flex flex-col h-screen overflow-y-auto">
+            <main class="p-6">
+                
+                <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
+                    <div>
+                        <h1 class="text-2xl font-bold text-blue-900">QUẢN LÝ HOẠT ĐỘNG</h1>
+                        <p class="text-sm text-gray-500">Tạo mới và theo dõi tiến độ các phong trào</p>
+                    </div>
+                    
+                    <div class="flex bg-white p-1 rounded-lg shadow-sm border border-gray-200">
+                        <button onclick="filterTable('All')" class="px-4 py-2 rounded-md text-sm font-bold text-blue-900 bg-blue-50 hover:bg-blue-100 transition-colors filter-btn active" id="btnAll">Tất cả</button>
+                        <button onclick="filterTable('Open')" class="px-4 py-2 rounded-md text-sm font-bold text-gray-500 hover:bg-gray-100 transition-colors filter-btn" id="btnOpen">Đang mở</button>
+                        <button onclick="filterTable('Closed')" class="px-4 py-2 rounded-md text-sm font-bold text-gray-500 hover:bg-gray-100 transition-colors filter-btn" id="btnClosed">Đã kết thúc</button>
+                    </div>
+
+                    <button onclick="openCreateModal()" class="bg-green-600 text-white px-5 py-2.5 rounded-lg font-bold hover:bg-green-700 shadow-lg flex items-center gap-2 transition-transform active:scale-95">
+                        <i class="fas fa-plus-circle"></i> Tạo Hoạt Động
+                    </button>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                    <table class="w-full text-left border-collapse">
+                        <thead class="bg-gray-50 text-blue-600 uppercase text-xs font-bold tracking-wider">
+                            <tr>
+                                <th class="p-4 border-b">Hoạt động</th>
+                                <th class="p-4 border-b">Thời gian & Địa điểm</th>
+                                <th class="p-4 border-b text-center">Phân loại & Tiêu chí</th>
+                                <th class="p-4 border-b w-48">Tiến độ tham gia</th>
+                                <th class="p-4 border-b text-center">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="activityTableBody" class="text-sm text-gray-700 divide-y divide-gray-100">
+                            <tr><td colspan="5" class="p-8 text-center text-gray-400"><i class="fas fa-spinner fa-spin mr-2"></i> Đang tải dữ liệu...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <div id="createModal" class="fixed inset-0 bg-black bg-opacity-60 hidden flex items-center justify-center z-50 p-4 backdrop-blur-sm">
+        <div class="bg-white rounded-2xl w-full max-w-3xl overflow-hidden shadow-2xl transform transition-all scale-100">
+            
+            <div class="bg-gradient-to-r from-blue-900 to-blue-800 px-6 py-4 flex justify-between items-center text-white">
+                <h3 class="font-bold text-lg"><i class="fas fa-edit mr-2"></i> Thiết lập Hoạt Động Mới</h3>
+                <button onclick="closeCreateModal()" class="hover:text-gray-300 text-xl"><i class="fas fa-times"></i></button>
+            </div>
+
+            <div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-6 overflow-y-auto max-h-[80vh]">
+                
+                <div class="col-span-2 md:col-span-1 space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Tên hoạt động <span class="text-red-500">*</span></label>
+                        <input type="text" id="newTen" class="w-full border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 outline-none font-semibold" placeholder="VD: Mùa Hè Xanh 2025">
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Bắt đầu</label>
+                            <input type="datetime-local" id="newNgayBd" class="w-full border border-gray-300 rounded-lg p-2 outline-none text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Kết thúc</label>
+                            <input type="datetime-local" id="newNgayKt" class="w-full border border-gray-300 rounded-lg p-2 outline-none text-sm">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Địa điểm</label>
+                        <div class="relative">
+                            <i class="fas fa-map-marker-alt absolute left-3 top-3 text-gray-400"></i>
+                            <input type="text" id="newDiaDiem" class="w-full border border-gray-300 rounded-lg pl-9 p-2.5 outline-none" placeholder="VD: Hội trường E3">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Poster (Ảnh)</label>
+                        
+                        <input type="file" id="filePoster" class="hidden" accept="image/*" onchange="previewPoster(this)">
+
+                        <div onclick="document.getElementById('filePoster').click()" class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center cursor-pointer hover:bg-blue-50 transition-colors relative group">
+                            
+                            <div id="posterPlaceholder">
+                                <i class="fas fa-cloud-upload-alt text-3xl text-gray-400 mb-2 group-hover:text-blue-500 transition-colors"></i>
+                                <p class="text-sm text-gray-500 font-medium">Bấm để chọn ảnh từ máy tính</p>
+                                <p class="text-xs text-gray-400 mt-1">Hỗ trợ: JPG, PNG, GIF</p>
+                            </div>
+
+                            <img id="posterPreview" class="hidden w-full h-32 object-contain rounded-md mt-2">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-span-2 md:col-span-1 space-y-4 bg-gray-50 p-4 rounded-xl border border-gray-100">
+                    <div>
+                        <label class="block text-xs font-bold text-blue-800 uppercase mb-1">Loại hoạt động</label>
+                        <select id="newLoai" class="w-full border border-blue-200 rounded-lg p-2.5 outline-none bg-white text-blue-900 font-medium">
+                            <option value="Tình nguyện">💖 Tình nguyện xã hội</option>
+                            <option value="Học thuật">📚 Học thuật & Kỹ năng</option>
+                            <option value="Văn thể mỹ">🎨 Văn hóa - Thể thao</option>
+                            <option value="Khác">🔖 Khác</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-blue-800 uppercase mb-1">Tiêu chí cộng điểm SV5T</label>
+                        <select id="newTieuChi" class="w-full border border-blue-200 rounded-lg p-2.5 outline-none bg-white">
+                            <option value="Đạo đức tốt">1. Đạo đức tốt</option>
+                            <option value="Học tập tốt">2. Học tập tốt</option>
+                            <option value="Thể lực tốt">3. Thể lực tốt</option>
+                            <option value="Tình nguyện tốt">4. Tình nguyện tốt</option>
+                            <option value="Hội nhập tốt">5. Hội nhập tốt</option>
+                        </select>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Số Slot (Max)</label>
+                            <input type="number" id="newSlot" class="w-full border border-gray-300 rounded-lg p-2.5 outline-none font-bold text-center" value="100">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Điểm cộng</label>
+                            <input type="number" id="newDiem" class="w-full border border-gray-300 rounded-lg p-2.5 outline-none font-bold text-center text-green-600" value="5">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Mô tả ngắn</label>
+                        <textarea id="newMoTa" rows="3" class="w-full border border-gray-300 rounded-lg p-2 outline-none text-sm" placeholder="Nội dung chính của hoạt động..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gray-100 px-6 py-4 flex justify-end gap-3 border-t border-gray-200">
+                <button onclick="closeCreateModal()" class="px-6 py-2.5 border border-gray-300 rounded-lg text-gray-600 font-bold hover:bg-gray-200 transition-colors">Hủy bỏ</button>
+                <button onclick="createActivity()" class="px-8 py-2.5 bg-blue-900 text-white rounded-lg font-bold hover:bg-blue-800 shadow-lg transition-transform active:scale-95 flex items-center gap-2">
+                    <i class="fas fa-save"></i> LƯU HOẠT ĐỘNG
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/admin_quanLyHoatDong.js"></script>
+</body>
+</html>

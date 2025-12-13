@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý Sinh viên - Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body class="bg-gray-50 font-sans text-gray-800">
+
+    <div class="flex h-screen overflow-hidden">
+        <aside class="w-64 bg-blue-900 text-white hidden md:block flex-shrink-0">
+            <div class="p-6"><h1 class="font-bold text-xl">MENU ADMIN</h1></div>
+            <div class="px-4 space-y-2">
+                <a href="index.html" class="block py-2 text-gray-400 hover:text-white">Dashboard</a>
+                <a href="quanLyHoatDong.html" class="block py-2 text-gray-400 hover:text-white">QL Hoạt động</a>
+                <a href="quanLySinhVien.html" class="block py-2 text-white font-bold bg-blue-800 rounded px-2">QL Sinh viên</a>
+                <a href="index.html" class="block py-2 text-red-300 hover:text-white">Về Trang ADMIN </a>
+            </div>
+        </aside>
+
+        <div class="flex-grow flex flex-col h-screen overflow-y-auto">
+            <main class="p-6">
+                <h1 class="text-2xl font-bold text-blue-900 mb-6">QUẢN LÝ SINH VIÊN & ĐIỂM RÈN LUYỆN</h1>
+
+                <div class="bg-white p-4 rounded-xl shadow-sm mb-6 flex flex-wrap gap-4 items-center">
+                    <div class="relative flex-grow max-w-md">
+                        <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                        <input type="text" id="searchKeyword" placeholder="Tìm MSSV hoặc Tên..." class="w-full pl-10 border rounded-lg py-2 outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <select id="filterKhoa" class="border rounded-lg px-4 py-2 outline-none">
+                        <option value="">-- Tất cả Khoa --</option>
+                        <option value="Công nghệ thông tin">CNTT</option>
+                        <option value="Kế toán">Kế toán</option>
+                    </select>
+                    <select id="filterLop" class="border rounded-lg px-4 py-2 outline-none">
+                        <option value="">-- Tất cả Lớp --</option>
+                        <option value="22DTHC1">22DTHC1</option>
+                    </select>
+                    
+                    <button id="btnFilter" class="bg-blue-900 text-white px-6 py-2 rounded-lg font-bold hover:bg-blue-800">
+                        <i class="fas fa-filter mr-2"></i> Lọc
+                    </button>
+                    
+                    <button onclick="window.location.href='xetDanhHieu.html'" class="ml-auto bg-yellow-500 text-white px-6 py-2 rounded-lg font-bold hover:bg-yellow-600 shadow-lg animate-pulse">
+                        <i class="fas fa-medal mr-2"></i> Xét Danh Hiệu
+                    </button>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                    <table class="w-full text-left border-collapse">
+                        <thead class="bg-gray-50 text-gray-600 uppercase text-xs font-bold">
+                            <tr>
+                                <th class="p-4 border-b">Sinh viên</th>
+                                <th class="p-4 border-b">Lớp / Khoa</th>
+                                <th class="p-4 border-b text-center">Điểm RL</th>
+                                <th class="p-4 border-b text-center">Xếp loại</th>
+                                <th class="p-4 border-b text-center">Đạt SV5T</th>
+                                <th class="p-4 border-b text-center">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentTableBody" class="text-sm text-gray-700">
+                            <tr><td colspan="6" class="p-8 text-center text-gray-400">Đang tải dữ liệu...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="../js/admin_quanLySinhVien.js"></script>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ví Chứng Nhận - Sổ Tay Rèn Luyện</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        .font-certificate { font-family: 'Playfair Display', serif; }
+        .cert-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .cert-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.15); }
+        .bg-pattern { background-image: radial-gradient(#e5e7eb 1px, transparent 1px); background-size: 20px 20px; }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans flex flex-col min-h-screen">
+
+    <div id="navbar-placeholder"></div>
+
+    <main class="container mx-auto px-4 py-8 pt-24 flex-grow">
+        
+        <div class="flex flex-col md:flex-row justify-between items-end mb-8 border-b border-gray-200 pb-4">
+            <div>
+                <h1 class="text-3xl font-bold text-blue-900 uppercase border-l-4 border-purple-500 pl-3">Ví Chứng Nhận Điện Tử</h1>
+                <p class="text-gray-500 mt-1 ml-4">Lưu trữ và quản lý toàn bộ chứng nhận hoạt động của bạn.</p>
+            </div>
+           <button class="bg-green-600 text-white px-4 py-2 rounded-lg font-bold hover:bg-green-700 shadow mt-4 md:mt-0" 
+        onclick="openRequestModal()"> <i class="fas fa-plus-circle mr-2"></i> Yêu cầu cấp mới
+</button>
+        </div>
+
+        <div class="flex flex-wrap gap-4 mb-8 bg-white p-4 rounded-lg shadow-sm">
+            <div class="flex items-center gap-2">
+                <i class="fas fa-filter text-gray-400"></i>
+                <span class="font-semibold text-gray-700">Lọc theo:</span>
+            </div>
+            <select id="filterYear" class="border border-gray-300 rounded-md px-3 py-1.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                <option value="">Tất cả năm học</option>
+                <option value="2025">Năm 2025</option>
+                <option value="2024">Năm 2024</option>
+            </select>
+            <select id="filterType" class="border border-gray-300 rounded-md px-3 py-1.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                <option value="">Tất cả loại</option>
+                <option value="Tình nguyện">Hoạt động Tình nguyện</option>
+                <option value="Học thuật">Học thuật & Kỹ năng</option>
+                <option value="Khen thưởng">Khen thưởng & Danh hiệu</option>
+            </select>
+        </div>
+
+        <div id="walletContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div class="col-span-full text-center py-12 text-gray-500">
+                <i class="fas fa-spinner fa-spin text-2xl"></i> Đang tải ví chứng nhận...
+            </div>
+        </div>
+
+    </main>
+
+    <div id="certModal" class="fixed inset-0 bg-black bg-opacity-80 hidden flex items-center justify-center z-50 p-4 overflow-y-auto">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-4xl relative animate-fade-in-up">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-red-500 z-10 bg-white rounded-full p-1">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+
+            <div class="p-1 md:p-4">
+                <div class="bg-white border-8 border-double border-yellow-600 p-6 md:p-10 relative text-center bg-pattern" id="printArea">
+                    
+                    <div class="absolute top-4 left-4 opacity-80">
+                        <img src="images/hutech_logo.png" alt="Logo" class="h-12 md:h-16">
+                    </div>
+                    
+                    <h2 class="text-sm md:text-lg font-bold text-gray-500 mb-1">ĐOÀN TNCS HỒ CHÍ MINH TRƯỜNG ĐH CÔNG NGHỆ TP.HCM</h2>
+                    <div class="w-20 h-1 bg-yellow-500 mx-auto mb-6"></div>
+
+                    <h1 class="font-certificate text-3xl md:text-5xl text-red-700 font-bold mb-4 tracking-wide">GIẤY CHỨNG NHẬN</h1>
+                    
+                    <p class="text-base md:text-lg text-gray-700 mb-1">Chứng nhận sinh viên:</p>
+                    <h3 id="modalCertName" class="text-2xl md:text-4xl font-bold text-blue-900 mb-1 uppercase">NGUYỄN VĂN A</h3>
+                    <p id="modalCertMssv" class="text-gray-500 font-mono mb-6">MSSV: 123456789</p>
+
+                    <p class="text-base md:text-lg text-gray-700 mb-2">Đã tham gia tích cực hoạt động:</p>
+                    <div class="bg-blue-50 py-3 px-4 rounded-lg mb-6 border border-blue-100 inline-block min-w-[60%]">
+                        <h4 id="modalCertActivity" class="text-xl md:text-2xl font-bold text-blue-800">TÊN HOẠT ĐỘNG</h4>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row justify-between items-end mt-8 px-4 md:px-12">
+                        <div class="text-center mb-4 md:mb-0 mx-auto md:mx-0">
+                            <div class="bg-white p-1 border border-gray-300 inline-block">
+                                <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=HUTECH" 
+                                    crossorigin="anonymous" 
+                                    alt="QR Code" 
+                                    class="w-20 h-20">
+                            </div>
+                            <p id="modalCertCode" class="text-[10px] text-gray-400 mt-1 font-mono">Mã: CERT-...</p>
+                        </div>
+                        <div class="text-center mx-auto md:mx-0">
+                            <p class="font-bold text-gray-600 text-sm">TP. Hồ Chí Minh, <span id="modalCertDate">ngày...</span></p>
+                            <p class="font-bold text-red-600 mt-1 text-sm">TM. BAN THƯỜNG VỤ ĐOÀN TRƯỜNG</p>
+                            <p class="mt-12 font-bold text-gray-800">BÍ THƯ</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gray-100 px-6 py-4 rounded-b-xl flex justify-end gap-3">
+                <button class="text-blue-700 font-bold px-4 py-2 hover:bg-blue-50 rounded-lg"><i class="fas fa-share-alt mr-2"></i> Chia sẻ</button>
+                <button onclick="downloadCertImage()" class="bg-blue-900 text-white px-6 py-2 rounded-lg font-bold hover:bg-blue-800 shadow transition-colors">
+                    <i class="fas fa-download mr-2"></i> Tải Chứng Nhận 
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/viChungNhan.js"></script>
+    
+    <div id="requestModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
+    <div class="bg-white rounded-xl shadow-2xl w-full max-w-lg overflow-hidden transform transition-all scale-100">
+        <div class="bg-blue-700 px-6 py-4 flex justify-between items-center">
+            <h3 class="text-white font-bold text-lg"><i class="fas fa-file-signature mr-2"></i> Yêu cầu cấp chứng nhận</h3>
+            <button onclick="document.getElementById('requestModal').classList.add('hidden')" class="text-white hover:text-gray-300"><i class="fas fa-times text-xl"></i></button>
+        </div>
+        <div class="p-6 space-y-4">
+            <div>
+                <label class="block text-sm font-bold text-gray-700 mb-1">Tên hoạt động / Thành tích:</label>
+                <input type="text" id="reqTenHoatDong" placeholder="" class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-purple-500 outline-none">
+            </div>
+            
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-1">Loại chứng nhận:</label>
+                    <select id="reqLoai" class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-purple-500 outline-none">
+                        <option value="Khen thưởng">Khen thưởng</option>
+                        <option value="Tình nguyện">Tình nguyện</option>
+                        <option value="Học thuật">Học thuật</option>
+                        <option value="Khác">Khác</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-1">Link minh chứng:</label>
+                    <input type="text" id="reqMinhChung" placeholder="Link Google Drive..." class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-purple-500 outline-none">
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-sm font-bold text-gray-700 mb-1">Lý do / Ghi chú:</label>
+                <textarea id="reqLyDo" rows="3" placeholder="Mô tả chi tiết hoặc lý do xin cấp..." class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-purple-500 outline-none"></textarea>
+            </div>
+
+            <div class="flex gap-3 pt-2">
+                <button onclick="document.getElementById('requestModal').classList.add('hidden')" class="w-1/2 py-2 border border-gray-300 rounded-lg text-gray-600 font-bold hover:bg-gray-100">Hủy bỏ</button>
+                <button onclick="submitRequest()" class="w-1/2 py-2 bg-blue-700 text-white rounded-lg font-bold hover:bg-purple-800 shadow-lg">GỬI YÊU CẦU</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

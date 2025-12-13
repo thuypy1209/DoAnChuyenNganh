@@ -1,58 +1,80 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using System;
-using System.Threading.Tasks;
-using GenerativeAI;
+using System.Text;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 
-// XÓA CÁC LỚP MÔ HÌNH GeminiPart, GeminiRequest... nếu bạn chưa xóa
-// Chỉ giữ lại AskRequest
-public class AskRequest
+namespace DoanVienAPI.Controllers
 {
-    public string? Question { get; set; }
-}
-
-[ApiController]
-[Route("api/[controller]")]
-public class ChatbotController : ControllerBase
-{
-    // Sử dụng SDK của Google.Ai.GenerativeAI
-    private readonly GenerativeModel _model;
-
-    // CONSTRUCTOR: Lấy API Key từ cấu hình (appsettings.json)
-    public ChatbotController(IConfiguration configuration)
+    public class AskRequest
     {
-        // 1. Lấy API Key từ cấu hình (Đã sửa lỗi logic)
-        var apiKey = configuration["Gemini:ApiKey"]
-                  ?? throw new InvalidOperationException("Gemini API Key is missing in configuration (appsettings.json).");
-
-        // 2. Khởi tạo model AI
-        // SDK sẽ xử lý việc gọi API cho chúng ta
-        _model = new GenerativeModel(apiKey, "gemini-1.5-flash");
+        public string? Question { get; set; }
     }
 
-    [HttpPost("ask")]
-    public async Task<IActionResult> Ask([FromBody] AskRequest request)
+    [ApiController]
+    [Route("api/[controller]")]
+    public class ChatbotController : ControllerBase
     {
-        if (string.IsNullOrEmpty(request.Question))
+        private readonly IConfiguration _configuration;
+
+        public ChatbotController(IConfiguration configuration)
         {
-            return BadRequest(new { answer = "Câu hỏi không được để trống." });
+            _configuration = configuration;
         }
 
-        try
+        [HttpPost("ask")]
+        public async Task<IActionResult> Ask([FromBody] AskRequest request)
         {
-            // GỌI API GEMINI BẰNG SDK (ĐƠN GIẢN HƠN RẤT NHIỀU!)
-            var response = await _model.GenerateContentAsync(request.Question);
+            if (string.IsNullOrEmpty(request.Question))
+                return BadRequest(new { answer = "Bạn chưa nhập câu hỏi." });
 
-            var botResponse = response.Text
-                              ?? "Xin lỗi, tôi không nhận được câu trả lời từ AI.";
+            try
+            {
+                // 1. ĐỌC DỮ LIỆU TỪ FILE TXT (Thay vì viết cứng trong code)
+                // File data.txt phải được set "Copy to Output Directory" là "Copy if newer"
+                string filePath = Path.Combine(Directory.GetCurrentDirectory(), "data.txt");
 
-            // Trả về câu trả lời
-            return Ok(new { answer = botResponse });
-        }
-        catch (Exception ex)
-        {
-            // Xử lý lỗi: Trả về lỗi 500 kèm thông báo chi tiết
-            return StatusCode(500, new { answer = $"Lỗi hệ thống AI: {ex.Message}" });
+                if (!System.IO.File.Exists(filePath))
+                {
+                    return Ok(new { answer = "Lỗi Server: Không tìm thấy file dữ liệu (data.txt)." });
+                }
+
+                string knowledgeBase = await System.IO.File.ReadAllTextAsync(filePath);
+
+                // 2. Cấu hình Gemini
+                var apiKey = _configuration["Gemini:ApiKey"];
+                string modelName = "gemini-2.5-flash";
+                string apiUrl = $"https://generativelanguage.googleapis.com/v1beta/models/{modelName}:generateContent?key={apiKey}";
+
+                // 3. Ghép dữ liệu vào Prompt
+                string finalPrompt = knowledgeBase + $"\n\nCâu hỏi của sinh viên: {request.Question}\nTrả lời ngắn gọn, thân thiện:";
+
+                // 4. Gửi lên Google
+                var payload = new
+                {
+                    contents = new[] { new { parts = new[] { new { text = finalPrompt } } } }
+                };
+
+                using (var client = new HttpClient())
+                {
+                    var jsonContent = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
+                    var response = await client.PostAsync(apiUrl, jsonContent);
+                    var responseString = await response.Content.ReadAsStringAsync();
+
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        return Ok(new { answer = $"Hệ thống đang bảo trì (Lỗi API: {response.StatusCode})." });
+                    }
+
+                    var jsonNode = JsonNode.Parse(responseString);
+                    var botAnswer = jsonNode?["candidates"]?[0]?["content"]?["parts"]?[0]?["text"]?.ToString();
+
+                    return Ok(new { answer = botAnswer ?? "Xin lỗi, mình chưa tìm thấy thông tin này." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Ok(new { answer = $"Lỗi hệ thống: {ex.Message}" });
+            }
         }
     }
 }

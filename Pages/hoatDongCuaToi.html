@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoạt Động Của Tôi - Sổ Tay Rèn Luyện</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+</head>
+<body class="bg-gray-50 font-sans flex flex-col min-h-screen">
+
+    <div id="navbar-placeholder"></div>
+
+    <main class="container mx-auto px-4 py-8 pt-24 flex-grow">
+        
+        <div class="flex justify-between items-center mb-8">
+            <div>
+                <h1 class="text-3xl font-bold text-blue-900 uppercase border-l-4 border-green-500 pl-3">Hoạt Động Của Tôi</h1>
+                <p class="text-gray-500 mt-1 ml-4">Lịch sử tham gia và trạng thái đăng ký của bạn.</p>
+            </div>
+            <a href="dangKyHoatDong.html" class="text-blue-700 font-semibold hover:underline">
+                <i class="fas fa-plus-circle"></i> Đăng ký thêm hoạt động
+            </a>
+            <button onclick="openQRScanner()" class="bg-blue-900 text-white px-4 py-2 rounded-lg font-bold hover:bg-blue-800 shadow flex items-center gap-2 animate-bounce">
+    <i class="fas fa-qrcode"></i> QUÉT MÃ ĐIỂM DANH
+</button>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+            <div class="hidden md:grid grid-cols-12 gap-4 bg-gray-100 p-4 font-bold text-gray-700 border-b">
+                <div class="col-span-5">Thông tin Hoạt động</div>
+                <div class="col-span-3">Thời gian & Địa điểm</div>
+                <div class="col-span-2 text-center">Trạng thái</div>
+                <div class="col-span-2 text-center">Thao tác</div>
+            </div>
+
+            <div id="myActivitiesContainer">
+                <div class="p-8 text-center text-gray-500">
+                    <i class="fas fa-spinner fa-spin text-2xl"></i> Đang tải dữ liệu...
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="js/main.js"></script>
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+    <script src="js/hoatDongCuaToi.js"></script> </body>
+    
+    <div id="qrModal" class="fixed inset-0 bg-black bg-opacity-90 hidden flex items-center justify-center z-50">
+    <div class="bg-white rounded-xl w-full max-w-md overflow-hidden relative">
+        <div class="bg-blue-900 p-4 flex justify-between items-center text-white">
+            <h3 class="font-bold"><i class="fas fa-camera mr-2"></i> Quét mã hoạt động</h3>
+            <button onclick="closeQRScanner()"><i class="fas fa-times text-xl"></i></button>
+        </div>
+
+        <div class="p-4 bg-black">
+            <div id="reader" class="w-full h-64 bg-gray-800 rounded-lg"></div>
+            <p class="text-white text-center text-sm mt-4">Di chuyển camera vào mã QR của Ban tổ chức</p>
+        </div>
+
+        <div id="qrResult" class="p-4 text-center hidden">
+            <i class="fas fa-check-circle text-green-500 text-5xl mb-2"></i>
+            <h4 class="font-bold text-gray-800 text-lg">Điểm danh thành công!</h4>
+            <p class="text-gray-600 text-sm">Hệ thống đã ghi nhận tham gia.</p>
+            <button onclick="location.reload()" class="mt-4 bg-blue-900 text-white px-6 py-2 rounded-lg font-bold w-full">Đồng ý</button>
+        </div>
+    </div>
+</div>
+</html>

@@ -15,6 +15,13 @@ namespace DoanVienAPI.Models
         [StringLength(1000)]
         public string? NoiDungTomTat { get; set; } // Tóm tắt nội dung, có thể null
 
+
+        // --- CHÚNG TA THÊM DÒNG NÀY VÀO ---
+        // Đây chính là cột Nội dung CHI TIẾT
+        
+        // ------------------------------------
+
+
         [StringLength(100)]
         public string? TenTacGia { get; set; } // Tên tác giả, có thể null
 
@@ -22,5 +29,12 @@ namespace DoanVienAPI.Models
 
         [StringLength(500)]
         public string? UrlHinhAnh { get; set; } // URL hình ảnh, có thể null
+
+        // --- CÁC CỘT MỚI THÊM ---
+        public string? TomTat { get; set; }
+
+        public string? HinhAnhUrl { get; set; }
+
+        public string? NoiDung { get; set; }
     }
 }

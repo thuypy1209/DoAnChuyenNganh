@@ -221,9 +221,9 @@ async function loadDoanVienForEdit(id) {
         const dv = await response.json();
 
         // Điền dữ liệu vào form
-        document.getElementById('doanVienId').value = dv.id;
-        document.getElementById('ma-dinh-danh').value = dv.maDinhDanh;
-        document.getElementById('ho-ten').value = dv.hoTen;
+        document.getElementById('doanVienId').value = dv.Id;
+        document.getElementById('ma-dinh-danh').value = dv.MaDinhDanh;
+        document.getElementById('ho-ten').value = dv.HoTen;
         // ... điền đầy đủ các trường khác tương tự ...
         
     } catch (error) {

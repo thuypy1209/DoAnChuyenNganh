@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Duyệt Đăng Ký - Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body class="bg-gray-50 font-sans text-gray-800">
+
+    <div class="flex h-screen overflow-hidden">
+        <aside class="w-64 bg-blue-900 text-white hidden md:block flex-shrink-0">
+            <div class="p-6"><h1 class="font-bold text-xl">MENU ADMIN</h1></div>
+            <div class="px-4 space-y-2">
+                <a href="index.html" class="block py-2 text-gray-400 hover:text-white">Dashboard</a>
+                <a href="quanLyHoatDong.html" class="block py-2 text-gray-400 hover:text-white">QL Hoạt động</a>
+                <a href="duyetDangKy.html" class="block py-2 text-white font-bold bg-blue-800 rounded px-2">Duyệt Đăng Ký</a>
+                <a href="index.html" class="block py-2 px-4 hover:bg-gray-800 rounded text-red-300">Về trang ADMIN </a>
+            </div>
+        </aside>
+
+        <div class="flex-grow flex flex-col h-screen overflow-y-auto">
+            <main class="p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h1 class="text-2xl font-bold text-blue-900">XÉT DUYỆT ĐĂNG KÝ HOẠT ĐỘNG</h1>
+                    <div class="bg-yellow-100 text-yellow-800 px-4 py-2 rounded-lg font-bold border border-yellow-200">
+                        Chờ xử lý: <span id="pendingCount" class="text-xl">0</span> đơn
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                    <table class="w-full text-left border-collapse">
+                        <thead class="bg-gray-50 text-blue-600 uppercase text-xs font-bold">
+                            <tr>
+                                <th class="p-4 border-b">Sinh viên</th>
+                                <th class="p-4 border-b">Hoạt động đăng ký</th>
+                                <th class="p-4 border-b">Thời gian gửi</th>
+                                <th class="p-4 border-b text-center">Minh chứng</th>
+                                <th class="p-4 border-b text-center">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody" class="text-sm text-gray-700">
+                            <tr><td colspan="5" class="p-8 text-center text-gray-400">Đang tải dữ liệu...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <div id="rejectModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
+        <div class="bg-white rounded-xl w-full max-w-md p-6 shadow-2xl">
+            <h3 class="text-lg font-bold text-red-600 mb-4">Từ chối đăng ký</h3>
+            <p class="text-sm text-gray-600 mb-2">Vui lòng nhập lý do để phản hồi cho sinh viên:</p>
+            <textarea id="txtLyDo" rows="3" class="w-full border border-gray-300 rounded p-2 focus:ring-2 focus:ring-red-500 outline-none" placeholder="Ví dụ: Minh chứng không hợp lệ..."></textarea>
+            <input type="hidden" id="rejectId">
+            
+            <div class="flex justify-end gap-3 mt-4">
+                <button onclick="document.getElementById('rejectModal').classList.add('hidden')" class="px-4 py-2 border rounded text-gray-600 hover:bg-gray-100">Hủy</button>
+                <button onclick="confirmReject()" class="px-4 py-2 bg-red-600 text-white rounded font-bold hover:bg-red-700">XÁC NHẬN TỪ CHỐI</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/admin_duyetDangKy.js"></script>
+</body>
+</html>

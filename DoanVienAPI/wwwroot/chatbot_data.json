@@ -1,0 +1,114 @@
+﻿{
+    "questions": [
+        {
+            "q": "Sinh viên 5 tốt là gì?",
+            "a": "Đây là danh hiệu cao quý do Trung ương Hội Sinh viên Việt Nam phát động, công nhận những sinh viên toàn diện về 5 tiêu chí: Đạo đức – Học tập – Thể lực – Tình nguyện – Hội nhập."
+        },
+        {
+            "q": "Ai có thể tham gia xét chọn Sinh viên 5 tốt?",
+            "a": "Tất cả sinh viên đang theo học chính quy tại Trường Đại học Công nghệ TP.HCM (HUTECH), đáp ứng tiêu chí trong năm học."
+        },
+        {
+            "q": "Danh hiệu này được xét ở những cấp nào?",
+            "a": "Có 4 cấp: cấp Khoa/Viện, cấp Trường, cấp Thành và cấp Trung ương. Sinh viên muốn xét cấp cao bắt buộc phải đạt các cấp thấp trước."
+        },
+        {
+            "q": "Vì sao nên phấn đấu Sinh viên 5 tốt?",
+            "a": "Sinh viên đạt danh hiệu sẽ có lợi thế khi xin học bổng, ứng tuyển việc làm, tham gia các chương trình giao lưu trong và ngoài nước, đồng thời được công nhận là gương mặt tiêu biểu của sinh viên trường."
+        },
+        {
+            "q": "Sinh viên 5 tốt cấp Khoa Viện có được xét lên cấp Trường không?",
+            "a": "Có. Sau khi được công nhận ở cấp Khoa/Viện, hồ sơ của bạn sẽ được đề nghị lên cấp Trường để xét tiếp."
+        },
+        {
+            "q": "Sinh viên năm Nhất có được đăng ký không?",
+            "a": "Có, miễn là đáp ứng tiêu chí trong năm học (nhưng ở cấp Trường sẽ khuyến khích thêm tham gia các cuộc thi học thuật)."
+        },
+        {
+            "q": "Sinh viên 5 Tốt có học bổng không?",
+            "a": "Danh hiệu Sinh viên 5 Tốt không phải học bổng trực tiếp, nhưng là tiêu chí quan trọng khi xét học bổng khuyến khích học tập, học bổng doanh nghiệp và các quỹ hỗ trợ sinh viên, giúp bạn có lợi thế lớn trong hồ sơ học bổng."
+        },
+        {
+            "q": "Đăng ký Sinh viên 5 tốt ở đâu?",
+            "a": "Đăng ký trực tuyến tại web sinhvien.hutech.edu.vn → Đoàn - Hội → Sinh viên 5 Tốt → Hồ sơ → ĐĂNG KÝ SINH VIÊN 5 TỐT."
+        },
+        {
+            "q": "Khi nào mở đợt đăng ký Sinh viên 5 Tốt?",
+            "a": "Hiện tại đã mở đăng ký Sinh viên 5 Tốt năm học 2025 - 2026, bạn có thể vào web sinhvien.hutech.edu.vn → Đoàn - Hội → Sinh viên 5 Tốt → Hồ sơ → ĐĂNG KÝ SINH VIÊN 5 TỐT."
+        },
+        {
+            "q": "Sinh viên 5 tốt được xét bao lâu một lần?",
+            "a": "Mỗi năm học 01 lần, dựa trên thành tích từ 01/8 năm trước đến 31/7 năm sau."
+        },
+        {
+            "q": "Để đạt Sinh viên 5 tốt có khó không?",
+            "a": "Không quá khó, nhưng đòi hỏi bạn cân bằng giữa học tập, rèn luyện bản thân và tham gia phong trào và hoàn thành đủ 5 tiêu chí trong Sinh viên 5 Tốt."
+        },
+        {
+            "q": "Sinh viên đã đạt Sinh viên 5 tốt một năm rồi, năm sau có được đăng ký lại không?",
+            "a": "Có, miễn là tiếp tục đáp ứng tiêu chí trong năm học mới."
+        },
+        {
+            "q": "Hồ sơ Sinh viên 5 tốt thường nộp vào thời gian nào?",
+            "a": "Cuối mỗi năm học (tháng 7-8), trước khi Hội đồng xét duyệt cấp Khoa Viện."
+        },
+        {
+            "q": "Sinh viên đạt danh hiệu có được tuyên dương không?",
+            "a": "Có, bạn sẽ được vinh danh trong Lễ tuyên dương Sinh viên 5 tốt cấp Khoa/Trường."
+        },
+        {
+            "q": "Tiêu chí đạo đức tốt cấp Khoa là gì?",
+            "a": "Phải là Đoàn viên Đoàn TNCS Hồ Chí Minh, đạt điểm rèn luyện từ 80 trở lên, không vi phạm pháp luật và nội quy."
+        },
+        {
+            "q": "Cần",
+            "tham" "gia",
+            "hoạt" "động",
+            "gì" "về",
+            "tư" "tưởng",
+            "–" "đạo",
+            "đức?\",": null,
+            "a": "Ít nhất 01 hoạt động tìm hiểu tư tưởng Hồ Chí Minh hoặc thi tìm hiểu Mác – Lênin."
+        },
+        {
+            "q": "Điểm học tập tối thiểu đạt cấp khoa là bao nhiêu?",
+            "a": "GPA năm học đạt từ 2.8/4.0 trở lên."
+        },
+        {
+            "q": "Cấp Khoa: Tiêu chí thể lực có mấy cách đạt?",
+            "a": "Chỉ cần đạt 1 trong 2: (1) Đạt danh hiệu Sinh viên khỏe, hoặc (2) Là vận động viên tham gia Hội thao cấp Khoa Viện trở lên."
+        },
+        {
+            "q": "Cấp Khoa: Tiêu chí tình nguyện tốt có mấy cách đạt?",
+            "a": "Chỉ cần đạt 1 trong 2: (1) Tham gia ít nhất 05 ngày tình nguyện/năm, hoặc (2) Có giấy chứng nhận Xuân tình nguyện, Mùa hè xanh, Tiếp sức mùa thi."
+        },
+        {
+            "q": "Tiêu chí ngoại ngữ cấp Khoa yêu cầu gì?",
+            "a": "Chứng chỉ B1 (theo khung Châu Âu) hoặc GPA các học phần tiếng Anh ≥ 2.8/4.0."
+        },
+        {
+            "q": "Tiêu chí đạo đức cấp Trường có gì khác cấp Khoa?",
+            "a": "Ngoài yêu cầu Đoàn viên ưu tú, điểm rèn luyện > 80, không vi phạm kỷ luật, còn phải đạt thêm 1 trong 3: 1. Danh hiệu Thanh niên tiên tiến từ cấp Trường trở lên, 2. Tham gia hoạt động tìm hiểu tư tưởng Hồ Chí Minh/Mác - Lênin, 3. Có hành động dũng cảm được biểu dương."
+        },
+        {
+            "q": "GPA yêu cầu tối thiểu cấp Trường là bao nhiêu?",
+            "a": "GPA từ 3.0/4.0 trở lên."
+        },
+        {
+            "q": "Cấp Trường: Tiêu chí thể lực tốt có mấy cách đạt?",
+            "a": "Đạt 1 trong 2: 1. Đạt danh hiệu Sinh viên khỏe cấp Khoa trở lên, 2. Đạt giải trong hội thao hoặc là vận động viên HUTECH Games 2025."
+        },
+        {
+            "q": "Cấp Trường: Tiêu chí tình nguyện tốt yêu cầu gì?",
+            "a": "Giống cấp Khoa, chỉ cần 1 trong 2: 1. Có giấy chứng nhận Xuân tình nguyện, Mùa hè xanh, Tiếp sức mùa thi, 2. Tham gia ít nhất 05 ngày tình nguyện/năm."
+        },
+        {
+            "q": "Tiêu chí ngoại ngữ ở cấp Trường yêu cầu ra sao?",
+            "a": "Đạt chứng chỉ tiếng Anh B1 trở lên hoặc GPA các học phần tiếng Anh ≥ 3.2/4.0 (không áp dụng cho sinh viên ngành Ngoại ngữ)."
+        },
+        {
+            "q": "Nếu có IELTS 4.5 thì xét được cấp nào?",
+            "a": "Được công nhận ở cả cấp Khoa và cấp Trường (vì tương đương B1)."
+        }
+    ]
+}

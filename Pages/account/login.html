@@ -1,116 +1,95 @@
 <!DOCTYPE html>
 <html lang="vi">
-  <head>
+<head>
     <meta charset="UTF-8">
-    <title>Đăng nhập</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Bootstrap CSS -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet">
-    <style>
-    body {
-      background-color: #f9f9f9;
-    }
-    .login-container {
-      max-width: 400px;
-      margin: 50px auto;
-      background-color: white;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    .login-logo {
-      width: 60px;
-      margin-bottom: 10px;
-    }
-    .form-title {
-      font-size: 22px;
-      font-weight: bold;
-      color: #0066cc;
-    }
-    .form-subtitle {
-      font-size: 14px;
-      color: #555;
-    }
-    .google-btn {
-      border: 1px solid #ccc;
-      background-color: #fff;
-      width: 100%;
-      padding: 10px;
-      border-radius: 5px;
-    }
-    .divider {
-      text-align: center;
-      margin: 15px 0;
-      color: #999;
-      font-size: 13px;
-    }
-    .version {
-      font-size: 12px;
-      color: #aaa;
-      text-align: center;
-      margin-top: 20px;
-    }
-  </style>
-  </head>
-  <body>
-    <div class="container">
-      <div class="login-container">
-        <div class="text-center">
-          <img src="https://sinhvien2.hutech.edu.vn/assets/img/logo.png"
-            alt="HUTECH Logo" class="login-logo">
-          <div class="form-title">HUTECH</div>
-          <div class="form-subtitle">Đại học Công nghệ Tp.HCM</div>
-          <p class="fw-bold mt-3">Cổng thông tin Đoàn viên</p>
-          <p class="text-muted small">Chào mừng trở lại, Đăng nhập để tiếp tục
-            truy cập</p>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Nhập - HUTECH Sổ Tay Điện Tử</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+
+    <div class="bg-white p-8 rounded-xl shadow-lg w-full max-w-md border-t-4 border-blue-600">
+        
+        <div class="text-center mb-6">
+            <h1 class="text-2xl font-bold text-blue-800">HUTECH ADMIN</h1>
+            <p class="text-gray-500 text-sm mt-1">Sổ tay Rèn luyện & Hoạt động</p>
         </div>
 
-        <button class="google-btn mb-3">
-          <img src="https://www.svgrepo.com/show/355037/google.svg"
-            alt="Google icon" width="20" class="me-2">
-          Đăng nhập bằng Google
-        </button>
+        <form id="loginForm">
+            
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2">Email nhà trường</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <i class="fa-solid fa-envelope text-gray-400"></i>
+                    </div>
+                    <input type="email" id="email" 
+                        class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition" 
+                        placeholder="Ví dụ: viet.luong@hutech.edu.vn">
+                </div>
+            </div>
 
-        <div class="divider">Hoặc, đăng nhập bằng phương thức khác</div>
+            <div class="mb-6">
+                <label class="block text-gray-700 text-sm font-bold mb-2">Mật khẩu</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <i class="fa-solid fa-lock text-gray-400"></i>
+                    </div>
+                    <input type="password" id="password" 
+                        class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition" 
+                        placeholder="Nhập mật khẩu...">
+                </div>
+            </div>
 
-        <form onsubmit="event.preventDefault(); login();">
-          <div class="mb-3">
-            <input type="text" class="form-control" id="username"
-              placeholder="Tên đăng nhập" required>
-          </div>
-          <div class="mb-3 input-group">
-            <input type="password" class="form-control" id="password"
-              placeholder="Mật khẩu" required>
-            <button class="btn btn-outline-secondary" type="button"
-              onclick="togglePassword(event)">👁</button>
-          </div>
-          <div id="message" class="text-danger mb-3"></div>
-          <div class="mb-2 text-end">
-            <a href="account/changepassword.html" class="small">Quên mật
-              khẩu?</a>
-          </div>
+            <button type="button" id="btnLogin" 
+                class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg shadow transition duration-200">
+                Đăng Nhập
+            </button>
 
-          <div class="d-grid">
-            <button type="submit" class="btn btn-primary">Đăng nhập</button>
-          </div>
+            <div id="otpSection" class="hidden mt-6 pt-4 border-t border-gray-200 animate-fade-in-down">
+                <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-4">
+                    <p class="text-sm text-yellow-700">
+                        <i class="fa-solid fa-circle-info mr-1"></i>
+                        Đã gửi mã OTP về email của bạn. Vui lòng kiểm tra và nhập vào bên dưới.
+                    </p>
+                </div>
+
+                <label class="block text-gray-700 text-sm font-bold mb-2">Mã xác thực (OTP)</label>
+                <input type="text" id="otpCode" 
+                    class="w-full px-3 py-3 border border-gray-300 rounded-lg text-center text-xl tracking-widest font-mono focus:outline-none focus:border-green-500 mb-4" 
+                    placeholder="######" maxlength="6">
+
+                <button type="button" id="btnVerifyOtp" 
+                    class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-lg shadow transition duration-200">
+                    Xác Thực & Vào Hệ Thống <i class="fa-solid fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+
         </form>
-
-        <div class="version">
-          Version 1.1.0<br>
-          © 2025. Bản quyền của COSO
-        </div>
-
-        <div class="text-center mt-2">
-          <p class="small">Chưa có tài khoản? <a href="register.html">Đăng
-              ký</a></p>
-        </div>
-      </div>
+        
+        <p class="text-center text-gray-400 text-xs mt-6">
+            &copy; 2025 HUTECH - Đồ án Chuyên ngành CNTT
+        </p>
     </div>
 
-    <!-- JS Logic -->
-    <script src="../js/authen.js"></script>
+    <script src="../../js/globalConfig.js"></script>
+    
+    <script src="../../js/authen.js"></script>
 
-  </body>
+    <style>
+        .animate-fade-in-down {
+            animation: fadeInDown 0.5s ease-out;
+        }
+        @keyframes fadeInDown {
+            0% { opacity: 0; transform: translateY(-10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        /* Class ẩn của Tailwind đôi khi cần ép kiểu */
+        .hidden { display: none !important; }
+    </style>
+
+</body>
 </html>

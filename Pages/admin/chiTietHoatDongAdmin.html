@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi Tiết Hoạt Động - Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body class="bg-gray-50 font-sans text-gray-800">
+
+    <div class="flex h-screen overflow-hidden">
+        <aside class="w-64 bg-blue-900 text-white hidden md:block">
+            <div class="p-6"><h1 class="font-bold text-xl">MENU ADMIN</h1></div>
+            <div class="px-4"><a href="quanLyHoatDong.html" class="block py-2 text-gray-400 hover:text-white"> <i class="fas fa-arrow-left mr-2"></i> Quay lại</a></div>
+        </aside>
+
+        <div class="flex-grow flex flex-col h-screen overflow-y-auto">
+            <main class="p-6">
+                
+                <div class="flex justify-between items-start mb-6 border-b pb-4">
+                    <div>
+                        <h1 class="text-2xl font-bold text-blue-900" Id="lblTenHoatDong">Đang tải...</h1>
+                        <p class="text-sm text-gray-500 mt-1">
+                            <i class="far fa-clock mr-1"></i> <span Id="lblThoiGian">--/--/----</span> 
+                            | <i class="fas fa-map-marker-alt ml-2 mr-1"></i> <span id="lblDiaDiem">...</span>
+                        </p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="showQRCode()" class="bg-purple-600 text-white px-4 py-2 rounded-lg font-bold hover:bg-purple-700 shadow flex items-center gap-2">
+                            <i class="fas fa-qrcode"></i> Lấy Mã Điểm Danh
+                        </button>
+                        <button onclick="history.back()" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 font-bold">
+                            Quay lại
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                    <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-blue-500">
+                        <p class="text-xs text-gray-500 uppercase font-bold">Tổng đăng ký</p>
+                        <p class="text-2xl font-bold text-blue-900" Id="countTotal">0</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-green-500">
+                        <p class="text-xs text-gray-500 uppercase font-bold">Đã điểm danh/Duyệt</p>
+                        <p class="text-2xl font-bold text-green-600" Id="countApproved">0</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-yellow-500">
+                        <p class="text-xs text-gray-500 uppercase font-bold">Chờ duyệt</p>
+                        <p class="text-2xl font-bold text-yellow-600" Id="countPending">0</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                    <div class="p-4 border-b bg-gray-50 flex justify-between items-center">
+                        <h3 class="font-bold text-gray-700">Danh sách sinh viên đăng ký</h3>
+                        <input type="text" placeholder="Tìm MSSV..." class="border rounded px-3 py-1 text-sm focus:outline-none focus:border-blue-500">
+                    </div>
+                    <table class="w-full text-left border-collapse">
+                        <thead class="bg-gray-100 text-gray-600 text-xs uppercase font-bold">
+                            <tr>
+                                <th class="p-4 border-b">Sinh viên</th>
+                                <th class="p-4 border-b">Ngày đăng ký</th>
+                                <th class="p-4 border-b text-center">Trạng thái</th>
+                                <th class="p-4 border-b text-center">Điểm danh</th>
+                                <th class="p-4 border-b text-center">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentTableBody" class="text-sm text-gray-700">
+                            <tr><td colspan="5" class="p-8 text-center text-gray-400">Đang tải danh sách...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <div id="qrModal" class="fixed inset-0 bg-black bg-opacity-80 hidden flex items-center justify-center z-50 p-4" onclick="this.classList.add('hidden')">
+        <div class="bg-white p-6 rounded-xl text-center max-w-sm mx-auto" onclick="event.stopPropagation()">
+            <h3 class="text-xl font-bold text-blue-900 mb-2">MÃ ĐIỂM DANH</h3>
+            <p class="text-sm text-gray-500 mb-4">Chiếu mã này để sinh viên quét</p>
+            <div class="border-4 border-blue-900 p-2 inline-block rounded-lg mb-4">
+                <img id="imgQR" src="" class="w-64 h-64 object-contain">
+            </div>
+            <button onclick="document.getElementById('qrModal').classList.add('hidden')" class="block w-full bg-gray-200 text-gray-700 py-2 rounded font-bold hover:bg-gray-300">Đóng</button>
+        </div>
+    </div>
+
+    <script src="../js/admin_chiTietHoatDong.js"></script>
+</body>
+</html>

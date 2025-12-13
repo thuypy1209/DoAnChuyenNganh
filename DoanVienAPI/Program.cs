@@ -8,12 +8,10 @@ using System.Text;
 using DoanVienAPI.Roles;
 using System.Security.Claims;
 using System.Text.Json;
-
-// THÊM CÁC USING STATEMENT NÀY VÀO ĐÂY (GIỮ NGUYÊN)
-using System.IO; 
-using Microsoft.Extensions.FileProviders; 
-using Microsoft.AspNetCore.Hosting; 
-using System.Reflection; 
+using System.IO;
+using Microsoft.Extensions.FileProviders;
+using Microsoft.AspNetCore.Hosting;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,22 +20,26 @@ builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
         options.JsonSerializerOptions.PropertyNamingPolicy = null;
-    }); 
+    });
+
+// 👇 1. ĐĂNG KÝ DỊCH VỤ SIGNALR (Đã có)
+builder.Services.AddSignalR();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-// THÊM DÒNG NÀY ĐỂ ĐĂNG KÝ DỊCH VỤ DUYỆT THƯ MỤC (GIỮ NGUYÊN)
 builder.Services.AddDirectoryBrowser();
 
-// Cấu hình CORS - Quan trọng cho Live Server
+// 👇 2. CẤU HÌNH CORS CHUẨN CHO SIGNALR (SỬA LẠI ĐOẠN NÀY)
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin",
-        policyBuilder => policyBuilder.WithOrigins("http://127.0.0.1:5500")
-                                     .AllowAnyHeader()
-                                     .AllowAnyMethod());
+        policy => policy
+            .WithOrigins("http://127.0.0.1:5500", "http://localhost:5500") // Thêm cả localhost cho chắc
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials()); // 👈 QUAN TRỌNG NHẤT: Bắt buộc có dòng này SignalR mới chạy
 });
+// -----------------------------------
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -67,39 +69,33 @@ builder.Services.AddAuthentication(options =>
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 })
-
-    .AddJwtBearer(options =>
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
     {
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidIssuer = jwtSettings["Issuer"],
-            ValidateAudience = true,
-            ValidAudience = jwtSettings["Audience"],
-            ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(key),
-            ValidateLifetime = true,
-            ClockSkew = TimeSpan.Zero,
-            RoleClaimType = ClaimTypes.Role 
-        };
-
-    });
+        ValidateIssuer = true,
+        ValidIssuer = jwtSettings["Issuer"],
+        ValidateAudience = true,
+        ValidAudience = jwtSettings["Audience"],
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(key),
+        ValidateLifetime = true,
+        ClockSkew = TimeSpan.Zero,
+        RoleClaimType = ClaimTypes.Role
+    };
+});
 
 builder.Services.AddAuthorization(options =>
 {
-    // Phân quyền theo role
     options.AddPolicy("RequireAdminOrDoanKhoa", policy =>
         policy.RequireRole("Admin", "doankhoa"));
-
-    // Có thể thêm các policy khác nếu cần
 });
+
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/Account/Login";
     options.AccessDeniedPath = "/Account/AccessDenied";
 });
-
-
 
 var app = builder.Build();
 
@@ -109,16 +105,21 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+// Mở kho file (OK)
 app.UseStaticFiles();
 
-app.UseRouting(); 
-app.UseCors("AllowSpecificOrigin"); // --- Là nó nè 5 Tiếng của 
+app.UseRouting();
 
-app.UseCors("AllowFrontend");
+// Kích hoạt CORS (OK)
+app.UseCors("AllowSpecificOrigin");
 
-app.UseAuthentication(); 
-app.UseAuthorization(); 
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
+
+// 👇 3. QUAN TRỌNG: TẠO ĐƯỜNG DẪN CHAT (THIẾU CÁI NÀY LÀ KHÔNG CHAT ĐƯỢC)
+app.MapHub<DoanVienAPI.Hubs.ChatHub>("/chatHub");
+// ------------------------------------------------------------------------
 
 app.Run();

@@ -1,74 +1,44 @@
-// js/tinTucChiTiet.js
-
-// LẤY URL API BASE TỪ CẤU HÌNH TOÀN CỤC
-const API_TIN_TUC_BASE_URL = window.API_TIN_TUC_BASE_URL; // Đảm bảo biến này tồn tại trong globalConfig.js
-
-// Hàm 1: Lấy ID từ thanh địa chỉ (URL)
-function getNewsIdFromUrl() {
-    const urlParams = new URLSearchParams(window.location.search); 
-    return urlParams.get('id'); 
-}
-
-// Hàm 2: Gọi API và hiển thị chi tiết bài viết
-async function fetchAndDisplayNewsDetail() {
-    const newsId = getNewsIdFromUrl();
+document.addEventListener('DOMContentLoaded', async function() {
+    // 1. Lấy ID từ trên thanh địa chỉ (Ví dụ: tinTucChiTiet.html?id=5)
+    const urlParams = new URLSearchParams(window.location.search);
+    const newsId = urlParams.get('id');
 
     if (!newsId) {
-        renderNewsDetail({ TieuDe: "Lỗi: Không tìm thấy ID tin tức.", NoiDung: "<p>Vui lòng quay lại Trang chủ.</p>" });
+        alert("Không tìm thấy bài viết!");
+        window.location.href = "Home.html";
         return;
     }
 
-    // Đường dẫn API hoàn chỉnh: ví dụ: https://localhost:7001/api/TinTucs/123
-    const DETAIL_API = `${API_TIN_TUC_BASE_URL}/${newsId}`; 
+    // 2. Gọi API lấy chi tiết 1 bài tin
+    // Lưu ý: Cổng 5114 hoặc 7006 tùy máy em (nhớ check lại globalConfig)
+    const API_URL = `http://localhost:5114/api/TinTucs/${newsId}`;
 
     try {
-        const response = await fetch(DETAIL_API); 
+        const response = await fetch(API_URL);
+        
+        if (!response.ok) throw new Error("Không tìm thấy bài viết trong Database");
 
-        if (response.ok) {
-            const newsData = await response.json();
-            
-            // THÀNH CÔNG: Hiển thị dữ liệu THẬT từ API
-            renderNewsDetail(newsData); 
-        } else {
-            // LỖI: Không tìm thấy bài viết trên DB
-            renderNewsDetail({ TieuDe: `Lỗi ${response.status}: Bài viết không tồn tại.`, NoiDung: `<p>Mã lỗi từ máy chủ: ${response.status}. Bài viết ID=${newsId} không có trong cơ sở dữ liệu.</p>` }); 
-        }
+        const data = await response.json();
+
+        // 3. Điền dữ liệu vào HTML
+        document.title = data.TieuDe + " - HUTECH"; // Đổi tên tab trình duyệt
+        
+        document.getElementById('newsTitle').innerText = data.TieuDe;
+        document.getElementById('newsDate').innerText = new Date(data.NgayDang).toLocaleDateString('vi-VN');
+        
+        // Xử lý ảnh
+        const img = document.getElementById('newsImage');
+        img.src = data.HinhAnhUrl || data.hinhAnhUrl || 'images/banner1.jpg';
+
+        // Xử lý nội dung (Nếu có xuống dòng thì đổi thành thẻ <br>)
+        // data.NoiDung có thể là null, nên phải check
+        const content = data.NoiDung || data.noiDung || "Bài viết này chưa có nội dung chi tiết.";
+        // Chuyển ký tự xuống dòng (\n) thành thẻ <br> để hiển thị đẹp hơn
+        document.getElementById('newsContent').innerHTML = content.replace(/\n/g, "<br>");
+
     } catch (error) {
-        // LỖI: Kết nối mạng, CORS, hoặc API Back-end không chạy
-        console.error("Lỗi kết nối hoặc xử lý dữ liệu:", error);
-        renderNewsDetail({ TieuDe: "Lỗi kết nối", NoiDung: "<p>Không thể kết nối đến máy chủ API (kiểm tra CORS/cổng API).</p>" });
+        console.error(error);
+        document.getElementById('newsTitle').innerText = "Lỗi tải trang";
+        document.getElementById('newsContent').innerHTML = `<div class="text-center text-red-500 py-10"><i class="fas fa-exclamation-triangle text-4xl mb-3"></i><p>${error.message}</p></div>`;
     }
-}
-
-// Hàm 3: Hiển thị dữ liệu lên giao diện
-function renderNewsDetail(news) {
-    // 1+1=2: Đảm bảo news.Id được dùng thay vì news.Id 
-    document.getElementById('page-title').innerText = `${news.TieuDe} - QL Đoàn viên`;
-    document.getElementById('news-title').innerText = news.TieuDe || 'Chưa có Tiêu đề';
-    
-    // Cập nhật Ngày đăng
-    if (news.NgayDang) {
-        const date = new Date(news.NgayDang);
-        document.getElementById('news-date').innerText = date.toLocaleDateString('vi-VN');
-    } else {
-        document.getElementById('news-date').innerText = 'N/A';
-    }
-    
-    // Cập nhật Hình ảnh (Giả định news.UrlHinhAnh là đường dẫn)
-    const newsImage = document.getElementById('news-image');
-    if (news.UrlHinhAnh) {
-        newsImage.src = news.UrlHinhAnh;
-        newsImage.style.display = 'block'; 
-    } else {
-        newsImage.style.display = 'none'; 
-    }
-    
-    // Cập nhật Nội dung chi tiết
-    document.getElementById('news-content').innerHTML = news.NoiDung || '<p>Không có nội dung chi tiết cho bài viết này.</p>'; 
-    
-    // Tạm thời hiển thị tác giả là Admin
-    document.getElementById('news-author').innerText = news.TenTacGia || 'Admin'; 
-}
-
-// Chạy hàm chính khi trang tải xong
-document.addEventListener('DOMContentLoaded', fetchAndDisplayNewsDetail);
+});
