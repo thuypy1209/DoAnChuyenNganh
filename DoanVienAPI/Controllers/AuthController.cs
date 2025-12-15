@@ -31,33 +31,23 @@ namespace DoanVienAPI.Controllers
             _context = context;
         }
 
-        // 1. ĐĂNG NHẬP -> KIỂM TRA PASS -> GỬI OTP
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
-            // Tìm user trong DB
+            // 1. Kiểm tra tài khoản
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == request.Email && u.Password == request.Password);
 
             if (user == null)
                 return BadRequest(new { message = "Sai email hoặc mật khẩu!" });
 
-            // Tạo mã OTP ngẫu nhiên 6 số
-            string otp = new Random().Next(100000, 999999).ToString();
-
-            // Lưu OTP vào DB
-            user.OtpCode = otp;
-            user.OtpExpiry = DateTime.Now.AddMinutes(5); // Hết hạn sau 5 phút
-            await _context.SaveChangesAsync();
-
-            // Gửi Email
-            // ⚠️ QUAN TRỌNG: Cậu nhớ sửa email và mật khẩu ứng dụng ở hàm SendEmail bên dưới nhé!
-            bool emailSent = SendEmail(user.Email, "Mã đăng nhập HUTECH",
-                $"<h1>Xin chào {user.FullName}</h1><p>Mã OTP của bạn là: <b style='color:red; font-size: 20px;'>{otp}</b></p><p>Mã này hết hạn sau 5 phút.</p>");
-
-            if (!emailSent)
-                return StatusCode(500, new { message = "Lỗi gửi mail. Hãy kiểm tra lại cấu hình Gmail trong code." });
-
-            return Ok(new { message = "OTP đã gửi về email!", step = "verify_otp" });
+            // 2. BỎ QUA OTP -> TRẢ VỀ QUYỀN LUÔN
+            return Ok(new
+            {
+                message = "Đăng nhập thành công!",
+                role = user.Role,      // Trả về "Admin" hoặc "Student"
+                userId = user.Id,
+                fullName = user.FullName
+            });
         }
 
         // 2. XÁC THỰC OTP -> TRẢ VỀ QUYỀN (ROLE)
