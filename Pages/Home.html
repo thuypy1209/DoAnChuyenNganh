@@ -81,103 +81,100 @@
         <div class="bg-white rounded-b-xl shadow-md p-6 min-h-[500px]">
 
             <div id="tabHoSo" class="tab-content active">
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        
-        <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm relative overflow-hidden">
-            <div class="absolute top-0 left-0 w-full h-24 bg-gradient-to-r from-blue-600 to-blue-400"></div>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    
+                    <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-full h-24 bg-gradient-to-r from-blue-600 to-blue-400"></div>
+                        
+                        <div class="relative text-center mb-6 mt-8">
+                            <div class="relative inline-block group">
+                                <img id="imgAvatarPreview" 
+                                     src="https://ui-avatars.com/api/?name=User&background=0D8ABC&color=fff&size=128" 
+                                     class="w-28 h-28 rounded-full border-4 border-white shadow-lg object-cover cursor-pointer hover:opacity-90"
+                                     onclick="document.getElementById('fileInputAvatar').click()">
+                                
+                                <button class="absolute bottom-1 right-1 bg-gray-800 text-white p-2 rounded-full text-xs hover:bg-black transition-transform hover:scale-110" 
+                                        title="Đổi ảnh đại diện"
+                                        onclick="document.getElementById('fileInputAvatar').click()">
+                                    <i class="fas fa-camera"></i>
+                                </button>
+                        
+                                <input type="file" id="fileInputAvatar" class="hidden" accept="image/*" onchange="chonAnhAvatar(this)">
+                            </div>
+                            
+                            <h3 id="hien-ten" class="text-2xl font-bold text-blue-900 mt-3">Đang tải tên...</h3>
+                            <span class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full">Sinh viên HUTECH</span>
+                        </div>
             
-            <div class="relative text-center mb-6 mt-8">
-                <div class="relative text-center mb-6 mt-8">
-    <div class="relative inline-block group">
-        <img id="imgAvatarPreview" 
-             src="https://ui-avatars.com/api/?name=User&background=0D8ABC&color=fff&size=128" 
-             class="w-28 h-28 rounded-full border-4 border-white shadow-lg object-cover cursor-pointer hover:opacity-90"
-             onclick="document.getElementById('fileInputAvatar').click()">
-        
-        <button class="absolute bottom-1 right-1 bg-gray-800 text-white p-2 rounded-full text-xs hover:bg-black transition-transform hover:scale-110" 
-                title="Đổi ảnh đại diện"
-                onclick="document.getElementById('fileInputAvatar').click()">
-            <i class="fas fa-camera"></i>
-        </button>
-
-        <input type="file" id="fileInputAvatar" class="hidden" accept="image/*" onchange="chonAnhAvatar(this)">
-    </div>
-
-
-    </div>
-                <h3 class="text-2xl font-bold text-blue-900 mt-3">Lương Quốc Việt</h3>
-                <span class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full">Sinh viên năm 3</span>
-            </div>
-
-            <div class="space-y-4 text-sm text-gray-600">
-                <div class="flex justify-between border-b border-dashed pb-2">
-                    <span><i class="fas fa-id-card mr-2 text-blue-500"></i>MSSV</span>
-                    <span class="font-bold text-gray-800">2280603664</span>
-                </div>
-                <div class="flex justify-between border-b border-dashed pb-2">
-                    <span><i class="fas fa-users mr-2 text-blue-500"></i>Lớp</span>
-                    <span class="font-bold text-gray-800">22DTHC1</span>
-                </div>
-                <div class="flex justify-between border-b border-dashed pb-2">
-                    <span><i class="fas fa-graduation-cap mr-2 text-blue-500"></i>Khoa</span>
-                    <span class="font-bold text-gray-800">Công nghệ thông tin</span>
-                </div>
-                <div class="flex justify-between">
-                    <span><i class="fas fa-envelope mr-2 text-blue-500"></i>Email</span>
-                    <span class="font-bold text-gray-800 truncate ml-4">viet.luong@hutech.edu.vn</span>
-                </div>
-            </div>
-
-            <button onclick="nopDonSV5T()" class="w-full mt-8 bg-gradient-to-r from-blue-900 to-blue-700 text-white py-3 rounded-xl font-bold hover:shadow-lg transform active:scale-95 transition-all flex items-center justify-center gap-2">
-                <i class="fas fa-file-signature"></i> Nộp đơn xét SV5T
-            </button>
-        </div>
-
-        <div class="lg:col-span-2 flex flex-col gap-6">
+                        <div class="space-y-4 text-sm text-gray-600">
+                            <div class="flex justify-between border-b border-dashed pb-2">
+                                <span><i class="fas fa-id-card mr-2 text-blue-500"></i>MSSV</span>
+                                <span id="hien-mssv" class="font-bold text-gray-800">...</span>
+                            </div>
+                            <div class="flex justify-between border-b border-dashed pb-2">
+                                <span><i class="fas fa-users mr-2 text-blue-500"></i>Lớp</span>
+                                <span id="hien-lop" class="font-bold text-gray-800">...</span>
+                            </div>
+                            <div class="flex justify-between border-b border-dashed pb-2">
+                                <span><i class="fas fa-graduation-cap mr-2 text-blue-500"></i>Khoa</span>
+                                <span id="hien-khoa" class="font-bold text-gray-800">...</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span><i class="fas fa-envelope mr-2 text-blue-500"></i>Email</span>
+                                <span id="hien-email" class="font-bold text-gray-800 truncate ml-4">...</span>
+                            </div>
+                        </div>
             
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div class="bg-orange-50 p-4 rounded-xl border border-orange-100 flex items-center gap-4">
-                    <div class="w-12 h-12 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center text-xl"><i class="fas fa-running"></i></div>
-                    <div>
-                        <p class="text-2xl font-bold text-orange-600">12</p>
-                        <p class="text-xs text-gray-500 uppercase font-bold">Hoạt động</p>
+                        <button onclick="nopDonSV5T()" class="w-full mt-8 bg-gradient-to-r from-blue-900 to-blue-700 text-white py-3 rounded-xl font-bold hover:shadow-lg transform active:scale-95 transition-all flex items-center justify-center gap-2">
+                            <i class="fas fa-file-signature"></i> Nộp đơn xét SV5T
+                        </button>
                     </div>
-                </div>
-                <div class="bg-green-50 p-4 rounded-xl border border-green-100 flex items-center gap-4">
-                    <div class="w-12 h-12 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-xl"><i class="fas fa-medal"></i></div>
-                    <div>
-                        <p class="text-2xl font-bold text-green-600">02</p>
-                        <p class="text-xs text-gray-500 uppercase font-bold">Danh hiệu</p>
-                    </div>
-                </div>
-                <div class="bg-purple-50 p-4 rounded-xl border border-purple-100 flex items-center gap-4">
-                    <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center text-xl"><i class="fas fa-clock"></i></div>
-                    <div>
-                        <p class="text-2xl font-bold text-purple-600">48h</p>
-                        <p class="text-xs text-gray-500 uppercase font-bold">Tình nguyện</p>
+            
+                    <div class="lg:col-span-2 flex flex-col gap-6">
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <div class="bg-orange-50 p-4 rounded-xl border border-orange-100 flex items-center gap-4">
+                                <div class="w-12 h-12 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center text-xl"><i class="fas fa-running"></i></div>
+                                <div>
+                                    <p class="text-2xl font-bold text-orange-600">12</p>
+                                    <p class="text-xs text-gray-500 uppercase font-bold">Hoạt động</p>
+                                </div>
+                            </div>
+                            <div class="bg-green-50 p-4 rounded-xl border border-green-100 flex items-center gap-4">
+                                <div class="w-12 h-12 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-xl"><i class="fas fa-medal"></i></div>
+                                <div>
+                                    <p class="text-2xl font-bold text-green-600">02</p>
+                                    <p class="text-xs text-gray-500 uppercase font-bold">Danh hiệu</p>
+                                </div>
+                            </div>
+                            <div class="bg-purple-50 p-4 rounded-xl border border-purple-100 flex items-center gap-4">
+                                <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center text-xl"><i class="fas fa-clock"></i></div>
+                                <div>
+                                    <p class="text-2xl font-bold text-purple-600">48h</p>
+                                    <p class="text-xs text-gray-500 uppercase font-bold">Tình nguyện</p>
+                                </div>
+                            </div>
+                        </div>
+            
+                        <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm flex-grow flex flex-col">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="font-bold text-gray-800 flex items-center">
+                                    <i class="fas fa-chart-line text-blue-600 mr-2"></i> Biểu đồ phát triển bản thân
+                                </h3>
+                                <select class="text-xs border rounded px-2 py-1 bg-gray-50 text-gray-600 outline-none">
+                                    <option>Toàn khóa</option>
+                                    <option>Năm nay</option>
+                                </select>
+                            </div>
+                            
+                            <div class="relative w-full flex-grow" style="min-height: 250px;">
+                                <canvas id="progressChart"></canvas>
+                            </div>
+                        </div>
+            
                     </div>
                 </div>
             </div>
-
-            <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm flex-grow flex flex-col">
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="font-bold text-gray-800 flex items-center">
-                        <i class="fas fa-chart-line text-blue-600 mr-2"></i> Biểu đồ phát triển bản thân
-                    </h3>
-                    <select class="text-xs border rounded px-2 py-1 bg-gray-50 text-gray-600 outline-none">
-                        <option>Toàn khóa</option>
-                        <option>Năm nay</option>
-                    </select>
-                </div>
-                
-                <div class="relative w-full flex-grow" style="min-height: 250px;">
-                    <canvas id="progressChart"></canvas>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</div>
 
             <div id="tabLichSu" class="tab-content">
                 <div class="flex flex-wrap gap-4 mb-6 bg-gray-50 p-4 rounded-lg">
@@ -276,13 +273,14 @@
         </div>
 
     </main>
+
     <a href="chatbot.html" class="fixed bottom-8 right-8 cursor-pointer drop-shadow-lg z-50 hover:scale-110 transition-transform">
         <img src="images/chatbot_icon.png" alt="HUTECH AI Chatbot" class="w-20 h-20">
     </a>
 
     <div id="footer-placeholder"></div>
     <script src="js/main.js"></script>
-    <script src="js/homeDashboard.js"></script> </body>
+    <script src="js/homeDashboard.js"></script>
 
     <button onclick="toggleChat()" class="fixed bottom-11 right-32 w-14 h-14 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg flex items-center justify-center transition-transform hover:scale-110 z-50">
     <i class="fas fa-comment-dots text-2xl"></i>
@@ -315,17 +313,15 @@
             </button>
         </div>
     </div>
+
     <script>
-    // Hàm mở/đóng khung chat (Đặt ở đây để HTML chắc chắn nhìn thấy)
     function toggleChat() {
         const chatBox = document.getElementById("chatBox");
         const chatInput = document.getElementById("chatInput");
 
         if (chatBox) {
-            // Đang ẩn thì hiện, đang hiện thì ẩn
             if (chatBox.classList.contains("hidden")) {
                 chatBox.classList.remove("hidden");
-                // Tự động focus vào ô nhập liệu
                 if(chatInput) chatInput.focus(); 
             } else {
                 chatBox.classList.add("hidden");
@@ -334,10 +330,27 @@
             console.error("Lỗi: Không tìm thấy id='chatBox'");
         }
     }
-</script>
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
     <script src="js/chat.js"></script>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 1. Lấy thông tin từ LocalStorage (được lưu lúc Đăng nhập)
+            const ten = localStorage.getItem('userName');
+            const mssv = localStorage.getItem('userMssv');
+            const lop = localStorage.getItem('userLop');
+            const khoa = localStorage.getItem('userKhoa');
+            const email = localStorage.getItem('userEmail');
+
+            // 2. Điền thông tin vào các ô có ID tương ứng
+            if(ten) document.getElementById('hien-ten').innerText = ten;
+            if(mssv) document.getElementById('hien-mssv').innerText = mssv;
+            if(lop) document.getElementById('hien-lop').innerText = lop;
+            if(khoa) document.getElementById('hien-khoa').innerText = khoa;
+            if(email) document.getElementById('hien-email').innerText = email;
+        });
+    </script>
+
 </body>
-</html>
 </html>

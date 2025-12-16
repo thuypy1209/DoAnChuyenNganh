@@ -1,132 +1,170 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Đăng ký</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-            rel="stylesheet">
-        <style>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Ký Sinh Viên - HUTECH</title>
+    <script src="../../js/globalConfig.js"></script> 
+    <style>
         body {
-            background-color: #f9f9f9;
+            background: linear-gradient(135deg, #f6ebeb 0%, #f0f1f3 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
         }
-
         .register-container {
-            max-width: 400px;
-            margin: 50px auto;
-            background-color: white;
+            background: white;
             padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            width: 400px;
+            /* Thêm scroll nếu màn hình nhỏ */
+            max-height: 90vh;
+            overflow-y: auto; 
         }
-
-        .register-logo {
-            width: 60px;
-            margin-bottom: 10px;
+        h2 { text-align: center; color: #333; margin-bottom: 20px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; color: #666; font-size: 14px; }
+        input, select {
+            width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;
+            box-sizing: border-box; 
         }
-
-        .form-title {
-            font-size: 22px;
-            font-weight: bold;
-            color: #0066cc;
+        .btn-register {
+            width: 100%; padding: 12px; background: #0873c0; color: white;
+            border: none; border-radius: 5px; font-size: 16px; cursor: pointer;
+            transition: 0.3s;
         }
-
-        .form-subtitle {
-            font-size: 14px;
-            color: #555;
-        }
-
-        .google-btn {
-            border: 1px solid #ccc;
-            background-color: #fff;
-            width: 100%;
-            padding: 10px;
-            border-radius: 5px;
-        }
-
-        .divider {
-            text-align: center;
-            margin: 15px 0;
-            color: #999;
-            font-size: 13px;
-        }
-
-        .version {
-            font-size: 12px;
-            color: #aaa;
-            text-align: center;
-            margin-top: 20px;
-        }
+        .btn-register:hover { background: #2575fc; }
+        .link-login { text-align: center; margin-top: 15px; font-size: 14px; }
+        .link-login a { color: #064e9c; text-decoration: none; font-weight: bold; }
     </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="register-container">
-                <div class="text-center">
-                    <img
-                        src="https://sinhvien2.hutech.edu.vn/assets/img/logo.png"
-                        alt="HUTECH Logo" class="register-logo">
-                    <div class="form-title">HUTECH</div>
-                    <div class="form-subtitle">Đại học Công nghệ Tp.HCM</div>
-                    <p class="fw-bold mt-3">Tạo tài khoản Đoàn viên</p>
-                    <p class="text-muted small">Điền thông tin bên dưới để đăng
-                        ký</p>
-                </div>
-                <button class="google-btn mb-3">
-                    <img src="https://www.svgrepo.com/show/355037/google.svg"
-                        alt="Google icon" width="20" class="me-2">
-                    Đăng ký bằng Google
-                </button>
-                <div class="divider">Hoặc, đăng ký bằng Email</div>
-                <form id="registerForm">
-                    <div class="mb-3">
-                        <input type="text" name="fullName" class="form-control"
-                            placeholder="Họ và tên" required>
-                    </div>
-                    <div class="mb-3">
-                        <input type="text" name="username" pattern="[a-zA-Z0-9]+" title="Chỉ dùng chữ cái hoặc số" class="form-control" placeholder="Tên đăng nhập" required>
+</head>
+<body>
 
-                    </div>
-                    <div class="mb-3">
-                        <input type="email" name="email" class="form-control"
-                            placeholder="Email" required>
-                    </div>
-                    <div class="mb-3">
-                        <input type="password" name="password"
-                            class="form-control" placeholder="Mật khẩu"
-                            required>
-                    </div>
-                    <div class="mb-3">
-                        <input type="password" name="confirmPassword"
-                            class="form-control" placeholder="Nhập lại mật khẩu"
-                            required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Loại tài khoản:</label>
-                        <select name="role" class="form-select" required>
-                            <option value>-- Chọn loại tài khoản --</option>
-                            <option value="Admin">Admin</option>
-                            <option value="Đoàn Trường">Đoàn Trường</option>
-                            <option value="Đoàn Khoa">Đoàn Khoa</option>
-                            <option value="Đoàn Viên">Đoàn Viên</option>
-                        </select>
-                    </div>
-                    <div id="message" class="text-danger mb-3"></div>
-                    <div class="d-grid">
-                        <button type="submit" class="btn btn-success">Đăng
-                            ký</button>
-                    </div>
-                </form>
-                <div class="version">
-                    Version 1.1.0<br>
-                    © 2025. Bản quyền của COSO
-                </div>
-                <p class="mt-3">Đã có tài khoản? <a href="login.html">Đăng
-                        nhập</a></p>
-                <p><a href="forgotpassword.html">Quên mật khẩu?</a></p>
+    <div class="register-container">
+        <h2>Đăng Ký Đoàn Viên</h2>
+        
+        <div class="form-group">
+            <label>Họ và Tên</label>
+            <input type="text" id="regName" placeholder="">
+        </div>
+
+        <div class="form-group">
+            <label>Sinh Viên / Năm Thứ</label>
+            <select id="regNamHoc">
+                <option value="">-- Chọn Năm --</option>
+                <option value="Năm 1">Năm Nhất</option>
+                <option value="Năm 2">Năm Hai</option>
+                <option value="Năm 3">Năm Ba</option>
+                <option value="Năm 4">Năm Tư</option>
+                <option value="Khác">Khác</option>
+            </select>
+        </div>
+
+        <div class="form-group" style="display: flex; gap: 10px;">
+            <div style="flex: 1;">
+                <label>MSSV</label>
+                <input type="text" id="regMssv" placeholder="">
+            </div>
+            <div style="flex: 1;">
+                <label>Lớp</label>
+                <input type="text" id="regLop" placeholder="">
             </div>
         </div>
-        <script src="../js/authen.js"></script>
-    </body>
+
+        <div class="form-group">
+            <label>Khoa / Viện</label>
+            <select id="regKhoa">
+                <option value="">-- Chọn Khoa/Viện --</option>
+                <option value="Công nghệ thông tin">Khoa Công nghệ thông tin</option>
+                <option value="Dược">Khoa Dược</option>
+                <option value="Quản trị kinh doanh">Khoa Quản trị kinh doanh</option>
+                <option value="Tài chính - Thương mại">Khoa Tài chính - Thương mại</option>
+                <option value="Luật">Khoa Luật</option>
+                <option value="Khoa học Xã hội và Quan hệ Công chúng">Khoa KHXH & QH Công chúng</option>
+                <option value="Tiếng Anh">Khoa Tiếng Anh</option>
+                <option value="Nhật Bản học">Khoa Nhật Bản học</option>
+                <option value="Kiến trúc - Mỹ thuật">Khoa Kiến trúc - Mỹ thuật</option>
+                <option value="Xây dựng">Khoa Xây dựng</option>
+                <option value="Du lịch - Nhà hàng - Khách sạn">Khoa Du lịch - Nhà hàng - Khách sạn</option>
+                <option value="Khác">Khác...</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Email (Dùng Email trường)</label>
+            <input type="email" id="regEmail" placeholder="">
+        </div>
+
+        <div class="form-group">
+            <label>Mật khẩu</label>
+            <input type="password" id="regPass" placeholder="******">
+        </div>
+
+        <button class="btn-register" onclick="xuLyDangKy()">ĐĂNG KÝ NGAY</button>
+
+        <div class="link-login">
+            Đã có tài khoản? <a href="login.html">Đăng nhập tại đây</a>
+        </div>
+    </div>
+
+    <script>
+        async function xuLyDangKy() {
+            // 1. Lấy dữ liệu từ các ô nhập
+            const fullName = document.getElementById('regName').value;
+            const mssv = document.getElementById('regMssv').value;
+            const lop = document.getElementById('regLop').value;
+            const khoa = document.getElementById('regKhoa').value; // Lấy đúng ID Khoa
+            const namHoc = document.getElementById('regNamHoc').value; // Lấy thêm Năm học
+            const email = document.getElementById('regEmail').value;
+            const password = document.getElementById('regPass').value;
+
+            // Kiểm tra rỗng
+            if(!fullName || !mssv || !email || !password || !khoa) {
+                alert("Vui lòng nhập đầy đủ thông tin!");
+                return;
+            }
+
+            // ⚠️ LƯU Ý: Vì Backend hiện tại CHƯA CÓ cột "NamHoc", 
+            // nên ta sẽ ghép tạm Năm học vào Lớp để lưu trữ (VD: "22DTHC1 - Năm 3")
+            // Hoặc nếu không cần lưu năm thì bỏ dòng này đi.
+            const lopDayDu = lop + (namHoc ? ` (${namHoc})` : "");
+
+            // 2. Gói dữ liệu lại
+            const dataGuiDi = {
+                fullName: fullName,
+                mssv: mssv,
+                lop: lopDayDu, // Gửi lớp kèm năm học
+                khoa: khoa,
+                email: email,
+                password: password
+            };
+
+            // 3. Gửi cho Backend
+            const API_URL = (typeof CONFIG !== 'undefined' ? CONFIG.API_BASE_URL : 'http://localhost:5114/api') + '/Auth/register';
+
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(dataGuiDi)
+                });
+
+                if (response.ok) {
+                    alert("✅ Đăng ký thành công! Đang chuyển sang trang Đăng nhập...");
+                    window.location.href = 'login.html'; 
+                } else {
+                    const errorData = await response.json();
+                    alert("❌ Lỗi: " + (errorData.message || "Đăng ký thất bại"));
+                }
+            } catch (err) {
+                alert("❌ Lỗi kết nối Server! Xem Backend chạy chưa?");
+                console.error(err);
+            }
+        }
+    </script>
+
+</body>
 </html>

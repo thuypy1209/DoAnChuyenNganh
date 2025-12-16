@@ -8,13 +8,14 @@
     <script src="https://cdn.tailwindcss.com"></script>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
 
     <div class="bg-white p-8 rounded-xl shadow-lg w-full max-w-md border-t-4 border-blue-600">
         
         <div class="text-center mb-6">
-            <h1 class="text-2xl font-bold text-blue-800">HUTECH ADMIN</h1>
+            <h1 class="text-2xl font-bold text-blue-800">HUTECH ĐOÀN VIÊN</h1>
             <p class="text-gray-500 text-sm mt-1">Sổ tay Rèn luyện & Hoạt động</p>
         </div>
 
@@ -28,7 +29,7 @@
                     </div>
                     <input type="email" id="email" 
                         class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition" 
-                        placeholder="Ví dụ: viet.luong@hutech.edu.vn">
+                        placeholder="">
                 </div>
             </div>
 
@@ -49,31 +50,38 @@
                 Đăng Nhập
             </button>
 
-            <div id="otpSection" class="hidden mt-6 pt-4 border-t border-gray-200 animate-fade-in-down">
-                <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-4">
-                    <p class="text-sm text-yellow-700">
-                        <i class="fa-solid fa-circle-info mr-1"></i>
-                        Đã gửi mã OTP về email của bạn. Vui lòng kiểm tra và nhập vào bên dưới.
-                    </p>
-                </div>
-
-                <label class="block text-gray-700 text-sm font-bold mb-2">Mã xác thực (OTP)</label>
-                <input type="text" id="otpCode" 
-                    class="w-full px-3 py-3 border border-gray-300 rounded-lg text-center text-xl tracking-widest font-mono focus:outline-none focus:border-green-500 mb-4" 
-                    placeholder="######" maxlength="6">
-
-                <button type="button" id="btnVerifyOtp" 
-                    class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-lg shadow transition duration-200">
-                    Xác Thực & Vào Hệ Thống <i class="fa-solid fa-arrow-right ml-2"></i>
-                </button>
+            <div class="my-4 flex items-center justify-between">
+                <span class="border-b w-1/5 border-gray-300"></span>
+                <span class="text-xs text-center text-gray-400 uppercase">Hoặc tiếp tục với</span>
+                <span class="border-b w-1/5 border-gray-300"></span>
             </div>
 
-        </form>
+            <button type="button" class="w-full border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 font-bold py-2.5 rounded-lg shadow-sm flex items-center justify-center transition duration-200">
+                <i class="fa-brands fa-google text-red-500 mr-2 text-lg"></i>
+                Google
+            </button>
+            <div class="my-3"></div>
+
+            <button type="button" class="w-full border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 font-bold py-2.5 rounded-lg shadow-sm flex items-center justify-center transition duration-200">
+                <i class="fa-brands fa-gmail text-red-500 mr-2 text-lg"></i>
+                Gmail
+            </button>
+            
+            </form>
+
+        <div class="mt-6 text-center border-t pt-4">
+            <p class="text-blue-600 text-sm">Bạn chưa có tài khoản?</p>
+            <a href="register.html" class="text-blue-600 font-bold hover:underline mt-1 inline-block">
+                Đăng ký thành viên mới
+            </a>
+        </div>
         
         <p class="text-center text-gray-400 text-xs mt-6">
             &copy; 2025 HUTECH - Đồ án Chuyên ngành CNTT
         </p>
     </div>
+
+    
 
     <script src="../../js/globalConfig.js"></script>
     
@@ -90,6 +98,8 @@
         /* Class ẩn của Tailwind đôi khi cần ép kiểu */
         .hidden { display: none !important; }
     </style>
+
+    
 
 </body>
 </html>

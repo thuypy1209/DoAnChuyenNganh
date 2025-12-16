@@ -44,9 +44,16 @@ namespace DoanVienAPI.Controllers
             return Ok(new
             {
                 message = "Đăng nhập thành công!",
-                role = user.Role,      // Trả về "Admin" hoặc "Student"
+                token = "fake-jwt-token",
+                role = user.Role,
                 userId = user.Id,
-                fullName = user.FullName
+                fullName = user.FullName,
+
+                // Trả thêm mấy cái này:
+                mssv = user.Mssv,
+                lop = user.Lop,
+                khoa = user.Khoa,
+                email = user.Email
             });
         }
 
@@ -145,6 +152,35 @@ namespace DoanVienAPI.Controllers
             await _context.SaveChangesAsync();
 
             return Ok(new { message = "✅ ĐÃ TẠO XONG ADMIN! Bạn có thể dùng email này để đăng nhập ngay." });
+        }
+
+
+        [HttpPost("register")]
+        public async Task<IActionResult> Register([FromBody] RegisterRequest request)
+        {
+            // 1. Kiểm tra xem Email có chưa (Giữ nguyên code cũ)
+            if (await _context.Users.AnyAsync(u => u.Email == request.Email))
+                return BadRequest(new { message = "Email này đã được đăng ký rồi!" });
+
+            // 2. Tạo User mới với đầy đủ thông tin
+            var newUser = new User
+            {
+                Email = request.Email,
+                Password = request.Password, // Lưu ý: Nên mã hóa password nếu có thể
+                FullName = request.FullName,
+                Role = "Student", // Mặc định là Sinh viên
+
+                // LƯU THÔNG TIN SINH VIÊN:
+                Mssv = request.Mssv,
+                Lop = request.Lop,
+                Khoa = request.Khoa,
+                AvatarUrl = "default.png" // Ảnh mặc định
+            };
+
+            _context.Users.Add(newUser);
+            await _context.SaveChangesAsync();
+
+            return Ok(new { message = "Đăng ký thành công!" });
         }
     }
 

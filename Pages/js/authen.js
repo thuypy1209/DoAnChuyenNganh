@@ -27,14 +27,15 @@ document.addEventListener('DOMContentLoaded', function() {
             const data = await response.json();
 
             if (response.ok) {
-                // --- ĐĂNG NHẬP THÀNH CÔNG (KHÔNG CẦN OTP) ---
-                
-                // 1. Lưu thông tin
+                // 1. LƯU TẤT CẢ THÔNG TIN VÀO TÚI (LocalStorage)
                 localStorage.setItem('userRole', data.role);
                 localStorage.setItem('userName', data.fullName);
-                localStorage.setItem('userId', data.userId);
+                localStorage.setItem('userMssv', data.mssv || "Chưa cập nhật");
+                localStorage.setItem('userLop', data.lop || "Chưa cập nhật");
+                localStorage.setItem('userKhoa', data.khoa || "HUTECH");
+                localStorage.setItem('userEmail', data.email);
 
-                alert("Đăng nhập thành công! Đang vào hệ thống...");
+            alert("Đăng nhập thành công!");
 
                 // 2. CHUYỂN TRANG NGAY LẬP TỨC
                 // (Dùng đường dẫn tuyệt đối cho chắc ăn)

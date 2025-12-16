@@ -28,5 +28,10 @@ namespace DoanVienAPI.Models // ⚠️ Lưu ý: Đổi namespace nếu tên proj
 
         // Thời gian hết hạn OTP
         public DateTime? OtpExpiry { get; set; }
+
+        public string? Mssv { get; set; }      // Mã số sinh viên
+        public string? Lop { get; set; }       // Lớp (VD: 22DTHC1)
+        public string? Khoa { get; set; }      // Khoa (VD: CNTT)
+        public string? AvatarUrl { get; set; }
     }
 }
