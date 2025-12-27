@@ -1,5 +1,21 @@
 const API_BASE = "http://localhost:5114/api";
 
+// Dán vào đầu các file JS của trang chủ/admin
+function checkLoginStatus() {
+    const token = localStorage.getItem('accessToken');
+    if (!token) {
+        window.location.href = '/account/login.html'; // Không có vé là đuổi về ngay
+    }
+}
+checkLoginStatus(); // Gọi luôn cho nóng
+
+// Chặn trường hợp Back từ cache
+window.addEventListener('pageshow', function (event) {
+    if (event.persisted || (window.performance && window.performance.navigation.type === 2)) {
+         window.location.reload(); // Ép tải lại trang để kiểm tra lại vé
+    }
+});
+
 document.addEventListener('DOMContentLoaded', async function() {
     // 1. Tải số liệu thống kê
     await loadStats();

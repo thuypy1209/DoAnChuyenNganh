@@ -112,6 +112,9 @@ namespace DoanVienAPI.Migrations
                     b.Property<string>("TonGiao")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("TongDiem")
+                        .HasColumnType("int");
+
                     b.Property<string>("TrinhDoChuyenMon")
                         .HasColumnType("nvarchar(max)");
 
@@ -523,6 +526,9 @@ namespace DoanVienAPI.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
+                    b.Property<string>("TieuChi")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("TieuChiSV5T")
                         .HasColumnType("nvarchar(max)");
 
@@ -655,12 +661,24 @@ namespace DoanVienAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("AvatarUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FullName")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Khoa")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Lop")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Mssv")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("OtpCode")

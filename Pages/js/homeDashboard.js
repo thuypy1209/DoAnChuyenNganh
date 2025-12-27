@@ -1,151 +1,239 @@
 // File: js/homeDashboard.js
 
-// 1. CẤU HÌNH API (Đúng cổng 7006)
-const API_BASE_URL = "https://localhost:7006/api";
-const CURRENT_STUDENT_ID = 1; // ID giả định
-
-// Biến chứa dữ liệu toàn cục
-let appData = {
-    totalScore: 0,
-    criteria: [],
-    history: [],
-    titles: [],
-    ThongTin: null // Quan trọng: Phải có biến này để chứa Info sinh viên
-};
-
 document.addEventListener('DOMContentLoaded', async function() {
-    await loadRealData(); // 1. Tải dữ liệu
-    renderDashboard();    // 2. Vẽ giao diện
+    // 1. CẤU HÌNH API
+    // Gắn vào window để dùng chung
+    window.API_BASE_URL = "http://quocviet09-001-site1.smarterasp.net/api";
+
+    // 2. LẤY THÔNG TIN TỪ LOCAL STORAGE & GẮN VÀO WINDOW
+    window.CURRENT_STUDENT_ID = localStorage.getItem('userId'); 
+    window.TOKEN = localStorage.getItem('accessToken');
+    window.CURRENT_MSSV = localStorage.getItem('userMssv');
+
+    console.log("Check Auth:", { 
+        ID: window.CURRENT_STUDENT_ID, 
+        MSSV: window.CURRENT_MSSV, 
+        Token: window.TOKEN ? "Có" : "Không" 
+    });
+
+    // Nếu chưa đăng nhập thì đuổi về
+    if (!window.TOKEN || !window.CURRENT_MSSV) {
+        alert("Phiên đăng nhập hết hạn. Vui lòng đăng nhập lại!");
+        window.location.href = '/account/login.html';
+        return;
+    }
+
+    // 3. KHỞI TẠO BIẾN DỮ LIỆU TOÀN CỤC (GẮN VÀO WINDOW)
+    window.appData = {
+        totalScore: 0,
+        criteria: [],
+        history: [],
+        titles: [],
+        ThongTin: null
+    };
+
+    // 4. CHẠY CÁC HÀM KHỞI TẠO
+    await loadRealData(); 
+    renderDashboard();    
     renderHistory();
     renderTitles();
     initChart();
     renderDetailedScore();
-    // initForecast();
+    initForecast(); 
 });
 
-// --- HÀM GỌI API (ĐÃ SỬA LỖI QUÊN DỮ LIỆU) ---
 async function loadRealData() {
     try {
-        console.log("🚀 Bắt đầu gọi API...");
-        const url = `${API_BASE_URL}/SinhViens/${CURRENT_STUDENT_ID}`;
-        const response = await fetch(url);
+        console.log("🚀 Đang tải dữ liệu cho MSSV:", window.CURRENT_MSSV);
+        
+        const url = `${window.API_BASE_URL}/QuanLySinhVien/GetByMssv/${window.CURRENT_MSSV}`;
+        
+        const response = await fetch(url, {
+            headers: {
+                'Authorization': `Bearer ${window.TOKEN}`,
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (response.status === 404) {
+            console.warn("⚠️ Chưa tìm thấy hồ sơ sinh viên.");
+            window.appData.ThongTin = { 
+                HoTen: localStorage.getItem('userName') || "Sinh Viên", 
+                MSSV: window.CURRENT_MSSV,
+                AnhDaiDien: 'images/default.png'
+            };
+            return;
+        }
 
         if (!response.ok) throw new Error(`Lỗi API: ${response.status}`);
 
         const data = await response.json();
         console.log("✅ Dữ liệu nhận được:", data);
 
-        // --- MAPPING DỮ LIỆU (QUAN TRỌNG NHẤT) ---
+        // 1. Cập nhật thông tin cơ bản
+        window.appData.ThongTin = data.thongTin || data.ThongTin; 
         
-        // 1. Lưu thông tin cá nhân (Cái này nãy mình quên nè)
-        appData.ThongTin = data.ThongTin; 
+        // 2. Cập nhật ĐIỂM TỔNG (Đây là chỗ sẽ hiện con số 55)
+        window.appData.totalScore = data.tongDiem || data.TongDiem || data.diemRenLuyen || 0;
+        
+        // 3. Cập nhật lịch sử và danh hiệu
+        window.appData.history = data.lichSu || data.LichSu || [];
+        window.appData.titles = data.danhHieu || data.DanhHieu || [];
 
-        // 2. Lưu điểm số
-        appData.totalScore = data.TongDiem || data.DiemRenLuyen || 0;
-
-        // 3. Lưu lịch sử (Lấy từ LichSu chứ ko phải HoatDongs)
-        appData.history = data.LichSu || [];
-
-        // 4. Tạo dữ liệu giả cho 5 tiêu chí (Vì API chưa trả về cái này)
-        appData.criteria = [
-            { id: 1, name: "Đạo đức", score: 18, max: 20 },
-            { id: 2, name: "Học tập", score: 15, max: 20 },
-            { id: 3, name: "Thể lực", score: 10, max: 20 },
-            { id: 4, name: "Tình nguyện", score: 12, max: 20 },
-            { id: 5, name: "Hội nhập", score: 14, max: 20 }
-        ];
-
-        // 5. Tạo dữ liệu giả cho Danh hiệu (Vì API chưa trả về)
-        appData.titles = [
-            { name: "Sinh viên 5 tốt cấp Khoa", year: "2024", icon: "medal", color: "yellow" }
-        ];
+        // 4. XỬ LÝ 5 TIÊU CHÍ (Để hiện điểm thành phần)
+        // Nếu Backend trả về mảng TieuChi, chúng ta dùng nó, nếu không mới dùng mặc định
+        const backendCriteria = data.tieuChi || data.TieuChi || data.diemThanhPhan;
+        
+        if (backendCriteria && backendCriteria.length > 0) {
+            // Chuyển đổi dữ liệu backend sang định dạng frontend cần
+            window.appData.criteria = backendCriteria.map((item, index) => ({
+                id: index + 1,
+                name: item.tieuChi || item.name || "Tiêu chí",
+                score: item.diem || item.score || 0,
+                max: 20
+            }));
+        } else {
+            // Nếu không có dữ liệu thành phần, tự tính từ lịch sử (Dành cho trường hợp chữa cháy)
+            tinhDiemTuLichSu();
+        }
 
     } catch (error) {
-        console.error("❌ LỖI:", error);
-        alert("Không tải được dữ liệu: " + error.message);
+        console.error("❌ LỖI KẾT NỐI:", error);
     }
 }
 
-// --- VẼ DASHBOARD (ĐÃ CẬP NHẬT HIỂN THỊ ẢNH & TÊN) ---
+// Hàm phụ trợ nếu Backend chưa kịp trả về mảng TieuChi
+function tinhDiemTuLichSu() {
+    const scores = { "Đạo đức": 0, "Học tập": 0, "Thể lực": 0, "Tình nguyện": 0, "Hội nhập": 0 };
+    window.appData.history.forEach(h => {
+        if (h.trangThaiDuyet === "DaDuyet" || h.TrangThaiDuyet === "DaDuyet") {
+            const key = h.tieuChiSV5T || h.TieuChiSV5T;
+            if (scores[key] !== undefined) scores[key] += (h.diemRenLuyen || h.DiemRenLuyen || 0);
+        }
+    });
+    window.appData.criteria = Object.keys(scores).map((key, i) => ({
+        id: i + 1, name: key, score: scores[key], max: 20
+    }));
+}
+
+// --- VẼ DASHBOARD ---
 function renderDashboard() {
     // 1. Hiển thị điểm tổng
     const scoreElement = document.getElementById('txtMainScore');
-    if (scoreElement) scoreElement.textContent = appData.totalScore;
+    if (scoreElement) scoreElement.textContent = window.appData.totalScore;
 
-    // 2. Màu sắc vòng tròn điểm
+    // 2. Màu sắc vòng tròn
     const mainCircle = document.getElementById('mainScoreCircle');
     if (mainCircle) {
+        let score = window.appData.totalScore;
         let mainColor = "text-green-500";
-        if (appData.totalScore < 65) mainColor = "text-red-500";
-        else if (appData.totalScore < 80) mainColor = "text-yellow-500";
-        else if (appData.totalScore < 90) mainColor = "text-blue-500";
+        if (score < 65) mainColor = "text-red-500";
+        else if (score < 80) mainColor = "text-yellow-500";
+        else if (score < 90) mainColor = "text-blue-500";
         
         mainCircle.setAttribute("class", `circle ${mainColor}`);
-        mainCircle.setAttribute("stroke-dasharray", `${appData.totalScore}, 100`);
+        mainCircle.setAttribute("stroke-dasharray", `${score}, 100`);
     }
 
-    // 3. Hiển thị Xếp loại
-    const rankLabel = appData.totalScore >= 90 ? "XUẤT SẮC" : (appData.totalScore >= 80 ? "GIỎI" : "KHÁ");
-    if(document.getElementById('txtRank')) document.getElementById('txtRank').innerText = "Xếp loại: " + rankLabel;
-    if(document.getElementById('txtXepLoai')) document.getElementById('txtXepLoai').innerText = rankLabel;
+    // --- TÌM ĐOẠN NÀY TRONG HÀM renderDashboard ---
 
-    // 4. HIỂN THỊ ẢNH ĐẠI DIỆN & TÊN (SỬA LỖI F5 MẤT ẢNH)
+    // 3. Xếp loại (CODE ĐÃ SỬA LẠI LOGIC CHUẨN)
+    let score = window.appData.totalScore || 0;
+    let rankLabel = "KÉM"; // Mặc định là Kém
+    let rankColor = "text-gray-500"; // Màu xám
+
+    if (score >= 90) {
+        rankLabel = "XUẤT SẮC";
+        rankColor = "text-green-600";
+    } else if (score >= 80) {
+        rankLabel = "GIỎI";
+        rankColor = "text-blue-600";
+    } else if (score >= 65) {
+        rankLabel = "KHÁ";
+        rankColor = "text-yellow-500";
+    } else if (score >= 50) {
+        rankLabel = "TRUNG BÌNH";
+        rankColor = "text-orange-500";
+    } else {
+        // Dưới 50 điểm
+        rankLabel = "YẾU";
+        rankColor = "text-red-500";
+    }
+
+    // Hiển thị ra màn hình và tô màu cho đẹp
+    const rankElement = document.getElementById('txtRank');
+    if(rankElement) {
+        rankElement.innerText = "Xếp loại: " + rankLabel;
+        // Xóa màu cũ, thêm màu mới
+        rankElement.className = `text-2xl font-bold ${rankColor}`;
+    }
+
+    // --- TÌM ĐOẠN NÀY TRONG HÀM renderDashboard ---
+
+    // 4. Hiển thị thông tin cá nhân
     const imgAvatar = document.getElementById('imgAvatarPreview');
     const lblTen = document.getElementById('lblTenSinhVien');
     
-    if (appData.ThongTin) {
-        // Tên sinh viên
-        if (lblTen) lblTen.innerText = appData.ThongTin.HoTen;
+    if (window.appData.ThongTin) {
+        if (lblTen) lblTen.innerText = window.appData.ThongTin.HoTen;
 
-        // Ảnh đại diện
         if (imgAvatar) {
-            if (appData.ThongTin.AnhDaiDien) {
-                imgAvatar.src = appData.ThongTin.AnhDaiDien; // Ảnh thật từ DB
-            } else {
-                // Ảnh mặc định theo tên
-                imgAvatar.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(appData.ThongTin.HoTen)}&background=0D8ABC&color=fff&size=128`;
+            // Lấy link ảnh từ Database
+            let avatarUrl = window.appData.ThongTin.AnhDaiDien;
+            
+            // Logic tạo ảnh mặc định thông minh (Không cần file default.png nữa)
+            // Nếu link rỗng, hoặc là "default.png", hoặc là "string" (do lỗi database cũ)
+            const isInvalid = !avatarUrl || avatarUrl === 'default.png' || avatarUrl === 'string';
+            
+            if (isInvalid) {
+                // Tạo avatar theo tên (Ví dụ: tên Việt -> hiện chữ V)
+                const ten = window.appData.ThongTin.HoTen || "User";
+                avatarUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(ten)}&background=0D8ABC&color=fff&size=256&font-size=0.5`;
             }
+            
+            // Gán link vào thẻ img
+            imgAvatar.src = avatarUrl;
+            
+            // Phòng hờ: Nếu link Database bị lỗi (404), nó sẽ tự quay về ảnh online
+            imgAvatar.onerror = function() {
+                console.warn("Ảnh bị lỗi, chuyển về ảnh mặc định.");
+                const ten = window.appData.ThongTin.HoTen || "User";
+                this.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(ten)}&background=random&size=256`;
+            };
         }
     }
 
-    // 5. CẬP NHẬT 3 Ô THỐNG KÊ (HOẠT ĐỘNG, DANH HIỆU, TÌNH NGUYỆN)
-    updateStatBox('Hoạt động', appData.history ? appData.history.length : 0);
-    updateStatBox('Danh hiệu', appData.titles ? appData.titles.length : 0);
+    // 5. Thống kê
+    updateStatBox('Hoạt động', window.appData.history ? window.appData.history.length : 0);
+    updateStatBox('Danh hiệu', window.appData.titles ? window.appData.titles.length : 0);
     
-    // Tính giờ tình nguyện
     let volHours = 0;
-    if (appData.history) {
-        appData.history.forEach(h => {
-             if (h.TenHoatDong && (h.TenHoatDong.includes('Mùa Hè Xanh') || h.TenHoatDong.includes('hiến máu'))) {
+    if (window.appData.history) {
+        window.appData.history.forEach(h => {
+             if (h.TenHoatDong && (h.TenHoatDong.toLowerCase().includes('mùa hè xanh') || h.TenHoatDong.toLowerCase().includes('hiến máu'))) {
                  volHours += (h.DiemRenLuyen || 0);
              }
         });
     }
     updateStatBox('Tình nguyện', volHours + 'h');
 
-    // 6. Vẽ 5 vòng tròn tiêu chí nhỏ
     renderCriteriaCircles();
 }
 
-// Hàm phụ để cập nhật số liệu thống kê cho gọn
 function updateStatBox(labelName, value) {
-    // Tìm tất cả thẻ p, lọc ra thẻ nào có chữ đúng với labelName
     const labels = Array.from(document.querySelectorAll('p'));
     const targetLabel = labels.find(el => el.textContent.trim().toUpperCase() === labelName.toUpperCase());
-    
     if (targetLabel) {
-        // Tìm thẻ cha, sau đó tìm thẻ chứa số (class text-2xl)
         const numberEl = targetLabel.parentElement.querySelector('.text-2xl');
         if (numberEl) numberEl.innerText = value;
     }
 }
 
-// Hàm vẽ 5 vòng tròn nhỏ
 function renderCriteriaCircles() {
     const container = document.getElementById('criteriaContainer');
     if(!container) return;
     container.innerHTML = '';
-    appData.criteria.forEach(c => {
+    window.appData.criteria.forEach(c => {
         const percent = (c.score / c.max) * 100;
         let colorClass = c.score < (c.max * 0.5) ? 'text-red-500' : (c.score < (c.max * 0.8) ? 'text-yellow-500' : 'text-green-500');
         
@@ -167,7 +255,6 @@ function renderCriteriaCircles() {
     });
 }
 
-// --- CÁC HÀM VẼ KHÁC (GIỮ NGUYÊN) ---
 function initChart() {
     const ctx = document.getElementById('progressChart');
     if(!ctx) return;
@@ -183,7 +270,7 @@ function initChart() {
             labels: ['HK1/23', 'HK2/23', 'HK1/24', 'HK2/24', 'HK1/25'],
             datasets: [{
                 label: 'Điểm Rèn Luyện',
-                data: [65, 72, 80, 78, appData.totalScore],
+                data: [65, 72, 80, 78, window.appData.totalScore],
                 borderColor: '#1e3a8a', backgroundColor: gradient, borderWidth: 3,
                 pointBackgroundColor: '#fff', pointBorderColor: '#facc15', fill: true, tension: 0.4
             }]
@@ -197,12 +284,12 @@ function renderHistory() {
     if(!container) return;
     container.innerHTML = '';
     
-    if (!appData.history || appData.history.length === 0) {
+    if (!window.appData.history || window.appData.history.length === 0) {
         container.innerHTML = '<p class="text-center text-gray-500 py-4">Chưa có lịch sử hoạt động.</p>';
         return;
     }
 
-    appData.history.forEach(item => {
+    window.appData.history.forEach(item => {
         const color = item.TrangThaiDuyet === 'DaDuyet' ? 'green' : 'yellow';
         const statusText = item.TrangThaiDuyet === 'DaDuyet' ? 'Đã duyệt' : 'Chờ duyệt';
         let displayDate = item.NgayBatDau;
@@ -234,30 +321,57 @@ function renderHistory() {
     });
 }
 
+// --- SỬA LẠI HÀM NÀY TRONG FILE js/homeDashboard.js ---
+
 function renderTitles() {
     const container = document.getElementById('titlesContainer');
+    
     if(!container) return;
+    
     container.innerHTML = '';
-    if (appData.titles.length === 0) {
-        container.innerHTML = '<p class="text-center text-gray-500 col-span-2">Chưa có danh hiệu nào.</p>';
+    
+    // Kiểm tra nếu không có danh hiệu
+    if (!window.appData.titles || window.appData.titles.length === 0) {
+        container.innerHTML = '<p class="text-center text-gray-500 col-span-2 italic">Chưa có danh hiệu nào được ghi nhận.</p>';
         return;
     }
-    appData.titles.forEach(t => {
+
+    // Duyệt qua từng danh hiệu để vẽ
+    window.appData.titles.forEach(t => {
+        // SỬA TẠI ĐÂY: Kiểm tra cả 2 trường hợp viết hoa và viết thường của thuộc tính
+        const tenDanhHieu = t.tenChungNhan || t.TenChungNhan || t.name || "Danh hiệu";
+        
+        let namHoc = "2024-2025";
+        if (t.ngayCap || t.NgayCap) {
+            const date = new Date(t.ngayCap || t.NgayCap);
+            namHoc = date.getFullYear();
+        }
+
+        // Tự động chọn màu sắc cho "xịn"
+        let color = 'yellow'; // Danh hiệu thì nên để màu vàng cho đẹp
+        let icon = 'medal';
+
         const html = `
-            <div class="flex items-center gap-4 p-4 bg-${t.color}-50 border border-${t.color}-200 rounded-xl shadow-sm">
-                <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-${t.color}-500 text-2xl shadow-sm"><i class="fas fa-${t.icon}"></i></div>
-                <div><h4 class="font-bold text-blue-900 text-sm">${t.name}</h4><p class="text-xs text-gray-600">Năm học: ${t.year}</p></div>
+            <div class="flex items-center gap-4 p-4 bg-yellow-50 border border-yellow-200 rounded-xl shadow-sm hover:shadow-md transition-all animate-fade-in">
+                <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-yellow-500 text-2xl shadow-sm">
+                    <i class="fas fa-${icon}"></i>
+                </div>
+                <div>
+                    <h4 class="font-bold text-blue-900 text-sm uppercase">${tenDanhHieu}</h4>
+                    <p class="text-xs text-gray-600">Năm cấp: ${namHoc}</p>
+                </div>
             </div>`;
+        
         container.insertAdjacentHTML('beforeend', html);
     });
 }
 
 // --- CHỨC NĂNG CHỌN ẢNH ĐẠI DIỆN ---
-async function chonAnhAvatar(input) {
+// (Đã gắn vào window để HTML gọi được)
+window.chonAnhAvatar = async function(input) {
     if (input.files && input.files[0]) {
         const file = input.files[0];
         
-        // Preview ngay lập tức
         var reader = new FileReader();
         reader.onload = function (e) {
             const imgElement = document.getElementById('imgAvatarPreview');
@@ -265,20 +379,26 @@ async function chonAnhAvatar(input) {
         };
         reader.readAsDataURL(file);
 
-        // Gửi lên Server
         try {
             console.log("🚀 Đang tải ảnh lên...");
             const formData = new FormData();
             formData.append('file', file);
-            const response = await fetch(`${API_BASE_URL}/Upload/Avatar/${CURRENT_STUDENT_ID}`, {
-                method: 'POST', body: formData
+            
+            // Dùng ID thật nếu có, nếu không thì dùng ID tạm từ localStorage
+            const svId = window.CURRENT_MSSV || window.CURRENT_STUDENT_ID;
+
+            const response = await fetch(`${window.API_BASE_URL}/Upload/Avatar/${svId}`, {
+                method: 'POST', 
+                headers: {
+                    'Authorization': `Bearer ${window.TOKEN}` 
+                },
+                body: formData
             });
 
             if (!response.ok) throw new Error("Lỗi upload");
             const result = await response.json();
             
-            // Cập nhật link mới vào appData để F5 không bị mất
-            if(appData.ThongTin) appData.ThongTin.AnhDaiDien = result.link;
+            if(window.appData.ThongTin) window.appData.ThongTin.AnhDaiDien = result.link;
             alert("Đã lưu ảnh đại diện mới!");
 
         } catch (error) {
@@ -289,15 +409,19 @@ async function chonAnhAvatar(input) {
 }
 
 // --- CHỨC NĂNG NỘP ĐƠN ---
-async function nopDonSV5T() {
+// (Đã gắn vào window để HTML gọi được)
+window.nopDonSV5T = async function() {
     if (!confirm("Bạn có chắc chắn muốn nộp hồ sơ không?")) return;
     try {
-        // Đảm bảo có thông tin mới nhất
-        if(!appData.ThongTin) { alert("Chưa tải được thông tin sinh viên!"); return; }
+        // Kiểm tra biến toàn cục
+        if(!window.appData || !window.appData.ThongTin) { 
+            alert("Chưa tải được thông tin sinh viên! Vui lòng tải lại trang."); 
+            return; 
+        }
         
         const payload = {
-            MSSV: appData.ThongTin.MSSV,
-            TenSinhVien: appData.ThongTin.HoTen,
+            MSSV: window.appData.ThongTin.MSSV,
+            TenSinhVien: window.appData.ThongTin.HoTen,
             TenHoatDong: "Xét duyệt Sinh viên 5 Tốt (Nộp Online)",
             LoaiChungNhan: "DanhHieu",
             LyDo: "Đã đủ điều kiện điểm rèn luyện và học tập.",
@@ -305,9 +429,12 @@ async function nopDonSV5T() {
             TrangThai: "ChoDuyet"
         };
 
-        const response = await fetch(`${API_BASE_URL}/YeuCauChungNhans`, {
+        const response = await fetch(`${window.API_BASE_URL}/YeuCauChungNhans`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${window.TOKEN}` 
+            },
             body: JSON.stringify(payload)
         });
 
@@ -320,7 +447,6 @@ async function nopDonSV5T() {
     }
 }
 
-// --- CÁC HÀM TIỆN ÍCH ---
 window.switchTab = function(event, tabId) {
     document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
     document.querySelectorAll('.tab-btn').forEach(el => {
@@ -332,42 +458,22 @@ window.switchTab = function(event, tabId) {
     event.currentTarget.classList.remove('text-gray-600');
 }
 
-window.tinhDuBao = function() {
-    let current = appData.totalScore || 0;
-    document.querySelectorAll('.forecast-cb:checked').forEach(cb => current += parseInt(cb.value));
-    if(current > 100) current = 100;
-    
-    const txtForecast = document.getElementById('txtTongDiemDuBao') || document.getElementById('forecastScore');
-    if(txtForecast) txtForecast.innerText = current;
-    
-    let rank = "TRUNG BÌNH";
-    if(current >= 90) rank = "XUẤT SẮC";
-    else if(current >= 80) rank = "TỐT";
-    else if(current >= 65) rank = "KHÁ";
-    
-    const txtRankForecast = document.getElementById('txtXepLoaiDuBao') || document.getElementById('forecastRank');
-    if(txtRankForecast) txtRankForecast.innerText = rank;
-}
-
-// --- 7. VẼ BẢNG ĐIỂM CHI TIẾT (GOM NHÓM THEO TIÊU CHÍ) ---
 function renderDetailedScore() {
     const tbody = document.getElementById('scoreTableBody');
     const footerTotal = document.getElementById('tableTotalScore');
     
     if (!tbody) return;
-    tbody.innerHTML = ''; // Xóa trắng bảng cũ
+    tbody.innerHTML = ''; 
 
-    if (!appData.history || appData.history.length === 0) {
+    if (!window.appData.history || window.appData.history.length === 0) {
         tbody.innerHTML = '<tr><td colspan="4" class="text-center p-4 text-gray-500">Chưa có dữ liệu điểm.</td></tr>';
         if(footerTotal) footerTotal.innerText = 0;
         return;
     }
 
-    // 1. Gom nhóm hoạt động theo Tiêu chí (Ví dụ: Tình nguyện, Học tập...)
     const groups = {};
     
-    appData.history.forEach(item => {
-        // Nếu API chưa trả về TieuChiSV5T thì mặc định là 'Hoạt động khác'
+    window.appData.history.forEach(item => {
         const tieuChi = item.TieuChiSV5T || 'Hoạt động khác';
         
         if (!groups[tieuChi]) {
@@ -382,16 +488,13 @@ function renderDetailedScore() {
         groups[tieuChi].tongDiemThanhPhan += (item.DiemRenLuyen || 0);
     });
 
-    // 2. Vẽ từng dòng vào bảng
     for (const key in groups) {
         const group = groups[key];
         
-        // Tạo danh sách tên hoạt động (xuống dòng cho đẹp)
         const tenHoatDongsHtml = group.dsHoatDong
             .map(h => `<div class="mb-1">• ${h.TenHoatDong} <span class="text-gray-400 text-xs italic">(${h.NgayBatDau ? h.NgayBatDau.split('T')[0] : ''})</span></div>`)
             .join('');
 
-        // Tạo danh sách điểm cộng tương ứng
         const diemCongsHtml = group.dsHoatDong
             .map(h => `<div class="mb-1 font-medium text-green-600">+${h.DiemRenLuyen}</div>`)
             .join('');
@@ -409,30 +512,38 @@ function renderDetailedScore() {
         tbody.insertAdjacentHTML('beforeend', row);
     }
 
-    // 3. Cập nhật tổng điểm ở chân bảng
-    if(footerTotal) footerTotal.innerText = appData.totalScore;
+    if(footerTotal) footerTotal.innerText = window.appData.totalScore;
+}
 
-    // --- 8. TÍNH NĂNG DỰ BÁO ĐIỂM ---
-
-// Hàm này gọi khi trang web vừa tải xong (Thêm vào DOMContentLoaded)
+// --- TÍNH NĂNG DỰ BÁO ĐIỂM ---
 async function initForecast() {
     try {
-        // 1. Gọi API lấy hoạt động sắp tới
-        const response = await fetch(`${API_BASE_URL}/HoatDongs/SapDienRa`);
-        if (!response.ok) return; // Nếu lỗi thì thôi, giữ nguyên mặc định
-        
+        // Kiểm tra xem Route của bạn là HoatDongs hay QuanLyHoatDong
+        const response = await fetch(`${window.API_BASE_URL}/HoatDongs/SapDienRa`, {
+             headers: { 'Authorization': `Bearer ${window.TOKEN}` }
+        });
+
         const upcomingEvents = await response.json();
-        const container = document.querySelector('.grid.grid-cols-1.sm\\:grid-cols-2.gap-3');
+        // Tìm đúng container theo ID hoặc Class trong HTML của bạn
+        const container = document.getElementById('forecastContainer') || document.querySelector('.grid.grid-cols-1.sm\\:grid-cols-2.gap-3');
         
-        if (container && upcomingEvents.length > 0) {
-            container.innerHTML = ''; // Xóa các checkbox mẫu cũ
-            
-            // 2. Vẽ checkbox từ dữ liệu thật
+        if (container) {
+            if (!upcomingEvents || upcomingEvents.length === 0) {
+                container.innerHTML = '<p class="text-xs text-gray-400 italic">Không có hoạt động sắp tới.</p>';
+                return;
+            }
+
+            container.innerHTML = ''; 
             upcomingEvents.forEach(evt => {
                 const html = `
-                    <label class="bg-white p-3 rounded-lg cursor-pointer flex justify-between items-center hover:bg-blue-50 border border-gray-100">
-                        <span class="text-sm font-medium text-gray-700">${evt.TenHoatDong} <span class="text-green-600 font-bold">(+${evt.DiemRenLuyen}đ)</span></span>
-                        <input type="checkbox" class="forecast-cb w-5 h-5 accent-blue-600" value="${evt.DiemRenLuyen}">
+                    <label class="bg-white p-3 rounded-lg cursor-pointer flex justify-between items-center hover:bg-blue-50 border border-gray-100 transition-all">
+                        <span class="text-sm font-medium text-gray-700">
+                            ${evt.tenHoatDong || evt.TenHoatDong} 
+                            <span class="text-green-600 font-bold">(+${evt.diemRenLuyen || evt.DiemRenLuyen}đ)</span>
+                        </span>
+                        <input type="checkbox" class="forecast-cb w-5 h-5 accent-blue-600" 
+                               value="${evt.diemRenLuyen || evt.DiemRenLuyen}" 
+                               onchange="calculateForecast()">
                     </label>
                 `;
                 container.insertAdjacentHTML('beforeend', html);
@@ -443,21 +554,17 @@ async function initForecast() {
     }
 }
 
-// Hàm tính toán (Gắn vào nút "Dự báo ngay")
 window.calculateForecast = function() {
-    // 1. Lấy điểm hiện tại (từ biến toàn cục appData)
-    let currentScore = appData.totalScore || 0;
+    let currentScore = window.appData.totalScore || 0;
     
-    // 2. Cộng thêm điểm từ các checkbox đã chọn
     let addedScore = 0;
     document.querySelectorAll('.forecast-cb:checked').forEach(cb => {
         addedScore += parseInt(cb.value);
     });
     
     let finalScore = currentScore + addedScore;
-    if (finalScore > 100) finalScore = 100; // Max là 100
+    if (finalScore > 100) finalScore = 100; 
 
-    // 3. Xếp loại dự kiến
     let rank = "KÉM";
     let colorClass = "text-gray-500";
     
@@ -466,7 +573,6 @@ window.calculateForecast = function() {
     else if (finalScore >= 70) { rank = "KHÁ"; colorClass = "text-yellow-500"; }
     else if (finalScore >= 50) { rank = "TRUNG BÌNH"; colorClass = "text-orange-500"; }
 
-    // 4. Hiển thị kết quả (Hiệu ứng số chạy)
     animateValue("forecastScore", 0, finalScore, 1000);
     
     const rankEl = document.getElementById('forecastRank');
@@ -476,7 +582,6 @@ window.calculateForecast = function() {
     }
 }
 
-// Hàm phụ tạo hiệu ứng số chạy tăng dần cho đẹp
 function animateValue(id, start, end, duration) {
     const obj = document.getElementById(id);
     if (!obj) return;
@@ -490,7 +595,4 @@ function animateValue(id, start, end, duration) {
         }
     };
     window.requestAnimationFrame(step);
-}
-
-
 }

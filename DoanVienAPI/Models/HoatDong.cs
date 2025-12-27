@@ -29,5 +29,7 @@ namespace DoanVienAPI.Models
         public string? KhoaToChuc { get; set; }   // Khoa CNTT...
 
         public string TrangThai { get; set; } = "DangMo"; // DangMo, SapDienRa, DaKetThuc
+
+        public string? TieuChi { get; set; }
     }
 }

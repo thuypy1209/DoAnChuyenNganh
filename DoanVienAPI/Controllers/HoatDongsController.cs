@@ -131,29 +131,7 @@ namespace DoanVienAPI.Controllers
             return Ok(danhSach);
         }
 
-        // 5. API HỦY ĐĂNG KÝ
-        [HttpDelete("HuyDangKy/{id}")]
-        public async Task<IActionResult> HuyDangKy(int id)
-        {
-            var dangKy = await _context.DangKyHoatDongs.FindAsync(id);
-            if (dangKy == null) return NotFound("Không tìm thấy thông tin đăng ký.");
-
-            if (dangKy.TrangThaiDuyet == "DaDuyet" || dangKy.DaDiemDanh)
-            {
-                return BadRequest("Hoạt động này đã được duyệt hoặc điểm danh, không thể hủy.");
-            }
-
-            _context.DangKyHoatDongs.Remove(dangKy);
-
-            var hoatDong = await _context.HoatDongs.FindAsync(dangKy.HoatDongId);
-            if (hoatDong != null && hoatDong.SoLuongDaDangKy > 0)
-            {
-                hoatDong.SoLuongDaDangKy -= 1;
-            }
-
-            await _context.SaveChangesAsync();
-            return Ok(new { message = "Đã hủy đăng ký thành công!" });
-        }
+        
 
         // 6. API ĐIỂM DANH BẰNG QR
         [HttpPost("DiemDanhQR")]

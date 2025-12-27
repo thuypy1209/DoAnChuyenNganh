@@ -40,4 +40,6 @@ public class DoanVien
     public string? Lop { get; set; }
     public string? Khoa { get; set; }
     public string? MSSV { get; set; }
+
+    public int TongDiem { get; set; }
 }

@@ -1,8 +1,21 @@
-// File: js/dangKyHoatDong.js
+// File: js/dangKyHoatDong.js - ĐÃ SỬA LỖI GÁN CỨNG
 
 document.addEventListener('DOMContentLoaded', function() {
-    // --- CẤU HÌNH ---
-    const API_URL = 'http://localhost:5114/api/HoatDongs'; // Cổng 5114 của bạn
+    // 1. CẤU HÌNH & LẤY THÔNG TIN NGƯỜI DÙNG THẬT
+    // Nếu có biến CONFIG toàn cục thì dùng, không thì dùng link cứng
+    const API_URL = (typeof CONFIG !== 'undefined') 
+        ? CONFIG.API_BASE_URL + '/HoatDongs' 
+        : 'http://localhost:5114/api/HoatDongs';
+
+    // --- QUAN TRỌNG: LẤY THÔNG TIN TỪ TÚI (LocalStorage) ---
+    const currentUserMssv = localStorage.getItem('userMssv');
+    const currentUserName = localStorage.getItem('userName');
+
+    // Kiểm tra nếu chưa đăng nhập thì nhắc nhở (tùy chọn)
+    if (!currentUserMssv) {
+        console.warn("Chưa đăng nhập! Chức năng đăng ký có thể không hoạt động.");
+    }
+
     let currentTab = 'DangMo'; // Tab mặc định
 
     // --- DOM ELEMENTS ---
@@ -18,29 +31,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const btnCancel = document.getElementById('btnCancel');
     const btnConfirm = document.getElementById('btnConfirm');
 
-    // --- [THÊM MỚI] Biến lưu thông tin sinh viên ---
-    const CURRENT_STUDENT_ID = 1; // Giả định ID sinh viên đang đăng nhập
-    let studentInfo = { HoTen: "...", MSSV: "..." };
-
-    // --- [THÊM MỚI] Hàm tải thông tin sinh viên ---
-    async function loadStudentInfo() {
-        try {
-            // Lưu ý: Cổng API phải khớp (7006 hay 5114 tùy máy cậu)
-            const response = await fetch(`https://localhost:7006/api/SinhViens/${CURRENT_STUDENT_ID}`);
-            const data = await response.json();
-            if (data.ThongTin) studentInfo = data.ThongTin;
-        } catch (e) { console.error("Lỗi tải SV:", e); }
-    }
-
-    // Gọi hàm này ngay khi trang tải
-    loadStudentInfo();
+    // (ĐÃ XÓA: Không cần hàm loadStudentInfo và biến CURRENT_STUDENT_ID nữa)
 
     // --- 1. HÀM TẢI DỮ LIỆU TỪ API ---
     async function loadActivities() {
         container.innerHTML = '<div class="col-span-full text-center py-10"><i class="fas fa-spinner fa-spin text-3xl text-blue-900"></i><p class="mt-2">Đang tải hoạt động...</p></div>';
         
         try {
-            // Gọi API kèm theo Tab và Search
             const keyword = searchInput.value.trim();
             const url = `${API_URL}?tab=${currentTab}&keyword=${encodeURIComponent(keyword)}`;
             
@@ -56,26 +53,23 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // --- 2. HÀM VẼ GIAO DIỆN (PHIÊN BẢN SỬA LỖI CHỮ HOA/THƯỜNG) ---
+    // --- 2. HÀM VẼ GIAO DIỆN ---
     function renderActivities(activities) {
-        // Xóa nội dung cũ
         container.innerHTML = '';
 
         if (!activities || activities.length === 0) {
             container.innerHTML = `
                 <div class="col-span-full text-center py-16 bg-white rounded-xl border border-dashed border-gray-300">
                     <i class="fas fa-calendar-times text-4xl text-gray-300 mb-3"></i>
-                    <p class="text-gray-500">Không tìm thấy hoạt động nào ở mục này.</p>
+                    <p class="text-gray-500">Không tìm thấy hoạt động nào.</p>
                 </div>`;
             return;
         }
 
         activities.forEach(act => {
-            // --- 1. CHUẨN HÓA DỮ LIỆU (Bắt cả chữ Hoa và chữ Thường) ---
-            // Backend có thể trả về 'TenHoatDong' hoặc 'tenHoatDong', ta lấy cái nào có dữ liệu
             const id = act.Id || act.id;
             const ten = act.TenHoatDong || act.tenHoatDong;
-            const poster = act.PosterUrl || act.posterUrl || 'images/banner1.jpg'; // Ảnh mặc định nếu thiếu
+            const poster = act.PosterUrl || act.posterUrl || 'images/banner1.jpg';
             const diem = act.DiemRenLuyen || act.diemRenLuyen;
             const loai = act.LoaiHoatDong || act.loaiHoatDong || 'Hoạt động';
             const diaDiem = act.DiaDiem || act.diaDiem || 'Đang cập nhật';
@@ -83,15 +77,10 @@ document.addEventListener('DOMContentLoaded', function() {
             
             const slToiDa = act.SoLuongToiDa || act.soLuongToiDa || 0;
             const slDaDK = act.SoLuongDaDangKy || act.soLuongDaDangKy || 0;
-            
-            // Lấy trạng thái từ Backend gửi xuống (An toàn nhất)
             const trangThaiBackend = act.TrangThaiHienTai || act.trangThaiHienTai;
 
-            // --- 2. XỬ LÝ LOGIC NÚT BẤM ---
             const percent = slToiDa > 0 ? (slDaDK / slToiDa) * 100 : 0;
             const isFull = slDaDK >= slToiDa;
-            
-            // Kiểm tra: Nếu backend bảo "KetThuc" thì là kết thúc
             const isEnded = (trangThaiBackend === 'KetThuc');
 
             let btnText = 'ĐĂNG KÝ NGAY';
@@ -108,23 +97,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 isDisabled = 'disabled';
             }
 
-            // --- 3. VẼ GIAO DIỆN ---
-            // Lưu ý: Chỗ onclick phải truyền đúng 'id' và 'ten' đã xử lý ở trên
+            // Gọi hàm mở modal với đúng ID và Tên
             const cardHtml = `
                 <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow border border-gray-100 flex flex-col h-full">
                     <div class="relative h-48 overflow-hidden group">
                         <img src="${poster}" alt="${ten}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                        <div class="absolute top-2 right-2 bg-yellow-400 text-blue-900 text-xs font-bold px-2 py-1 rounded shadow">
-                            +${diem} ĐIỂM
-                        </div>
+                        <div class="absolute top-2 right-2 bg-yellow-400 text-blue-900 text-xs font-bold px-2 py-1 rounded shadow">+${diem} ĐIỂM</div>
                         <div class="absolute bottom-0 left-0 bg-gradient-to-t from-black to-transparent w-full p-3">
                             <span class="text-white text-xs font-bold bg-blue-600 px-2 py-0.5 rounded">${loai}</span>
                         </div>
                     </div>
 
                     <div class="p-5 flex-grow">
-                        <h3 class="text-lg font-bold text-gray-800 mb-2 line-clamp-2 hover:text-blue-700 cursor-pointer" title="${ten}">${ten}</h3>
-                        
+                        <h3 class="text-lg font-bold text-gray-800 mb-2 line-clamp-2" title="${ten}">${ten}</h3>
                         <div class="space-y-2 text-sm text-gray-600 mb-4">
                             <div class="flex items-center"><i class="far fa-calendar-alt w-5 text-blue-500"></i> <span>${new Date(ngayBatDau).toLocaleDateString('vi-VN')}</span></div>
                             <div class="flex items-center"><i class="fas fa-map-marker-alt w-5 text-red-500"></i> <span class="line-clamp-1">${diaDiem}</span></div>
@@ -134,7 +119,6 @@ document.addEventListener('DOMContentLoaded', function() {
                                 </span>
                             </div>
                         </div>
-
                         <div class="w-full bg-gray-200 rounded-full h-1.5 mb-4">
                             <div class="bg-blue-600 h-1.5 rounded-full" style="width: ${percent}%"></div>
                         </div>
@@ -156,7 +140,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- 3. XỬ LÝ CHUYỂN TAB ---
     tabs.forEach(tab => {
         tab.addEventListener('click', () => {
-            // Active CSS
             tabs.forEach(t => {
                 t.classList.remove('text-blue-900', 'border-b-2', 'border-blue-900');
                 t.classList.add('text-gray-500');
@@ -164,20 +147,33 @@ document.addEventListener('DOMContentLoaded', function() {
             tab.classList.remove('text-gray-500');
             tab.classList.add('text-blue-900', 'border-b-2', 'border-blue-900');
 
-            // Load data
             currentTab = tab.dataset.tab;
             loadActivities();
         });
     });
 
-    // Xử lý tìm kiếm
     btnFilter.addEventListener('click', loadActivities);
 
-    // --- 4. XỬ LÝ MODAL ĐĂNG KÝ ---
+    // --- 4. XỬ LÝ MODAL ĐĂNG KÝ (ĐÃ SỬA: TỰ ĐIỀN THÔNG TIN) ---
     window.openRegisterModal = (id, name) => {
+        // 1. Điền thông tin hoạt động
         document.getElementById('modalActivityId').value = id;
         document.getElementById('modalActivityName').innerText = name;
         
+        // 2. TỰ ĐỘNG ĐIỀN THÔNG TIN SINH VIÊN (Từ LocalStorage)
+        const inputMssv = document.getElementById('modalMssv');
+        const inputName = document.getElementById('modalStudentName'); // ⚠️ Kiểm tra lại ID này bên HTML nhé (có thể là modalTenSv)
+        
+        if (inputMssv) {
+            inputMssv.value = currentUserMssv || ""; 
+            // inputMssv.disabled = true; // Bỏ comment dòng này nếu muốn khóa không cho sửa
+        }
+        
+        if (inputName) {
+            inputName.value = currentUserName || "";
+            // inputName.disabled = true;
+        }
+
         // Hiệu ứng hiện modal
         modal.classList.remove('hidden');
         setTimeout(() => {
@@ -195,60 +191,50 @@ document.addEventListener('DOMContentLoaded', function() {
     closeModalBtn.addEventListener('click', hideModal);
     btnCancel.addEventListener('click', hideModal);
 
-    // --- 5. GỬI ĐĂNG KÝ (ĐÃ SỬA LỖI) ---
+    // --- 5. GỬI ĐĂNG KÝ ---
     btnConfirm.addEventListener('click', async () => {
         const actId = document.getElementById('modalActivityId').value;
-        const mssv = document.getElementById('modalMssv').value;
-        // Lấy thẻ input file (Việt kiểm tra lại id bên file HTML xem có đúng là 'fileMinhChung' không nhé)
+        const mssv = document.getElementById('modalMssv').value; // Lấy giá trị vừa điền
         const fileInput = document.getElementById('fileMinhChung'); 
 
-        // Hiệu ứng loading
         btnConfirm.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang gửi...';
         btnConfirm.disabled = true;
 
         try {
-            // 1. Tạo đối tượng FormData (Thay vì JSON)
             const formData = new FormData();
             formData.append('hoatDongId', actId);
             formData.append('mssv', mssv);
             
-            // 2. Kiểm tra nếu có file ảnh thì nhét vào
             if (fileInput && fileInput.files[0]) {
                 formData.append('minhChung', fileInput.files[0]);
             }
 
-            // 3. Gửi bằng fetch (LƯU Ý: Không được để Content-Type là application/json)
             const response = await fetch(`${API_URL}/DangKy`, {
                 method: 'POST',
-                // KHÔNG thêm headers 'Content-Type': 'application/json' ở đây
-                // Để trình duyệt tự động nhận diện là Form
                 body: formData 
             });
 
-            // 4. Xử lý kết quả
-            // Vì backend trả về Ok(new { message... }) nên vẫn đọc json bình thường
             const result = await response.json();
 
             if (response.ok) {
                 alert("🎉 " + result.message);
                 hideModal();
-                loadActivities(); // Tải lại để cập nhật số slot
+                loadActivities(); 
             } else {
-                // Nếu lỗi, hiển thị chi tiết
-                console.log(result); // Soi log nếu cần
-                alert("⚠️ Lỗi: " + (result.title || "Vui lòng kiểm tra lại thông tin"));
+                console.log(result);
+                alert("⚠️ Lỗi: " + (result.title || result.message || "Vui lòng kiểm tra lại thông tin"));
             }
 
         } catch (error) {
             console.error(error);
-            alert("Lỗi kết nối server hoặc code JS bị sai.");
+            alert("Lỗi kết nối server.");
         } finally {
             btnConfirm.innerHTML = 'GỬI ĐĂNG KÝ';
             btnConfirm.disabled = false;
         }
     });
 
-    // --- [THÊM MỚI] Hàm xem trước ảnh ---
+    // Hàm xem trước ảnh
     window.previewMinhChung = function(input) {
         if (input.files && input.files[0]) {
             const reader = new FileReader();
@@ -266,6 +252,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // --- CHẠY LẦN ĐẦU ---
+    // CHẠY LẦN ĐẦU
     loadActivities();
 });

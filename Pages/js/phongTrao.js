@@ -1,18 +1,37 @@
-// File: js/phongTrao.js (CHUẨN - ĐÃ SỬA LỖI 2 HÀM TRÙNG NHAU)
+// File: js/phongTrao.js (ĐÃ NÂNG CẤP JWT)
 
 document.addEventListener('DOMContentLoaded', async function() {
     
-    // 1. CẤU HÌNH API
-    const API_HOATDONG = 'http://localhost:5114/api/HoatDongs';
-    const API_TINTUC = 'http://localhost:5114/api/TinTucs'; // Đã sửa đúng tên Controller
+    // 1. LẤY TOKEN (Nếu có)
+    const token = localStorage.getItem('accessToken');
+    
+    // Tạo Header chuẩn (Nếu đã đăng nhập thì gửi Token, chưa thì thôi)
+    const requestHeaders = {
+        'Content-Type': 'application/json'
+    };
+    if (token) {
+        requestHeaders['Authorization'] = `Bearer ${token}`;
+    }
+
+    // 2. CẤU HÌNH API
+    // (Ưu tiên dùng CONFIG toàn cục nếu có)
+    const API_BASE = (typeof CONFIG !== 'undefined') ? CONFIG.API_BASE_URL : "http://localhost:5114/api";
+    const API_HOATDONG = `${API_BASE}/HoatDongs`;
+    const API_TINTUC = `${API_BASE}/TinTucs`;
 
     // --- PHẦN 1: TẢI HOẠT ĐỘNG CHO SLIDER VÀ LỊCH ---
     try {
-        const res = await fetch(`${API_HOATDONG}?tab=DangMo`);
+        const res = await fetch(`${API_HOATDONG}?tab=DangMo`, {
+            method: 'GET',
+            headers: requestHeaders // 🔥 GỬI KÈM TOKEN
+        });
+
         if(res.ok) {
             const data = await res.json();
             renderSlider(data);
             renderCalendar(data);
+        } else {
+            console.warn("API Hoạt động lỗi:", res.status);
         }
     } catch (e) {
         console.error("Lỗi tải hoạt động:", e);
@@ -22,7 +41,11 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     // --- PHẦN 2: TẢI TIN TỨC ---
     try {
-        const resNews = await fetch(API_TINTUC);
+        const resNews = await fetch(API_TINTUC, {
+            method: 'GET',
+            headers: requestHeaders // 🔥 GỬI KÈM TOKEN
+        });
+
         if(resNews.ok) {
             const newsData = await resNews.json();
             renderNews(newsData);
@@ -33,7 +56,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         console.error("Lỗi tải tin tức:", e);
     }
 
-    // --- HÀM VẼ SLIDER ---
+    // --- HÀM VẼ SLIDER (GIỮ NGUYÊN) ---
     function renderSlider(activities) {
         const container = document.getElementById('featuredContainer');
         if(!container) return;
@@ -43,7 +66,6 @@ document.addEventListener('DOMContentLoaded', async function() {
         if (featured.length > 0) {
             container.innerHTML = '';
             featured.forEach(act => {
-                // Lấy ảnh poster (ưu tiên viết hoa trước)
                 const imgUrl = act.PosterUrl || act.posterUrl || 'images/banner1.jpg';
                 
                 const slideHtml = `
@@ -72,7 +94,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         }
     }
 
-    // --- HÀM VẼ LỊCH ---
+    // --- HÀM VẼ LỊCH (GIỮ NGUYÊN) ---
     function renderCalendar(activities) {
         const container = document.getElementById('calendarContainer');
         if(!container) return;
@@ -115,7 +137,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         });
     }
 
-    // --- HÀM VẼ TIN TỨC (DUY NHẤT - CHUẨN) ---
+    // --- HÀM VẼ TIN TỨC (GIỮ NGUYÊN) ---
     function renderNews(newsList) {
         const container = document.getElementById('newsContainer');
         if(!container) return;
@@ -126,11 +148,9 @@ document.addEventListener('DOMContentLoaded', async function() {
         }
 
         container.innerHTML = '';
-        // Lấy 5 tin mới nhất
         const latestNews = newsList.sort((a, b) => new Date(b.NgayDang) - new Date(a.NgayDang)).slice(0, 5);
 
         latestNews.forEach(news => {
-            // Lấy ảnh (Ưu tiên HinhAnhUrl từ Backend mới sửa)
             const imgUrl = news.HinhAnhUrl || news.hinhAnhUrl || 'images/banner1.jpg';
             const date = new Date(news.NgayDang);
 
@@ -149,7 +169,6 @@ document.addEventListener('DOMContentLoaded', async function() {
         });
     }
 
-    // Hàm xem ảnh lớn
     window.viewImage = function(src) {
         document.getElementById('modalImage').src = src;
         document.getElementById('imageModal').classList.remove('hidden');

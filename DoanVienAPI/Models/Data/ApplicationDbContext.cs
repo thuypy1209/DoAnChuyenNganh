@@ -40,5 +40,7 @@ namespace DoanVienAPI.Data
         public DbSet<HoSoYeuCau> HoSoYeuCaus { get; set; }
 
         public DbSet<User> Users { get; set; }
+
+        public DbSet<DanhHieu> DanhHieus { get; set; }
     }
 }

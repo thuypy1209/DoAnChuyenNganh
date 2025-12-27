@@ -1,43 +1,84 @@
-// File: js/admin_chiTietHoatDong.js
+// admin_chiTietHoatDong.js - ĐÃ SỬA (Bảo mật JWT & Global Config)
 
-const API_URL = 'http://localhost:5114/api/HoatDongs';
+// 1. Lấy cấu hình từ Global (Chống Hardcode)
+// Fallback về localhost nếu chưa tải config
+const BASE_API = (window.API_BASE_URL || 'http://localhost:5114/api') + '/HoatDongs';
+
 const urlParams = new URLSearchParams(window.location.search);
-const activityId = urlParams.get('id'); // Lấy ID từ URL
+const activityId = urlParams.get('id'); 
+
+// 2. Hàm kiểm tra đăng nhập & Lấy Token
+function checkLoginStatus() {
+    const token = localStorage.getItem('accessToken');
+    if (!token) {
+        alert("Phiên đăng nhập hết hạn. Vui lòng đăng nhập lại!");
+        window.location.href = '/account/login.html';
+        return null;
+    }
+    return token;
+}
+
+// 3. Helper tạo Header (Gồm cả Token và Content-Type)
+function getHeaders(token) {
+    return {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+    };
+}
 
 document.addEventListener('DOMContentLoaded', function() {
+    // Kiểm tra ID trên URL
     if (!activityId) {
         alert("Không tìm thấy ID hoạt động!");
         window.location.href = 'quanLyHoatDong.html';
         return;
     }
 
-    loadActivityInfo();
-    loadStudentList();
+    // Kiểm tra Token
+    const token = checkLoginStatus();
+    if (token) {
+        loadActivityInfo(token);
+        loadStudentList(token);
+    }
 });
 
-// 1. Lấy thông tin hoạt động (Để hiện tên, ngày tháng)
-async function loadActivityInfo() {
+// ---------------------------------------------------------
+// 1. Lấy thông tin hoạt động
+async function loadActivityInfo(token) {
     try {
-        const res = await fetch(`${API_URL}/${activityId}`);
+        const res = await fetch(`${BASE_API}/${activityId}`, {
+            method: 'GET',
+            headers: getHeaders(token) // <--- Thêm Token
+        });
+        
+        if (!res.ok) throw new Error("Không thể tải thông tin hoạt động");
+
         const data = await res.json();
         
-        document.getElementById('lblTenHoatDong').innerText = data.TenHoatDong; // Chú ý chữ hoa thường do API trả về
-        // Kiểm tra lại xem API trả về TenHoatDong hay tenHoatDong (thường là camelCase nếu không cấu hình)
-        // Tốt nhất là check console.log(data) nếu không hiện
+        document.getElementById('lblTenHoatDong').innerText = data.TenHoatDong || data.tenHoatDong; 
         
-        const date = new Date(data.NgayBatDau);
+        const date = new Date(data.NgayBatDau || data.ngayBatDau);
         document.getElementById('lblThoiGian').innerText = date.toLocaleString('vi-VN');
-        document.getElementById('lblDiaDiem').innerText = data.DiaDiem || 'Chưa cập nhật';
-    } catch (e) { console.error(e); }
+        document.getElementById('lblDiaDiem').innerText = (data.DiaDiem || data.diaDiem) || 'Chưa cập nhật';
+    } catch (e) { 
+        console.error(e); 
+    }
 }
 
+// ---------------------------------------------------------
 // 2. Lấy danh sách sinh viên đăng ký
-async function loadStudentList() {
+async function loadStudentList(token) {
     const tbody = document.getElementById('studentTableBody');
     
     try {
-        const res = await fetch(`${API_URL}/DanhSachDangKy/${activityId}`);
-        const data = await res.json(); // Danh sách này trả về từ API mới làm
+        const res = await fetch(`${BASE_API}/DanhSachDangKy/${activityId}`, {
+            method: 'GET',
+            headers: getHeaders(token) // <--- Thêm Token
+        });
+
+        if (!res.ok) throw new Error("Không thể tải danh sách đăng ký");
+
+        const data = await res.json(); 
 
         // Cập nhật Stats
         document.getElementById('countTotal').innerText = data.length;
@@ -51,13 +92,13 @@ async function loadStudentList() {
 
         tbody.innerHTML = '';
         data.forEach(sv => {
-            // Xử lý trạng thái
+            // Xử lý trạng thái hiển thị
             let statusBadge = '';
             if (sv.TrangThaiDuyet === 'ChoDuyet') statusBadge = '<span class="bg-yellow-100 text-yellow-800 text-xs font-bold px-2 py-1 rounded">Chờ duyệt</span>';
             else if (sv.TrangThaiDuyet === 'DaDuyet') statusBadge = '<span class="bg-green-100 text-green-800 text-xs font-bold px-2 py-1 rounded">Đã duyệt</span>';
             else statusBadge = '<span class="bg-red-100 text-red-800 text-xs font-bold px-2 py-1 rounded">Từ chối</span>';
 
-            // Xử lý điểm danh
+            // Xử lý hiển thị điểm danh
             const checkInStatus = sv.DaDiemDanh 
                 ? `<span class="text-green-600 font-bold"><i class="fas fa-check-circle"></i> ${new Date(sv.ThoiGianDiemDanh).toLocaleTimeString()}</span>`
                 : '<span class="text-gray-400 italic">Chưa quét</span>';
@@ -88,26 +129,32 @@ async function loadStudentList() {
     }
 }
 
-// 3. Duyệt / Từ chối
+// ---------------------------------------------------------
+// 3. Duyệt / Từ chối (QUAN TRỌNG: Cần Token nhất)
 async function updateStatus(id, status) {
+    // Kiểm tra token lại lần nữa cho chắc
+    const token = checkLoginStatus();
+    if (!token) return;
+
     if(!confirm(status === 'DaDuyet' ? "Duyệt đơn đăng ký này?" : "Từ chối đơn đăng ký này?")) return;
 
     try {
-        const res = await fetch(`${API_URL}/DuyetDangKy`, {
+        const res = await fetch(`${BASE_API}/DuyetDangKy`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: getHeaders(token), // <--- QUAN TRỌNG: Phải có Token mới được duyệt
             body: JSON.stringify({ id: id, TrangThai: status })
         });
 
         if (res.ok) {
-            loadStudentList(); // Tải lại bảng
+            // Tải lại danh sách sau khi duyệt thành công
+            loadStudentList(token); 
         } else {
-            alert("Lỗi khi cập nhật.");
+            alert("Lỗi khi cập nhật trạng thái (Có thể do lỗi server hoặc hết quyền).");
         }
     } catch (e) { console.error(e); }
 }
 
-// 4. Hiện QR Code
+// 4. Hiện QR Code (Phần này client-side nên giữ nguyên ok)
 function showQRCode() {
     const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${activityId}`;
     document.getElementById('imgQR').src = qrUrl;

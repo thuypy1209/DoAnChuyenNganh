@@ -1,18 +1,53 @@
-// File: js/viChungNhan.js
+// File: js/viChungNhan.js - ĐÃ NÂNG CẤP JWT
 
 document.addEventListener('DOMContentLoaded', async function() {
-    const MSSV_HIENTAI = '2280603664'; // Vẫn fix cứng MSSV của bạn
-    const API_URL = `http://localhost:5114/api/ChungNhans/CuaToi?mssv=${MSSV_HIENTAI}`;
+    
+    // 1. LẤY TOKEN VÀ MSSV TỪ LOCAL STORAGE
+    const token = localStorage.getItem('accessToken');
+    const currentUserMssv = localStorage.getItem('userMssv');
+    const currentUserName = localStorage.getItem('userName');
+    
+    // Lấy cấu hình API
+    const API_BASE = (typeof CONFIG !== 'undefined') ? CONFIG.API_BASE_URL : "http://localhost:5114/api";
+
+    // 2. KIỂM TRA ĐĂNG NHẬP
+    if (!token || !currentUserMssv) {
+        alert("Phiên đăng nhập hết hạn hoặc chưa đăng nhập. Vui lòng đăng nhập lại!");
+        window.location.href = '/account/login.html';
+        return;
+    }
+
+    console.log("Đang tải ví của MSSV:", currentUserMssv);
+    
+    // Gọi API lấy chứng nhận (Vẫn giữ mssv trên URL để Backend lọc nhanh)
+    const API_URL = `${API_BASE}/ChungNhans/CuaToi?mssv=${currentUserMssv}`;
     
     const container = document.getElementById('walletContainer');
+    if (!container) return; 
     
-    // 1. Tải dữ liệu
+    // 3. TẢI DỮ LIỆU (CÓ GỬI KÈM TOKEN)
     try {
-        const response = await fetch(API_URL);
+        const response = await fetch(API_URL, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`, // 🔥 QUAN TRỌNG: Gửi vé thông hành
+                'Content-Type': 'application/json'
+            }
+        });
+
+        // Nếu Server báo 401 (Hết hạn Token) -> Đuổi về đăng nhập
+        if (response.status === 401) {
+            alert("Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại!");
+            localStorage.clear();
+            window.location.href = '/account/login.html';
+            return;
+        }
+
         if (!response.ok) throw new Error("Lỗi tải ví chứng nhận");
         
         const data = await response.json();
 
+        // Nếu ví trống
         if (!data || data.length === 0) {
             container.innerHTML = `
                 <div class="col-span-full text-center py-16 bg-white rounded-xl border-2 border-dashed border-gray-300">
@@ -23,13 +58,12 @@ document.addEventListener('DOMContentLoaded', async function() {
             return;
         }
 
-        container.innerHTML = ''; // Xóa loading
+        container.innerHTML = ''; // Xóa loading cũ
 
-        // 2. Vẽ danh sách
+        // Vẽ danh sách chứng nhận
         data.forEach(cert => {
-            // Tạo màu ngẫu nhiên cho đẹp (hoặc dựa theo loại)
             const colors = ['blue', 'green', 'purple', 'red', 'yellow'];
-            const color = colors[cert.id % colors.length]; 
+            const color = colors[(cert.id || 0) % colors.length]; 
             const date = new Date(cert.NgayCap);
 
             const cardHtml = `
@@ -39,7 +73,6 @@ document.addEventListener('DOMContentLoaded', async function() {
                     <div class="h-40 bg-${color}-50 p-4 relative border-b border-gray-100 flex flex-col justify-center items-center text-center bg-pattern">
                         <i class="fas fa-award text-4xl text-${color}-600 mb-2 drop-shadow-sm group-hover:scale-110 transition-transform"></i>
                         <h3 class="font-certificate font-bold text-gray-800 text-lg line-clamp-2 px-2">${cert.TenHoatDong}</h3>
-                        
                         <div class="absolute top-2 right-2 bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow animate-pulse">MỚI</div>
                     </div>
 
@@ -68,23 +101,21 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     } catch (error) {
         console.error(error);
-        container.innerHTML = '<div class="col-span-full text-center text-red-500">Lỗi kết nối server.</div>';
+        container.innerHTML = '<div class="col-span-full text-center text-red-500">Lỗi kết nối server (Kiểm tra xem Backend chạy chưa).</div>';
     }
 });
 
-// 3. Xử lý Modal (Xem chi tiết)
+// 4. Xử lý Modal (Xem chi tiết)
 window.openCertModal = function(cert) {
     const modal = document.getElementById('certModal');
     const date = new Date(cert.NgayCap);
 
-    // Điền thông tin vào bằng khen to
     document.getElementById('modalCertName').innerText = cert.TenSinhVien;
     document.getElementById('modalCertMssv').innerText = `MSSV: ${cert.MSSV}`;
     document.getElementById('modalCertActivity').innerText = cert.TenHoatDong;
     document.getElementById('modalCertCode').innerText = `Mã: ${cert.MaXacThuc}`;
     document.getElementById('modalCertDate').innerText = `ngày ${date.getDate()} tháng ${date.getMonth() + 1} năm ${date.getFullYear()}`;
 
-    // Hiện modal
     modal.classList.remove('hidden');
 }
 
@@ -99,6 +130,11 @@ window.openRequestModal = function() {
 }
 
 window.submitRequest = async function() {
+    const token = localStorage.getItem('accessToken'); // Lấy lại token cho chắc
+    const currentUserMssv = localStorage.getItem('userMssv');
+    const currentUserName = localStorage.getItem('userName');
+    const API_BASE = (typeof CONFIG !== 'undefined') ? CONFIG.API_BASE_URL : "http://localhost:5114/api";
+
     const tenHoatDong = document.getElementById('reqTenHoatDong').value;
     const loai = document.getElementById('reqLoai').value;
     const minhChung = document.getElementById('reqMinhChung').value;
@@ -110,8 +146,8 @@ window.submitRequest = async function() {
     }
 
     const data = {
-        mssv: '2280603664', // Fix cứng MSSV của bạn
-        tenSinhVien: 'Lương Quốc Việt',
+        mssv: currentUserMssv,
+        tenSinhVien: currentUserName,
         tenHoatDong: tenHoatDong,
         loaiChungNhan: loai,
         minhChungUrl: minhChung,
@@ -119,9 +155,12 @@ window.submitRequest = async function() {
     };
 
     try {
-        const response = await fetch('http://localhost:5114/api/ChungNhans/YeuCau', {
+        const response = await fetch(`${API_BASE}/ChungNhans/YeuCau`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` // 🔥 THÊM TOKEN VÀO ĐÂY NỮA
+            },
             body: JSON.stringify(data)
         });
 
@@ -133,7 +172,8 @@ window.submitRequest = async function() {
             document.getElementById('reqMinhChung').value = '';
             document.getElementById('reqLyDo').value = '';
         } else {
-            alert("❌ Lỗi khi gửi yêu cầu.");
+            const errData = await response.json();
+            alert("❌ Lỗi: " + (errData.message || "Không gửi được yêu cầu"));
         }
     } catch (error) {
         console.error(error);
@@ -141,34 +181,29 @@ window.submitRequest = async function() {
     }
 }
 
-// --- CHỨC NĂNG TẢI GIẤY CHỨNG NHẬN (ĐÃ FIX LỖI MẤT CHỮ/QR) ---
+// --- CHỨC NĂNG TẢI ẢNH (GIỮ NGUYÊN) ---
 window.downloadCertImage = function() {
-    const element = document.getElementById('printArea'); // Khung giấy khen
+    const element = document.getElementById('printArea'); 
     const btn = document.querySelector('button[onclick="downloadCertImage()"]');
     
-    // 1. Đổi nút thành đang tải
     const oldText = btn.innerHTML;
     btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang xử lý...';
     btn.disabled = true;
 
-    // 2. Cấu hình chụp ảnh
     const options = {
-        scale: 2, // Tăng độ nét
-        useCORS: true, // Cho phép tải ảnh từ server khác (QR Code)
+        scale: 2, 
+        useCORS: true, 
         allowTaint: true,
-        backgroundColor: '#ffffff', // Đảm bảo nền trắng, không bị trong suốt
-        logging: true, // Để soi lỗi nếu có
+        backgroundColor: '#ffffff', 
+        logging: true, 
     };
 
-    // 3. Thực hiện chụp
     html2canvas(element, options).then(canvas => {
-        // Tạo link tải ảo
         const link = document.createElement('a');
         link.download = `ChungNhan_${new Date().getTime()}.png`;
         link.href = canvas.toDataURL("image/png");
         link.click();
 
-        // Trả nút về cũ
         btn.innerHTML = oldText;
         btn.disabled = false;
     }).catch(err => {

@@ -3,24 +3,115 @@
   "WorkspaceRootPath": "D:\\Projects\\DoAnChuyenNganh\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|d:\\projects\\doanchuyennganh\\doanvienapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|solutionrelative:doanvienapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|d:\\projects\\doanchuyennganh\\doanvienapi\\controllers\\sinhvienscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|solutionrelative:doanvienapi\\controllers\\sinhvienscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|d:\\projects\\doanchuyennganh\\doanvienapi\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|solutionrelative:doanvienapi\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|d:\\projects\\doanchuyennganh\\doanvienapi\\models\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|solutionrelative:doanvienapi\\models\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|d:\\projects\\doanchuyennganh\\doanvienapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|solutionrelative:doanvienapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|d:\\projects\\doanchuyennganh\\doanvienapi\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|solutionrelative:doanvienapi\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|d:\\projects\\doanchuyennganh\\doanvienapi\\controllers\\chatbotcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|solutionrelative:doanvienapi\\controllers\\chatbotcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|d:\\projects\\doanchuyennganh\\doanvienapi\\controllers\\hoatdongscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|solutionrelative:doanvienapi\\controllers\\hoatdongscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Projects\\DoAnChuyenNganh - Copy\\Pages\\js\\authen.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|d:\\projects\\doanchuyennganh\\doanvienapi\\data.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|solutionrelative:doanvienapi\\data.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|d:\\projects\\doanchuyennganh\\doanvienapi\\hubs\\chathub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|solutionrelative:doanvienapi\\hubs\\chathub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|d:\\projects\\doanchuyennganh\\doanvienapi\\models\\hosoyeucau.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|solutionrelative:doanvienapi\\models\\hosoyeucau.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|d:\\projects\\doanchuyennganh\\doanvienapi\\doanvienapi.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
+      "RelativeMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|solutionrelative:doanvienapi\\doanvienapi.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|d:\\projects\\doanchuyennganh\\doanvienapi\\scaffoldingreadme.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|solutionrelative:doanvienapi\\scaffoldingreadme.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|d:\\projects\\doanchuyennganh\\doanvienapi\\controllers\\uploadcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|solutionrelative:doanvienapi\\controllers\\uploadcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|d:\\projects\\doanchuyennganh\\doanvienapi\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|solutionrelative:doanvienapi\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|d:\\projects\\doanchuyennganh\\doanvienapi\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|solutionrelative:doanvienapi\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|d:\\projects\\doanchuyennganh\\doanvienapi\\models\\chungnhan.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|solutionrelative:doanvienapi\\models\\chungnhan.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|d:\\projects\\doanchuyennganh\\doanvienapi\\models\\danhhieu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|solutionrelative:doanvienapi\\models\\danhhieu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|d:\\projects\\doanchuyennganh\\doanvienapi\\controllers\\yeucauchungnhanscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|solutionrelative:doanvienapi\\controllers\\yeucauchungnhanscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|d:\\projects\\doanchuyennganh\\doanvienapi\\controllers\\hosoyeucaucontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|solutionrelative:doanvienapi\\controllers\\hosoyeucaucontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|d:\\projects\\doanchuyennganh\\doanvienapi\\models\\yeucauchungnhan.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|solutionrelative:doanvienapi\\models\\yeucauchungnhan.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|d:\\projects\\doanchuyennganh\\doanvienapi\\models\\hoatdong.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|solutionrelative:doanvienapi\\models\\hoatdong.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|d:\\projects\\doanchuyennganh\\doanvienapi\\models\\doanvien.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|solutionrelative:doanvienapi\\models\\doanvien.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|d:\\projects\\doanchuyennganh\\doanvienapi\\controllers\\bangdiemscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|solutionrelative:doanvienapi\\controllers\\bangdiemscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|d:\\projects\\doanchuyennganh\\doanvienapi\\roles\\identityrole.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|solutionrelative:doanvienapi\\roles\\identityrole.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|d:\\projects\\doanchuyennganh\\doanvienapi\\dtos\\registerrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|solutionrelative:doanvienapi\\dtos\\registerrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|d:\\projects\\doanchuyennganh\\doanvienapi\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|solutionrelative:doanvienapi\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|d:\\projects\\doanchuyennganh\\doanvienapi\\controllers\\lichthiscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|solutionrelative:doanvienapi\\controllers\\lichthiscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|d:\\projects\\doanchuyennganh\\doanvienapi\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|solutionrelative:doanvienapi\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\VI\u1EC6T\\AppData\\Local\\Temp\\5tfgq2i1..sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}|"
@@ -46,8 +137,8 @@
       "RelativeMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|solutionrelative:doanvienapi\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|d:\\projects\\doanchuyennganh\\doanvienapi\\data.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|solutionrelative:doanvienapi\\data.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+      "AbsoluteMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|d:\\projects\\doanchuyennganh\\doanvienapi\\migrations\\20251223092327_themcottongdiemvatieuchi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B5709B7A-EC8E-FBF5-7916-572A5DBE1BA3}|DoanVienAPI\\DoanVienAPI.csproj|solutionrelative:doanvienapi\\migrations\\20251223092327_themcottongdiemvatieuchi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -57,7 +148,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 9,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -65,13 +156,52 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ChatbotController.cs",
+              "DocumentMoniker": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\Controllers\\ChatbotController.cs",
+              "RelativeDocumentMoniker": "DoanVienAPI\\Controllers\\ChatbotController.cs",
+              "ToolTip": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\Controllers\\ChatbotController.cs",
+              "RelativeToolTip": "DoanVienAPI\\Controllers\\ChatbotController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAF4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-23T13:14:38.833Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "SinhViensController.cs",
+              "DocumentMoniker": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\Controllers\\SinhViensController.cs",
+              "RelativeDocumentMoniker": "DoanVienAPI\\Controllers\\SinhViensController.cs",
+              "ToolTip": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\Controllers\\SinhViensController.cs",
+              "RelativeToolTip": "DoanVienAPI\\Controllers\\SinhViensController.cs",
+              "ViewState": "AgIAAAEBAAAAAAAAAAAswHwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-23T12:12:01.332Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "DoanVienAPI\\Controllers\\AuthController.cs",
+              "ToolTip": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\Controllers\\AuthController.cs*",
+              "RelativeToolTip": "DoanVienAPI\\Controllers\\AuthController.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAALcAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-13T15:56:59.004Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\Program.cs",
               "RelativeDocumentMoniker": "DoanVienAPI\\Program.cs",
               "ToolTip": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\Program.cs",
               "RelativeToolTip": "DoanVienAPI\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAIEAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-16T09:40:07.446Z",
               "EditorCaption": ""
@@ -79,6 +209,259 @@
             {
               "$type": "Document",
               "DocumentIndex": 3,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\Models\\Data\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "DoanVienAPI\\Models\\Data\\ApplicationDbContext.cs",
+              "ToolTip": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\Models\\Data\\ApplicationDbContext.cs",
+              "RelativeToolTip": "DoanVienAPI\\Models\\Data\\ApplicationDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC0AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-23T10:05:27.934Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\appsettings.json",
+              "RelativeDocumentMoniker": "DoanVienAPI\\appsettings.json",
+              "ToolTip": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\appsettings.json",
+              "RelativeToolTip": "DoanVienAPI\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-12-16T11:49:36.433Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "HoatDongsController.cs",
+              "DocumentMoniker": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\Controllers\\HoatDongsController.cs",
+              "RelativeDocumentMoniker": "DoanVienAPI\\Controllers\\HoatDongsController.cs",
+              "ToolTip": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\Controllers\\HoatDongsController.cs",
+              "RelativeToolTip": "DoanVienAPI\\Controllers\\HoatDongsController.cs",
+              "ViewState": "AgIAAFgBAAAAAAAAAAAwwI0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-26T07:34:03.605Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "UploadController.cs",
+              "DocumentMoniker": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\Controllers\\UploadController.cs",
+              "RelativeDocumentMoniker": "DoanVienAPI\\Controllers\\UploadController.cs",
+              "ToolTip": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\Controllers\\UploadController.cs",
+              "RelativeToolTip": "DoanVienAPI\\Controllers\\UploadController.cs",
+              "ViewState": "AgIAAD8AAAAAAAAAAAAswFgAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-23T10:22:14.164Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "ScaffoldingReadMe.txt",
+              "DocumentMoniker": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\ScaffoldingReadMe.txt",
+              "RelativeDocumentMoniker": "DoanVienAPI\\ScaffoldingReadMe.txt",
+              "ToolTip": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\ScaffoldingReadMe.txt",
+              "RelativeToolTip": "DoanVienAPI\\ScaffoldingReadMe.txt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2025-12-23T13:05:08.58Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "authen.js",
+              "DocumentMoniker": "D:\\Projects\\DoAnChuyenNganh - Copy\\Pages\\js\\authen.js",
+              "RelativeDocumentMoniker": "..\\DoAnChuyenNganh - Copy\\Pages\\js\\authen.js",
+              "ToolTip": "D:\\Projects\\DoAnChuyenNganh - Copy\\Pages\\js\\authen.js",
+              "RelativeToolTip": "..\\DoAnChuyenNganh - Copy\\Pages\\js\\authen.js",
+              "ViewState": "AgIAAEMAAAAAAAAAAAAQwFgAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2025-12-26T17:28:28.728Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "DoanVienAPI",
+              "DocumentMoniker": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\DoanVienAPI.csproj",
+              "RelativeDocumentMoniker": "DoanVienAPI\\DoanVienAPI.csproj",
+              "ToolTip": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\DoanVienAPI.csproj",
+              "RelativeToolTip": "DoanVienAPI\\DoanVienAPI.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-12-23T13:14:48.873Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "appsettings.Development.json",
+              "DocumentMoniker": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\appsettings.Development.json",
+              "RelativeDocumentMoniker": "DoanVienAPI\\appsettings.Development.json",
+              "ToolTip": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\appsettings.Development.json",
+              "RelativeToolTip": "DoanVienAPI\\appsettings.Development.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-12-23T10:05:10.599Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "ChungNhan.cs",
+              "DocumentMoniker": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\Models\\ChungNhan.cs",
+              "RelativeDocumentMoniker": "DoanVienAPI\\Models\\ChungNhan.cs",
+              "ToolTip": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\Models\\ChungNhan.cs",
+              "RelativeToolTip": "DoanVienAPI\\Models\\ChungNhan.cs",
+              "ViewState": "AgIAABQAAAAAAAAAAAAgwBwAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-23T10:04:41.636Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "DanhHieu.cs",
+              "DocumentMoniker": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\Models\\DanhHieu.cs",
+              "RelativeDocumentMoniker": "DoanVienAPI\\Models\\DanhHieu.cs",
+              "ToolTip": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\Models\\DanhHieu.cs",
+              "RelativeToolTip": "DoanVienAPI\\Models\\DanhHieu.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-23T10:03:41.777Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "HoSoYeuCau.cs",
+              "DocumentMoniker": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\Models\\HoSoYeuCau.cs",
+              "RelativeDocumentMoniker": "DoanVienAPI\\Models\\HoSoYeuCau.cs",
+              "ToolTip": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\Models\\HoSoYeuCau.cs",
+              "RelativeToolTip": "DoanVienAPI\\Models\\HoSoYeuCau.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-23T10:01:42.161Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "HoSoYeuCauController.cs",
+              "DocumentMoniker": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\Controllers\\HoSoYeuCauController.cs",
+              "RelativeDocumentMoniker": "DoanVienAPI\\Controllers\\HoSoYeuCauController.cs",
+              "ToolTip": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\Controllers\\HoSoYeuCauController.cs",
+              "RelativeToolTip": "DoanVienAPI\\Controllers\\HoSoYeuCauController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-23T10:01:29.07Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "YeuCauChungNhansController.cs",
+              "DocumentMoniker": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\Controllers\\YeuCauChungNhansController.cs",
+              "RelativeDocumentMoniker": "DoanVienAPI\\Controllers\\YeuCauChungNhansController.cs",
+              "ToolTip": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\Controllers\\YeuCauChungNhansController.cs",
+              "RelativeToolTip": "DoanVienAPI\\Controllers\\YeuCauChungNhansController.cs",
+              "ViewState": "AgIAACsAAAAAAAAAAAAcwGMAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-23T09:59:21.594Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "YeuCauChungNhan.cs",
+              "DocumentMoniker": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\Models\\YeuCauChungNhan.cs",
+              "RelativeDocumentMoniker": "DoanVienAPI\\Models\\YeuCauChungNhan.cs",
+              "ToolTip": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\Models\\YeuCauChungNhan.cs",
+              "RelativeToolTip": "DoanVienAPI\\Models\\YeuCauChungNhan.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAywBoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-23T09:59:08.703Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "20251223092327_ThemCotTongDiemVaTieuChi.cs",
+              "DocumentMoniker": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\Migrations\\20251223092327_ThemCotTongDiemVaTieuChi.cs",
+              "RelativeDocumentMoniker": "DoanVienAPI\\Migrations\\20251223092327_ThemCotTongDiemVaTieuChi.cs",
+              "ToolTip": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\Migrations\\20251223092327_ThemCotTongDiemVaTieuChi.cs",
+              "RelativeToolTip": "DoanVienAPI\\Migrations\\20251223092327_ThemCotTongDiemVaTieuChi.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-23T09:23:27.851Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "HoatDong.cs",
+              "DocumentMoniker": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\Models\\HoatDong.cs",
+              "RelativeDocumentMoniker": "DoanVienAPI\\Models\\HoatDong.cs",
+              "ToolTip": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\Models\\HoatDong.cs",
+              "RelativeToolTip": "DoanVienAPI\\Models\\HoatDong.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAA3wCAAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-23T09:21:56.159Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "BangDiemsController.cs",
+              "DocumentMoniker": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\Controllers\\BangDiemsController.cs",
+              "RelativeDocumentMoniker": "DoanVienAPI\\Controllers\\BangDiemsController.cs",
+              "ToolTip": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\Controllers\\BangDiemsController.cs",
+              "RelativeToolTip": "DoanVienAPI\\Controllers\\BangDiemsController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-22T08:01:40.063Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "IdentityRole.cs",
+              "DocumentMoniker": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\Roles\\IdentityRole.cs",
+              "RelativeDocumentMoniker": "DoanVienAPI\\Roles\\IdentityRole.cs",
+              "ToolTip": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\Roles\\IdentityRole.cs",
+              "RelativeToolTip": "DoanVienAPI\\Roles\\IdentityRole.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-22T08:01:22.052Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "DoanVien.cs",
+              "DocumentMoniker": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\Models\\DoanVien.cs",
+              "RelativeDocumentMoniker": "DoanVienAPI\\Models\\DoanVien.cs",
+              "ToolTip": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\Models\\DoanVien.cs",
+              "RelativeToolTip": "DoanVienAPI\\Models\\DoanVien.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAAuwCsAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-21T18:27:02.905Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "LichThisController.cs",
+              "DocumentMoniker": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\Controllers\\LichThisController.cs",
+              "RelativeDocumentMoniker": "DoanVienAPI\\Controllers\\LichThisController.cs",
+              "ToolTip": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\Controllers\\LichThisController.cs",
+              "RelativeToolTip": "DoanVienAPI\\Controllers\\LichThisController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-17T03:08:57.686Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "ChatHub.cs",
+              "DocumentMoniker": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\Hubs\\ChatHub.cs",
+              "RelativeDocumentMoniker": "DoanVienAPI\\Hubs\\ChatHub.cs",
+              "ToolTip": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\Hubs\\ChatHub.cs",
+              "RelativeToolTip": "DoanVienAPI\\Hubs\\ChatHub.cs",
+              "ViewState": "AgIAAFAAAAAAAAAAAAAqwFQAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-17T02:33:43.096Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
               "Title": "RegisterRequest.cs",
               "DocumentMoniker": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\DTOs\\RegisterRequest.cs",
               "RelativeDocumentMoniker": "DoanVienAPI\\DTOs\\RegisterRequest.cs",
@@ -90,19 +473,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 14,
               "Title": "AccountController.cs",
               "DocumentMoniker": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\Controllers\\AccountController.cs",
               "RelativeDocumentMoniker": "DoanVienAPI\\Controllers\\AccountController.cs",
               "ToolTip": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\Controllers\\AccountController.cs",
               "RelativeToolTip": "DoanVienAPI\\Controllers\\AccountController.cs",
-              "ViewState": "AgIAAEIAAAAAAAAAAAAYwEwAAAAkAAAAAAAAAA==",
+              "ViewState": "AgIAAMoAAAAAAAAAAAAcwOQAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-15T06:24:17.143Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 29,
               "Title": "jemsfzkw..sql",
               "DocumentMoniker": "C:\\Users\\VI\u1EC6T\\AppData\\Local\\Temp\\jemsfzkw..sql",
               "ToolTip": "C:\\Users\\VI\u1EC6T\\AppData\\Local\\Temp\\jemsfzkw..sql",
@@ -111,7 +494,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 30,
               "Title": "zyutah5g..sql",
               "DocumentMoniker": "C:\\Users\\VI\u1EC6T\\AppData\\Local\\Temp\\zyutah5g..sql",
               "ToolTip": "C:\\Users\\VI\u1EC6T\\AppData\\Local\\Temp\\zyutah5g..sql",
@@ -120,7 +503,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 31,
               "Title": "nsclvqgs..sql",
               "DocumentMoniker": "C:\\Users\\VI\u1EC6T\\AppData\\Local\\Temp\\nsclvqgs..sql",
               "ToolTip": "C:\\Users\\VI\u1EC6T\\AppData\\Local\\Temp\\nsclvqgs..sql",
@@ -129,7 +512,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 32,
               "Title": "axdie2au..sql",
               "DocumentMoniker": "C:\\Users\\VI\u1EC6T\\AppData\\Local\\Temp\\axdie2au..sql",
               "ToolTip": "C:\\Users\\VI\u1EC6T\\AppData\\Local\\Temp\\axdie2au..sql",
@@ -138,7 +521,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 28,
               "Title": "5tfgq2i1..sql",
               "DocumentMoniker": "C:\\Users\\VI\u1EC6T\\AppData\\Local\\Temp\\5tfgq2i1..sql",
               "ToolTip": "C:\\Users\\VI\u1EC6T\\AppData\\Local\\Temp\\5tfgq2i1..sql",
@@ -147,20 +530,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "AuthController.cs",
-              "DocumentMoniker": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\Controllers\\AuthController.cs",
-              "RelativeDocumentMoniker": "DoanVienAPI\\Controllers\\AuthController.cs",
-              "ToolTip": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\Controllers\\AuthController.cs*",
-              "RelativeToolTip": "DoanVienAPI\\Controllers\\AuthController.cs*",
-              "ViewState": "AgIAAJoAAAAAAAAAAAAUwK0AAAAkAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-13T15:56:59.004Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 33,
               "Title": "20251213155211_ThemBangUser.cs",
               "DocumentMoniker": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\Migrations\\20251213155211_ThemBangUser.cs",
               "RelativeDocumentMoniker": "DoanVienAPI\\Migrations\\20251213155211_ThemBangUser.cs",
@@ -172,7 +542,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 27,
               "Title": "User.cs",
               "DocumentMoniker": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\Models\\User.cs",
               "RelativeDocumentMoniker": "DoanVienAPI\\Models\\User.cs",
@@ -180,24 +550,23 @@
               "RelativeToolTip": "DoanVienAPI\\Models\\User.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-13T15:19:37.315Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-13T15:19:37.315Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 8,
               "Title": "data.txt",
               "DocumentMoniker": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\data.txt",
               "RelativeDocumentMoniker": "DoanVienAPI\\data.txt",
               "ToolTip": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\data.txt",
               "RelativeToolTip": "DoanVienAPI\\data.txt",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAQAAAAAAAAAA==",
+              "ViewState": "AgIAAHkAAAAAAAAAAAAAAI4AAABQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
               "WhenOpened": "2025-12-13T07:44:15.2Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 34,
               "Title": "launchSettings.json",
               "DocumentMoniker": "D:\\Projects\\DoAnChuyenNganh\\DoanVienAPI\\Properties\\launchSettings.json",
               "RelativeDocumentMoniker": "DoanVienAPI\\Properties\\launchSettings.json",

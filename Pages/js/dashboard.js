@@ -1,69 +1,100 @@
-// dashboard.js - ĐÃ SỬA VÀ CẬP NHẬT TRƯỜNG MỚI BỞI AI
+// dashboard.js - ĐÃ SỬA (Thêm xác thực JWT)
 
-// KHÔNG KHAI BÁO LẠI CÁC BIẾN API_..._URL Ở ĐÂY NỮA
-// Thay vào đó, chúng ta sẽ dùng các biến đã được định nghĩa trong window (từ globalConfig.js)
+// 1. Kiểm tra đăng nhập ngay lập tức
+function checkLoginStatus() {
+    const token = localStorage.getItem('accessToken');
+    if (!token) {
+        // Chưa có token thì đá về trang login ngay
+        window.location.href = '/account/login.html'; 
+    }
+    return token; // Trả về token để dùng ở dưới
+}
 
+// Gọi hàm kiểm tra
+const currentToken = checkLoginStatus(); 
+
+// 2. Chặn trường hợp Back từ cache (tránh lỗi hiển thị khi đã logout)
+window.addEventListener('pageshow', function (event) {
+    if (event.persisted || (window.performance && window.performance.navigation.type === 2)) {
+         window.location.reload(); 
+    }
+});
+
+// 3. Hàm tải dữ liệu Dashboard
 async function loadDashboardData() {
     console.log("Đang tải dữ liệu Dashboard...");
+
+    // LẤY TOKEN ĐỂ GỬI KÈM REQUEST
+    const token = localStorage.getItem('accessToken');
+    
+    // Tạo Header chứa Token (Cái này quan trọng nhất nè)
+    const myHeaders = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}` 
+    };
+
     try {
+        // Gọi song song các API để tiết kiệm thời gian
         const [
             doanViensResponse,
             tinTucsResponse,
             lichThisResponse,
             danhMucsResponse
         ] = await Promise.allSettled([ 
-            // Dùng các biến từ window
-            fetch(window.API_DOAN_VIEN_URL),  
-            fetch(window.API_TIN_TUC_BASE_URL), 
-            fetch(window.API_LICH_THI_BASE_URL), 
-            fetch(window.API_DANH_MUC_BASE_URL) 
+            // Thêm { headers: myHeaders } vào từng lệnh fetch
+            fetch(window.API_DOAN_VIEN_URL, { headers: myHeaders }),  
+            fetch(window.API_TIN_TUC_BASE_URL, { headers: myHeaders }), 
+            fetch(window.API_LICH_THI_BASE_URL, { headers: myHeaders }), 
+            fetch(window.API_DANH_MUC_BASE_URL, { headers: myHeaders }) 
         ]);
 
-        // Xử lý kết quả cho Tổng số Đoàn viên
+        // --- XỬ LÝ KẾT QUẢ ---
+
+        // 1. Tổng số Đoàn viên
         if (doanViensResponse.status === 'fulfilled' && doanViensResponse.value.ok) {
             const doanViens = await doanViensResponse.value.json();
             document.getElementById('totalDoanViens').textContent = doanViens.length;
         } else {
-            console.error("Lỗi khi tải tổng số Đoàn viên:", doanViensResponse.reason || (doanViensResponse.value ? doanViensResponse.value.statusText : 'Unknown Error'));
-            document.getElementById('totalDoanViens').textContent = "Lỗi!";
+            console.error("Lỗi tải Đoàn viên:", doanViensResponse);
+            document.getElementById('totalDoanViens').textContent = "Lỗi";
         }
 
-        // Xử lý kết quả cho Tổng số Tin tức
+        // 2. Tổng số Tin tức
         if (tinTucsResponse.status === 'fulfilled' && tinTucsResponse.value.ok) {
             const tinTucs = await tinTucsResponse.value.json();
             document.getElementById('totalTinTucs').textContent = tinTucs.length;
         } else {
-            console.error("Lỗi khi tải tổng số Tin tức:", tinTucsResponse.reason || (tinTucsResponse.value ? tinTucsResponse.value.statusText : 'Unknown Error'));
-            document.getElementById('totalTinTucs').textContent = "Lỗi!";
+            console.error("Lỗi tải Tin tức:", tinTucsResponse);
+            document.getElementById('totalTinTucs').textContent = "Lỗi";
         }
 
-        // Xử lý kết quả cho Tổng số Lịch thi / Lớp tín chỉ
+        // 3. Tổng số Lịch thi
         if (lichThisResponse.status === 'fulfilled' && lichThisResponse.value.ok) {
             const lichThis = await lichThisResponse.value.json();
             document.getElementById('totalLichThis').textContent = lichThis.length;
         } else {
-            console.error("Lỗi khi tải tổng số Lịch thi:", lichThisResponse.reason || (lichThisResponse.value ? lichThisResponse.value.statusText : 'Unknown Error'));
-            document.getElementById('totalLichThis').textContent = "Lỗi!";
+            console.error("Lỗi tải Lịch thi:", lichThisResponse);
+            document.getElementById('totalLichThis').textContent = "Lỗi";
         }
 
-        // Xử lý kết quả cho Tổng số Danh mục
+        // 4. Tổng số Danh mục
         if (danhMucsResponse.status === 'fulfilled' && danhMucsResponse.value.ok) {
             const danhMucs = await danhMucsResponse.value.json();
             document.getElementById('totalDanhMucs').textContent = danhMucs.length;
         } else {
-            console.error("Lỗi khi tải tổng số Danh mục:", danhMucsResponse.reason || (danhMucsResponse.value ? danhMucsResponse.value.statusText : 'Unknown Error'));
-            document.getElementById('totalDanhMucs').textContent = "Lỗi!";
+            console.error("Lỗi tải Danh mục:", danhMucsResponse);
+            document.getElementById('totalDanhMucs').textContent = "Lỗi";
         }
 
     } catch (error) {
         console.error("Lỗi tổng thể khi tải dữ liệu Dashboard:", error);
-        
-        document.getElementById('totalDoanViens').textContent = "Lỗi!";
-        document.getElementById('totalTinTucs').textContent = "Lỗi!";
-        document.getElementById('totalLichThis').textContent = "Lỗi!";
-        document.getElementById('totalDanhMucs').textContent = "Lỗi!";
+        // Reset về hiển thị lỗi nếu crash toàn tập
+        document.getElementById('totalDoanViens').textContent = "---";
+        document.getElementById('totalTinTucs').textContent = "---";
+        document.getElementById('totalLichThis').textContent = "---";
+        document.getElementById('totalDanhMucs').textContent = "---";
     }
 }
 
-// Gọi hàm khi script được tải
+// Chạy hàm tải dữ liệu
 loadDashboardData();

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Hồ sơ cá nhân | HUTECH</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body class="bg-slate-50 font-sans min-h-screen">
+    <main class="container mx-auto px-4 py-12">
+        <div class="max-w-2xl mx-auto bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
+            <div class="bg-blue-900 p-8 text-center">
+                <div class="relative inline-block">
+                    <img id="profileAvatar" src="images/default.png" class="w-28 h-28 rounded-full border-4 border-blue-700/50 object-cover mx-auto bg-white">
+                    <div class="absolute bottom-0 right-0 w-6 h-6 bg-green-500 border-4 border-blue-900 rounded-full"></div>
+                </div>
+                <h2 id="profileName" class="text-white text-2xl font-bold mt-4">Đang tải...</h2>
+                <p class="text-blue-200 text-sm uppercase tracking-widest mt-1">Hồ sơ sinh viên</p>
+            </div>
+
+            <div class="p-0">
+                <div class="flex items-center justify-between p-6 bg-blue-50 border-b border-blue-100">
+                    <div class="flex items-center gap-4">
+                        <i class="fas fa-star text-yellow-500 text-xl"></i>
+                        <span class="font-bold text-blue-900 uppercase text-sm">Tổng điểm rèn luyện</span>
+                    </div>
+                    <span id="profileTotalScore" class="text-3xl font-black text-blue-900">0</span>
+                </div>
+
+                <div class="divide-y divide-gray-100">
+                    <div class="flex py-4 px-8 items-center">
+                        <span class="w-40 text-gray-500 text-sm"><i class="fas fa-id-card mr-3 w-5"></i>Mã số SV</span>
+                        <span id="profileMssv" class="font-semibold text-gray-800">...</span>
+                    </div>
+                    <div class="flex py-4 px-8 items-center border-b border-gray-100">
+                        <span class="w-40 text-gray-500 text-sm"><i class="fas fa-cake-candles mr-3 w-5"></i>Ngày sinh</span>
+                        <div class="flex-1">
+                            <span id="profileBirthday" class="font-semibold text-gray-800">...</span>
+                            <input type="date" id="editBirthday" class="hidden w-full border border-blue-300 rounded px-3 py-1 text-gray-700 focus:outline-none focus:border-blue-500">
+                        </div>
+                    </div>
+
+                    <div class="flex py-4 px-8 items-center border-b border-gray-100">
+                        <span class="w-40 text-gray-500 text-sm"><i class="fas fa-phone mr-3 w-5"></i>Số điện thoại</span>
+                        <div class="flex-1">
+                            <span id="profilePhone" class="font-semibold text-gray-800">...</span>
+                            <input type="text" id="editPhone" class="hidden w-full border border-blue-300 rounded px-3 py-1 text-gray-700 focus:outline-none focus:border-blue-500" placeholder="Nhập SĐT mới">
+                        </div>
+                    </div>
+                    <div class="flex py-4 px-8 items-center">
+                        <span class="w-40 text-gray-500 text-sm"><i class="fas fa-envelope mr-3 w-5"></i>Email</span>
+                        <span id="profileEmail" class="font-semibold text-gray-800">...</span>
+                    </div>
+                    <div class="flex py-4 px-8 items-center">
+                        <span class="w-40 text-gray-500 text-sm"><i class="fas fa-users mr-3 w-5"></i>Lớp</span>
+                        <span id="profileLop" class="font-semibold text-gray-800">...</span>
+                    </div>
+                    <div class="flex py-4 px-8 items-center">
+                        <span class="w-40 text-gray-500 text-sm"><i class="fas fa-university mr-3 w-5"></i>Khoa / Viện</span>
+                        <span id="profileKhoa" class="font-semibold text-gray-800">...</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-6 bg-gray-50 flex flex-col gap-3">
+                
+                <div id="normalButtons" class="flex gap-3">
+                    <button onclick="batCheDoSua()" class="flex-1 py-3 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition-all shadow-md">
+                        <i class="fas fa-edit mr-2"></i>Cập nhật hồ sơ
+                    </button>
+                    
+                    <button onclick="location.href='Home.html'" class="flex-1 py-3 bg-white border border-gray-200 text-gray-600 rounded-xl font-bold hover:bg-gray-100 transition-all">
+                        Quay lại
+                    </button>
+                    
+                    <button onclick="logout()" class="flex-1 py-3 bg-red-50 text-red-600 rounded-xl font-bold hover:bg-red-100 transition-all">
+                        Đăng xuất
+                    </button>
+                </div>
+
+                <div id="editButtons" class="hidden flex gap-3">
+                    <button onclick="luuThongTin()" class="flex-1 py-3 bg-green-600 text-white rounded-xl font-bold hover:bg-green-700 transition-all shadow-md">
+                        <i class="fas fa-save mr-2"></i>Lưu thay đổi
+                    </button>
+                    
+                    <button onclick="huySua()" class="flex-1 py-3 bg-gray-400 text-white rounded-xl font-bold hover:bg-gray-500 transition-all">
+                        <i class="fas fa-times mr-2"></i>Hủy bỏ
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <script src="js/profile.js"></script>
+</body>
+</html>

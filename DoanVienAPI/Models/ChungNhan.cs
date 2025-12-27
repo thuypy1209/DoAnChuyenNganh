@@ -25,5 +25,7 @@ namespace DoanVienAPI.Models
         [Required]
         [StringLength(50)]
         public string MaXacThuc { get; set; } = string.Empty;
+
+        public string? Loai { get; set; }
     }
 }

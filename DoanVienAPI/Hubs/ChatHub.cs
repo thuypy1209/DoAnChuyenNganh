@@ -1,71 +1,95 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using System.Collections.Concurrent;
-using System.Threading.Tasks;
-using System.Linq;
-using System.Collections.Generic;
 
 namespace DoanVienAPI.Hubs
 {
     public class ChatHub : Hub
     {
-        // Lưu danh sách người dùng đang online (Key: ConnectionId, Value: UserInfo)
+        // Sử dụng ConcurrentDictionary để quản lý danh sách online an toàn giữa các luồng
+        // Key: ConnectionId, Value: UserInfo
         private static readonly ConcurrentDictionary<string, UserInfo> _users = new ConcurrentDictionary<string, UserInfo>();
 
-        public override Task OnConnectedAsync()
+        public override async Task OnDisconnectedAsync(Exception? exception)
         {
-            // Khi có người kết nối, chưa làm gì vội, đợi họ gửi info
-            return base.OnConnectedAsync();
-        }
-
-        public override Task OnDisconnectedAsync(Exception? exception)
-        {
-            // Khi ngắt kết nối -> Xóa khỏi danh sách và báo cho Admin
+            // Khi người dùng thoát, xóa ConnectionId khỏi danh sách
             if (_users.TryRemove(Context.ConnectionId, out UserInfo user))
             {
-                // Báo cho Admin cập nhật lại danh sách (nếu cần)
+                // Kiểm tra xem User này còn Connection nào khác không (trường hợp mở nhiều tab)
+                bool isStillOnline = _users.Values.Any(u => u.UserId == user.UserId);
+
+                if (!isStillOnline)
+                {
+                    // Nếu đã thoát hết các tab, báo cho Admin để cập nhật giao diện (xám màu chẳng hạn)
+                    await Clients.Group("AdminGroup").SendAsync("UserDisconnected", user.UserId);
+                }
             }
-            return base.OnDisconnectedAsync(exception);
+            await base.OnDisconnectedAsync(exception);
         }
 
-        // Hàm 1: Đăng ký thông tin (Sinh viên/Admin gọi hàm này ngay khi kết nối)
+        // Hàm 1: Đăng ký định danh - Gọi ngay sau khi connection.start() ở Front-end
         public async Task JoinChat(string userId, string userName, string role)
         {
-            var user = new UserInfo { ConnectionId = Context.ConnectionId, UserId = userId, UserName = userName, Role = role };
-            _users.TryAdd(Context.ConnectionId, user);
+            var user = new UserInfo
+            {
+                ConnectionId = Context.ConnectionId,
+                UserId = userId,
+                UserName = userName,
+                Role = role
+            };
+
+            // Lưu hoặc cập nhật thông tin kết nối
+            _users.AddOrUpdate(Context.ConnectionId, user, (key, old) => user);
 
             if (role == "SinhVien")
             {
-                // Báo cho Admin biết có SV mới online để hiện lên danh sách
+                // Báo cho toàn bộ Admin đang online biết có SV mới vào
                 await Clients.Group("AdminGroup").SendAsync("UserConnected", userId, userName);
             }
             else if (role == "Admin")
             {
-                // Nếu là Admin -> Add vào nhóm Admin để nhận thông báo
+                // Cho Admin vào nhóm riêng để nhận tin nhắn từ mọi SV
                 await Groups.AddToGroupAsync(Context.ConnectionId, "AdminGroup");
+
+                // Gửi danh sách các SV đang online hiện tại cho Admin vừa mới kết nối
+                var onlineStudents = _users.Values
+                    .Where(u => u.Role == "SinhVien")
+                    .Select(u => new { u.UserId, u.UserName })
+                    .DistinctBy(u => u.UserId)
+                    .ToList();
+
+                await Clients.Caller.SendAsync("UpdateOnlineList", onlineStudents);
             }
         }
 
-        // Hàm 2: Gửi tin nhắn (Sửa lại logic gửi riêng)
+        // Hàm 2: Sinh viên gửi tin nhắn lên cho Admin
         public async Task SendMessageToAdmin(string message)
         {
-            // SV gửi tin cho Admin -> Lấy thông tin SV gửi
             if (_users.TryGetValue(Context.ConnectionId, out UserInfo sender))
             {
-                // Gửi cho nhóm Admin, kèm theo ID người gửi để Admin biết ai nhắn
+                // Kiểm tra xem có Admin nào đang trực không
+                bool isAdminOnline = _users.Values.Any(u => u.Role == "Admin");
+
+                if (!isAdminOnline)
+                {
+                    // Nếu không có Admin, báo lại cho SV biết
+                    await Clients.Caller.SendAsync("ReceiveMessageFromAdmin", "Hiện tại không có hỗ trợ viên trực tuyến. Tin nhắn của bạn đã được ghi lại.");
+                }
+
+                // Gửi tin nhắn kèm thông tin người gửi cho nhóm Admin
                 await Clients.Group("AdminGroup").SendAsync("ReceiveMessageFromUser", sender.UserId, sender.UserName, message);
             }
         }
 
-        // Hàm 3: Admin trả lời riêng cho 1 SV
+        // Hàm 3: Admin trả lời riêng cho một sinh viên cụ thể (theo MSSV)
         public async Task SendMessageToUser(string userId, string message)
         {
-            // Tìm connectionId của User đó (đang online)
-            var targetConnection = _users.Values.FirstOrDefault(u => u.UserId == userId);
+            // Tìm tất cả các kết nối của sinh viên này (đề phòng mở nhiều tab)
+            var targetConnections = _users.Values.Where(u => u.UserId == userId).Select(u => u.ConnectionId).ToList();
 
-            if (targetConnection != null)
+            if (targetConnections.Any())
             {
-                // Gửi riêng cho người đó
-                await Clients.Client(targetConnection.ConnectionId).SendAsync("ReceiveMessageFromAdmin", message);
+                // Gửi tin nhắn đến tất cả các tab mà sinh viên đang mở
+                await Clients.Clients(targetConnections).SendAsync("ReceiveMessageFromAdmin", message);
             }
         }
     }
@@ -73,8 +97,8 @@ namespace DoanVienAPI.Hubs
     public class UserInfo
     {
         public string ConnectionId { get; set; }
-        public string UserId { get; set; } // MSSV hoặc 'Admin'
-        public string UserName { get; set; }
-        public string Role { get; set; } // 'SinhVien' hoặc 'Admin'
+        public string UserId { get; set; } // MSSV
+        public string UserName { get; set; } // Họ tên thật
+        public string Role { get; set; } // "SinhVien" hoặc "Admin"
     }
 }
